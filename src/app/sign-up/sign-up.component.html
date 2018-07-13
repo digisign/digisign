@@ -1,0 +1,32 @@
+<div class="containe">
+  <div class="row">
+  <div class="col s6 offset-s3">
+  <div class="card">
+    <div class=" sm jumbotron align center">
+      <h5>User Registration</h5>
+    </div>
+
+    <form  class="col s12 white" (ngSubmit)="save()" name="registerForm">
+      <div class="row" [formGroup]="registerForm">
+        <div class="input field col s12">
+            <label data-error="Required field">UserName</label>
+          <input  class="validate" type="email" formComponentName="username" required  placeholder="Email_Id" >
+          
+        </div>
+        <div class="input field col s12">
+            <label data-error="Required field">Password</label>
+          <input class="validate" type="password" formComponentName="password" placeholder="password" required minlength="4">
+          
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <button class="btn-large btn-submit" type="submit">Submit</button>
+        </div>
+      </div>
+    </form>
+    <a routerLink = "/signin" routerLinkActive="Active"> <button>Go to login Page!></button></a>
+  </div>
+</div>
+  </div>
+</div>

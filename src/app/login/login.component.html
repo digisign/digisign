@@ -1,0 +1,36 @@
+
+<div class="containe">
+    <div class="row">
+    <div class="col s6 offset-s3">
+    <div class="card">
+      <div class=" sm jumbotron align center">
+        <h5>User Login</h5>
+      </div>
+  
+      <form  #form class="col s12 white" (ngSubmit)="login()" name="loginForm">
+        {{errorMsg}}<br>
+        <div class="row" [formGroup]="loginForm">
+          <div class="input field col s12">
+              <label data-error="Required field">UserName</label>
+            <input  formControlName = "username" class="validate" type="email" name="username" required  placeholder="Email_Id">
+            
+          </div>
+          <div class="input field col s12">
+              <label data-error="Required field">Password</label>
+            <input formControlName = "password" class="validate" type="password" name="password" placeholder="password" required minlength="4">
+            
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <button class="btn-large btn-submit" type="submit">Submit</button>
+          </div>
+        </div>
+      </form>
+      <a routerLink = "/signup" routerLinkActive="Active"> <button>Back</button></a>
+  
+    </div>
+  </div>
+    </div>
+  </div>
+  
