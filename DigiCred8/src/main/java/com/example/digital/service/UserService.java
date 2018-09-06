@@ -1,0 +1,29 @@
+package com.example.digital.service;
+
+import java.util.List;
+
+import com.example.digital.entity.User;
+
+public interface UserService {
+
+	boolean save(User user);
+
+	User findByUsername(String username);
+
+	List<User> getUsersById(long parseInt);
+
+	List<User> getAllUsers();
+
+	void updateUser(User user);
+
+	//void deleteUser(long parseInt);
+
+	User findByID(long userid);
+
+	void softdeleteUser(User user);
+
+	//void updateUser(long id, String username, String password, boolean enable);
+
+
+
+}
