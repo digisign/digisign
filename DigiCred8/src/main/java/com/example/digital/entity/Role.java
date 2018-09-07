@@ -14,8 +14,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "role")
@@ -27,48 +29,45 @@ public class Role implements Serializable {
 	@Id
 	@Column(name="role_id",insertable=false,updatable=false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long role_id;
+	private Long roleId;
 	@Column(name="role_name")
-	private String role_name;
+	private String roleName;
 	@Column(name="role_desc")
-	private String role_desc;
+	private String roleDesc;
 	
 	@JsonIgnore
 	@ManyToMany(mappedBy="roles")
 	private Set<User> users;
-	
-	
-   	public long getRole_id() {
-		return role_id;
+
+	public Long getRoleId() {
+		return roleId;
 	}
-	public String getRole_name() {
-		return role_name;
+
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
 	}
-	public String getRole_desc() {
-		return role_desc;
+
+	public String getRoleName() {
+		return roleName;
 	}
-	 
-	    
-	
-	@Override
-	public String toString() {
-		return "Role [ role_id"+ role_id + "role_name"+ role_name + "role_desc"+ role_desc+  "]";
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
+
+	public String getRoleDesc() {
+		return roleDesc;
+	}
+
+	public void setRoleDesc(String roleDesc) {
+		this.roleDesc = roleDesc;
+	}
+
 	public Set<User> getUsers() {
 		return users;
 	}
+
 	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
-	public void setRole_id(long role_id) {
-		this.role_id = role_id;
-	}
-	public void setRole_name(String role_name) {
-		this.role_name = role_name;
-	}
-	public void setRole_desc(String role_desc) {
-		this.role_desc = role_desc;
-	}
-	
-
 }

@@ -1,39 +1,31 @@
 package com.example.digital.repository;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.example.digital.entity.User;
 
 @Repository
 
-public interface UserRepository {
+public interface UserRepository extends JpaRepository<User,Long> {
 
-	User findByUserName(String userName);
+	Optional<User> findByEmail(String email);
 
-	List<User> getUserById(long userId);
+/*	List<User> getUserById(long userId);
 
 	List<User> getAllUsers();
 
 	User findById(long userId);
-	
-
-	//void updateUser(User user);
-
-	//void deleteUser(long userId);
 
 	boolean userExists(String username, String password);
 
-	void save(User user);
-
-	void addUser(User user);
+	User save(User user);
 
 	void deleteUser(User user);
 
-	void updateUser(User user);
+	void updateUser(User user);*/
 
-	
-
-	
 }

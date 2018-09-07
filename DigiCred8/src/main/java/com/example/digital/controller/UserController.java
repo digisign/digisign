@@ -4,8 +4,12 @@ package com.example.digital.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import com.example.digital.repository.RoleRepository;
+import com.example.digital.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +39,19 @@ import com.example.digital.service.SecurityService;
 import com.example.digital.service.UserService;
 import com.example.digital.validator.UserValidator;
 
+import javax.xml.ws.soap.Addressing;
+
 @RestController
 @CrossOrigin(origins = {"*"},maxAge = 4800, allowCredentials = "false")
-@RequestMapping("/user1")
 public class UserController {
-	
+
+     @Autowired
+	 private UserService userService;
+
+
 	public static final Logger logger = LoggerFactory.getLogger(UserController.class);
-	 @Autowired
-	    private UserService userService; //Service which will do all data retrieval/manipulation work
+	/* @Autowired
+	    private UserService userService;*/ //Service which will do all data retrieval/manipulation work
 
 	    
 
@@ -50,7 +59,7 @@ public class UserController {
 	    
 	    @RequestMapping(value="/user",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	    public ResponseEntity<List<User>> getUsersById(@RequestParam(name="id" ,required=false) Long id) {
-	    	System.out.println("Fetching User with id " + id);
+	    /*	System.out.println("Fetching User with id " + id);
 	    	List<User> list = new ArrayList<User>();
 	    	if(id!=null) {
 	    		list =  userService.getUsersById(id);
@@ -61,8 +70,9 @@ public class UserController {
 	    	if (list.isEmpty()) {
 	            System.out.println("User with id " + id + " not found");
 	            return new ResponseEntity<List<User>>(HttpStatus.NOT_FOUND);
-	        }
-	      return new ResponseEntity<List<User>>(list, HttpStatus.OK);
+	        }*/
+	      //return new ResponseEntity<List<User>>(list, HttpStatus.OK);
+			return null;
 	      
 	    } 
 	    	
@@ -82,21 +92,8 @@ public class UserController {
 	    
 	  //-------------------Create a User--------------------------------------------------------
 	    @RequestMapping(value="/user",method = RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<Void> save(@RequestBody User user,Role role, UriComponentsBuilder builder) {    	
-	    	 System.out.println("Creating User " + user.getUsername());    	 
-			boolean flag = userService.save(user);
-			if (flag == false) {
-				System.out.println("A User with name " + user.getUsername() + " already exist");
-			     return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-			}
-			HttpHeaders headers = new HttpHeaders();
-			headers.setLocation(builder.path("/user?id={id}").buildAndExpand(user.getUserId()).toUri());
-
-			
-		        
-			return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-			
-			
+		public User save(@RequestBody User user) {
+			return userService.save(user);
 		}
 	    
 	  //------------------- Update a User --------------------------------------------------------
@@ -104,7 +101,7 @@ public class UserController {
 	    @RequestMapping(value="user/{id}",method = RequestMethod.PUT,produces=MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<User> updateUser(@RequestParam(name="id" ,required=false) Long id,@RequestBody User user) {
 		
-	    	userService.updateUser(user);
+	    	//userService.updateUser(user);
 	    	
 			return new ResponseEntity<User>(user, HttpStatus.OK);
 		}
@@ -115,14 +112,14 @@ public class UserController {
 	    
 	    @RequestMapping(value="/user",method = RequestMethod.DELETE)
 	    public ResponseEntity<User> deleteUsers(long userid) {
-	    	System.out.println("Fetching & Deleting User with id " + userid);
+	    	/*System.out.println("Fetching & Deleting User with id " + userid);
 	    	
-	    	 User user = userService.findByID(userid);
+	    	 //User user = userService.findByID(userid);
 	         if (user == null) {
 	             System.out.println("Unable to delete. User with id " + userid + " not found");
 	             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 	         }
-	    	userService.softdeleteUser(user);
+	    	//userService.softdeleteUser(user);*/
 	    	return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
 	    } 
 	    

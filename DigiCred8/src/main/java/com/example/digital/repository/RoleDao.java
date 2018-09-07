@@ -13,9 +13,9 @@ import com.example.digital.entity.Role;
 
 
 @Repository
-public  class RoleDao implements RoleRepository {
+public  class RoleDao  {
 
-	@PersistenceContext	
+/*	@PersistenceContext
 	private EntityManager entityManager;
 	
 	@Override
@@ -36,7 +36,7 @@ public  class RoleDao implements RoleRepository {
 		return    entityManager.createQuery(hql).getResultList();
 	}	
 	
-	/*@Override
+	*//*@Override
 	public void deleteRole(int roleid) {
 		entityManager.remove(getRoleByid(roleid));
 	}

@@ -3,6 +3,7 @@ package com.example.digital.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import com.example.digital.entity.Contact;
@@ -17,6 +18,8 @@ import com.example.digital.repository.ICredentialDAO;
 import com.example.digital.repository.ISubjectDAO;
 import com.example.digital.repository.InstitutionDao;
 import com.example.digital.repository.Institution_UserDao;
+
+import javax.imageio.ImageIO;
 
 @Service
 public class InstitutionService implements IInstitutionService {
@@ -194,16 +197,25 @@ public class InstitutionService implements IInstitutionService {
 	@Override
 	public synchronized boolean addCredential(Credential credential){
 		
-	
+	/*
 		if (iCredentialDAO.CredentialExists(credential.getCredential_Id(),credential.getCredentialName(),credential.getCredentialYear(), credential.getCourse().getCourse_Id(),credential.getInstitution().getInstitution_Id()))
-				
 				 {
     	   return false;
        } else {
     	  
-    	   iCredentialDAO.addCredential(credential);
+    	   iCredentialDAO.addCredential(credential);*/
+
+
+
+
+
+
     	   return true;
-       }
+      // }
 	}
+
+
+
+
 	
 }

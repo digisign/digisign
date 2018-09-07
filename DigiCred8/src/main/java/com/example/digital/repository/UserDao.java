@@ -12,13 +12,16 @@ import org.springframework.stereotype.Repository;
 import com.example.digital.entity.User;
 import com.example.digital.entity.UserState;
 @Repository
-public class UserDao implements UserRepository{
+public class UserDao  {
 	
-	@PersistenceContext	
+/*
+	@PersistenceContext
 	private EntityManager entityManager;
 	
-	/*@Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;*/
+	*/
+/*@Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;*//*
+
     
 	
 	@Override
@@ -37,10 +40,12 @@ public class UserDao implements UserRepository{
 	@Override
 	@Transactional
 	public void save(User user) {
-		/*user.setUsername(user.getEmailId());
+		*/
+/*user.setUsername(user.getEmailId());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
       //user.setRoles(new HashSet<>(roleRepository.findAll()));
-*/		entityManager.persist(user);
+*//*
+		entityManager.persist(user);
 	}
 	
 	@Override
@@ -87,6 +92,7 @@ public class UserDao implements UserRepository{
 		// TODO Auto-generated method stub
 		
 	}
+*/
 
 
 

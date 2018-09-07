@@ -6,11 +6,12 @@ import com.example.digital.entity.User;
 
 public interface UserService {
 
-	boolean save(User user);
+    User save(User user);
+    boolean  validateUser(User user);
 
-	User findByUsername(String username);
+	//User findByEmail(String email);
 
-	List<User> getUsersById(long parseInt);
+/*	List<User> getUsersById(long parseInt);
 
 	List<User> getAllUsers();
 
@@ -20,7 +21,7 @@ public interface UserService {
 
 	User findByID(long userid);
 
-	void softdeleteUser(User user);
+	void softdeleteUser(User user);*/
 
 	//void updateUser(long id, String username, String password, boolean enable);
 

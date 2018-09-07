@@ -5,93 +5,75 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Transient;
+
+
 
 @Entity
 @Table(name="user")
 public class User implements Serializable  {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	//Logger log =Logger.getLogger(this.getClass().getName());
-	
-	public User() {
-		super();
-	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "user_id", nullable = false, updatable = false)
-	private long userId;
-	
-	
-
-	/*@Email(message = "Please provide a valid e-mail")
-	@NotEmpty(message = "Please provide an e-mail")*/
-	@Column(name="username")
-	private String username;
-	
-	@Column(name="password")
+	private Long userId;
+	@Column(name="user_name",nullable = false)
+	private String userName;
+	@Column(name="password",nullable = false)
 	private String password;
-	
-	@Transient
-	@Column(name="password_confirm")
-	private String passwordConfirm;
-	
-	@Column(name="enable")
-	//@Enumerated(EnumType.STRING)
-	 private boolean enable;
-	 
-	/*@Column 
-	@Enumerated(EnumType.STRING)
-	private UserState enabled;*/	
-	@Column(name="Email_Id")
-	private String emailId;
-	@Column(name="Created_Date")
+	@Column(name="is_active")
+	private boolean active;
+	@Column(name="email",nullable = false)
+	private String email;
+	@Column(name="created_date",nullable = false)
 	private Date createdDate;
-	@Column(name="Social_Id")
+	@Column(name="updated_date",nullable = false)
+	private Date updatedDate;
+	@Column(name="social_id")
 	private String socialId;
-	@Column(name="Status_Id")
+	@Column(name="status_id")
 	private String statusId;
-	
-	@Column(name="confirmation_token")
-	private String confirmationToken;
-	
-	@ManyToMany(targetEntity = Role.class, cascade = CascadeType.ALL ) 
+
+	@ManyToMany(targetEntity = Role.class, cascade = CascadeType.ALL ,fetch=FetchType.EAGER)
 	@JoinTable(name = "user_role", joinColumns=@JoinColumn(name = "user_id"),
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
-	
 
-	public long getUserId() {
+	@javax.persistence.Transient
+    private Long roleId;
+
+	@Column(name="salt")
+	private String salt;
+
+
+	public User() {
+		super();
+	}
+
+
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
+	public Long getUserId() {
 		return userId;
 	}
 
-	
-	public void setUserId(long userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {
@@ -102,14 +84,20 @@ public class User implements Serializable  {
 		this.password = password;
 	}
 
-
-
-	public String getEmailId() {
-		return emailId;
+	public boolean isActive() {
+		return active;
 	}
 
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Date getCreatedDate() {
@@ -118,6 +106,14 @@ public class User implements Serializable  {
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 
 	public String getSocialId() {
@@ -136,14 +132,6 @@ public class User implements Serializable  {
 		this.statusId = statusId;
 	}
 
-	public String getConfirmationToken() {
-		return confirmationToken;
-	}
-
-	public void setConfirmationToken(String confirmationToken) {
-		this.confirmationToken = confirmationToken;
-	}
-
 	public Set<Role> getRoles() {
 		return roles;
 	}
@@ -152,47 +140,19 @@ public class User implements Serializable  {
 		this.roles = roles;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getSalt() {
+		return salt;
 	}
 
-
-	public boolean getEnable() {
-		return enable;
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 
-
-	public void setEnable(boolean enable) {
-		this.enable = enable;
+	public Long getRoleId() {
+		return roleId;
 	}
 
-
-	
-
-	public String getPasswordConfirm() {
-		return passwordConfirm;
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
 	}
-
-
-	public void setPasswordConfirm(String passwordConfirm) {
-		this.passwordConfirm = passwordConfirm;
-	}
-
-
-	public User(long userId, String username, String password, String passwordConfirm, boolean enable, String emailId,
-			Date createdDate, String socialId, String statusId, String confirmationToken, Set<Role> roles) {
-		super();
-		this.userId = userId;
-		this.username = username;
-		this.password = password;
-		this.passwordConfirm = passwordConfirm;
-		this.enable = enable;
-		this.emailId = emailId;
-		this.createdDate = createdDate;
-		this.socialId = socialId;
-		this.statusId = statusId;
-		this.confirmationToken = confirmationToken;
-		this.roles = roles;
-	}
-	
 }

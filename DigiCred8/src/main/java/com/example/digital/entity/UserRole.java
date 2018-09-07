@@ -3,12 +3,7 @@ package com.example.digital.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @SuppressWarnings("serial")
 
@@ -21,21 +16,24 @@ public class UserRole implements Serializable {
 		super();
 	}
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long Id;
-	private long User_Id;
-	private int Role_Id;
-	public long getUser_Id() {
-		return User_Id;
+	@Column(name="user_id")
+	private Long userId;
+	@Column(name="role_id")
+	private Long roleId;
+
+	public Long getUserId() {
+		return userId;
 	}
-	public int getRole_Id() {
-		return Role_Id;
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
-	
-	@Override
-	public String toString() {
-		return "User_Role [ User_Id"+ User_Id + "Role_Id"+ Role_Id + "]";
+
+	public Long getRoleId() {
+		return roleId;
 	}
-	 
+
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
+	}
 }

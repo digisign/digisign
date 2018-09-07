@@ -1,4 +1,4 @@
-package com.example.digital;
+package com.example.digital.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,15 +11,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.example.digital.service.IInstitutionService;
-
 
 @Configuration
 @EnableWebSecurity
 public class WebAppConfig extends WebSecurityConfigurerAdapter {
 	
-	@Autowired
-	private UserDetailsService userDetailsService;
+	/*@Autowired
+	private UserDetailsService userDetailsService;*/
 	
 	 @Bean
 	 public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -46,7 +44,7 @@ public class WebAppConfig extends WebSecurityConfigurerAdapter {
 	        http
 	        .requestMatchers().antMatchers("/").and()
 	                .authorizeRequests()
-	                    .antMatchers("/api/file/**", "/user1/**","/app1/**").permitAll()
+	                    .antMatchers("/api/file/**", "/user1/**","/app1/**","/**").permitAll()
 	                    .anyRequest().authenticated();
 	        
 	                  /*  .and()
@@ -60,7 +58,7 @@ public class WebAppConfig extends WebSecurityConfigurerAdapter {
 
 	    @Autowired
 	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-	        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+	        //auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	        //auth.inMemoryAuthentication().withUser("john123").password("password").roles("USER");
 	    }
 	

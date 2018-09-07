@@ -16,10 +16,10 @@ import com.example.digital.entity.Role;
 import com.example.digital.entity.User;
 import com.example.digital.repository.UserRepository;
 
-@Service
-public class UserDetailsServiceImpl implements UserDetailsService{
+//@Service
+public class UserDetailsServiceImpl  {
 
-	@Autowired
+/*	@Autowired
     private UserRepository userRepository;
 	
 
@@ -34,6 +34,6 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         }
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
-    }
+    }*/
 
 }
