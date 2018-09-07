@@ -43,6 +43,7 @@ public class UserServiceImpl  implements UserService {
 			Set<Role> roleSet=new HashSet();
 			roleSet.add(role);
 			user.setSalt(salt);
+			user.setRoles(roleSet);
 			user.setActive(true);
 			user.setCreatedDate(new Date());
 			user.setUpdatedDate(new Date());
