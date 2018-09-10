@@ -1,56 +1,56 @@
-Create database if not exists digisign;
+create database if not exists digisign;
 
-Use digisign;
+use digisign;
 
-Drop table if exists temporarydata;
+drop table if exists temporarydata;
 
 create table temporarydata(
-Institution_Name varchar(500),
-Mobile_Number_1 varchar(20)Unique,
-Mobile_Number_2 varchar(20)Unique,
-Email_Id_1 varchar(50)Unique,
-Email_Id_2 varchar(50)Unique,
-Address_1 varchar(500),
-Address_2 varchar(500),
-Address_3 varchar(500),
-City varchar(50),
-State varchar(50),
-Country varchar(20),
-Postal_Code bigint(11));
+institution_name varchar(500),
+mobile_number_1 varchar(20)unique,
+mobile_number_2 varchar(20)unique,
+email_id_1 varchar(50)unique,
+email_id_2 varchar(50)unique,
+address_1 varchar(500),
+address_2 varchar(500),
+address_3 varchar(500),
+city varchar(50),
+state varchar(50),
+country varchar(20),
+postal_code bigint(11));
 
-Drop table if exists error_table;
+drop table if exists error_table;
 
 create table error_table(
-Institution_Name varchar(500)Unique,
-Mobile_Number_1 varchar(20)Unique,
-Mobile_Number_2 varchar(20)Unique,
-Email_Id_1 varchar(50)Unique,
-Email_Id_2 varchar(50)Unique,
-Address_1 varchar(500),
-Address_2 varchar(500),
-Address_3 varchar(500),
-City varchar(50),
-State varchar(50),
-Country varchar(20),
-Postal_Code varchar(11));
+institution_name varchar(500)unique,
+mobile_number_1 varchar(20)unique,
+mobile_number_2 varchar(20)unique,
+email_id_1 varchar(50)unique,
+email_id_2 varchar(50)unique,
+address_1 varchar(500),
+address_2 varchar(500),
+address_3 varchar(500),
+city varchar(50),
+state varchar(50),
+country varchar(20),
+postal_code varchar(11));
 
 
-Drop table if exists `user`;
+drop table if exists `user`;
 
 create table if not exists `user`(
 id bigint(20)  primary key auto_increment,
 user_name varchar(50)  not null,
 `password` varchar(20)  not null,
-email varchar(50)  Unique not null,
-created_date DateTime,
+email varchar(50)  unique not null,
+created_date datetime,
 salt varchar(60) not null,
-social_id varchar(50) Unique,
+social_id varchar(50) unique,
 status_id varchar(20)
 );
 
-Alter table `user` auto_increment= 100001;
+alter table `user` auto_increment= 100001;
 
-Drop table if exists `role`;
+drop table if exists `role`;
 
 create table if not exists `role`(
 id bigint(10)  primary key,
@@ -58,7 +58,7 @@ role_name varchar(20),
 role_desc varchar(30)
 );
 
-Drop table if exists user_role;
+drop table if exists user_role;
 
 create table if not exists user_role(
 user_id bigint(10) ,
@@ -68,437 +68,437 @@ foreign key(role_id) references `role`(id)
 );
 
 
-Drop table if exists Contact;
+drop table if exists contact;
 
-create table if not exists Contact(
-Contact_Id bigint(10)  primary key auto_increment,
-Full_Name varchar(500) ,
-First_Name varchar(20) ,
-Last_Name varchar(20) ,
-DOB date,
-Mobile_Number_1 varchar(20)Unique,
-Mobile_Number_2 varchar(20)Unique,
-Email_Id_1 varchar(50)Unique,
-Email_Id_2 varchar(50)Unique);
+create table if not exists contact(
+contact_id bigint(10)  primary key auto_increment,
+full_name varchar(500) ,
+first_name varchar(20) ,
+last_name varchar(20) ,
+dob date,
+mobile_number_1 varchar(20)unique,
+mobile_number_2 varchar(20)unique,
+email_id_1 varchar(50)unique,
+email_id_2 varchar(50)unique);
 
-Alter table Contact auto_increment= 200001;
+alter table contact auto_increment= 200001;
 
-Drop table if exists  Address_Type;
+drop table if exists  address_type;
 
-create table if not exists Address_Type(
-Address_Type varchar(2)  primary key,
-Address_Type_Desc varchar(15)
+create table if not exists address_type(
+address_type varchar(2)  primary key,
+address_type_desc varchar(15)
 );
 
- Drop table if exists Contact_Address;
+ drop table if exists contact_address;
 
-create table if not exists Contact_Address(
-Address_Id bigint(10)  primary key auto_increment,
-Contact_Id bigint(10) ,
-Address_Type varchar(2),
-Address_1 varchar(500),
-Address_2 varchar(500),
-Address_3 varchar(500),
-City varchar(50),
-State varchar(50),
-Country varchar(20),
-Postal_Code bigint(11) ,
- foreign key(Contact_Id) references Contact(Contact_Id),
-foreign key(Address_Type) references Address_Type(Address_Type)
+create table if not exists contact_address(
+address_id bigint(10)  primary key auto_increment,
+contact_id bigint(10) ,
+address_type varchar(2),
+address_1 varchar(500),
+address_2 varchar(500),
+address_3 varchar(500),
+city varchar(50),
+state varchar(50),
+country varchar(20),
+postal_code bigint(11) ,
+ foreign key(contact_id) references contact(contact_id),
+foreign key(address_type) references address_type(address_type)
 );
 
-Alter table Contact_Address auto_increment= 300001;
+alter table contact_address auto_increment= 300001;
 
-Drop table if exists learner;
+drop table if exists learner;
 
 create table if not exists learner(
-Learner_Id bigint(10)  primary key auto_increment,
-User_Id bigint(10) ,
-Contact_Id bigint(10) ,
-foreign key(User_Id) references User(User_Id),
-foreign key(Contact_Id) references Contact(Contact_Id));
+learner_id bigint(10)  primary key auto_increment,
+user_id bigint(10) ,
+contact_id bigint(10) ,
+foreign key(user_id) references user(user_id),
+foreign key(contact_id) references contact(contact_id));
 
-Alter table learner auto_increment= 400001;
+alter table learner auto_increment= 400001;
 
-Drop table if exists institution;
+drop table if exists institution;
 
 create table if not exists institution(
-Institution_Id bigint(10)  primary key auto_increment,
-Contact_Id bigint(10) ,
-Parent_Institution_Id bigint(10),
-Institution_Name varchar(500),
-foreign key(Contact_Id) references Contact(Contact_Id),
-foreign key(Parent_Institution_Id) references Institution(Institution_Id));
+institution_id bigint(10)  primary key auto_increment,
+contact_id bigint(10) ,
+parent_institution_id bigint(10),
+institution_name varchar(500),
+foreign key(contact_id) references contact(contact_id),
+foreign key(parent_institution_id) references institution(institution_id));
 
-Alter table institution auto_increment= 500001;
+alter table institution auto_increment= 500001;
 
-Drop table if exists institution_user;
+drop table if exists institution_user;
 
 create table if not exists institution_user(
-Institution_User_Id bigint(10) ,
-Institution_Id bigint(10) ,
-User_Id bigint(10) ,
-Contact_Id bigint(10),
-primary key(Institution_Id,Institution_User_Id),
-foreign key(User_Id) references `User`(User_Id),
-foreign key(Contact_Id) references Contact(Contact_Id));
+institution_user_id bigint(10) ,
+institution_id bigint(10) ,
+user_id bigint(10) ,
+contact_id bigint(10),
+primary key(institution_id,institution_user_id),
+foreign key(user_id) references `user`(user_id),
+foreign key(contact_id) references contact(contact_id));
 
-Alter table institution_user auto_increment=600001;
+alter table institution_user auto_increment=600001;
 
-Drop table if exists requester_user;
+drop table if exists requester_user;
 
 create table if not exists requester_user(
-requester_Id bigint(10)  primary key auto_increment,
-User_Id bigint(10) ,
-Contact_Id bigint(10) ,
-Foreign key(User_Id) references `User`(User_Id),
-foreign key(Contact_Id) references Contact(Contact_Id));
+requester_id bigint(10)  primary key auto_increment,
+user_id bigint(10) ,
+contact_id bigint(10) ,
+foreign key(user_id) references `user`(user_id),
+foreign key(contact_id) references contact(contact_id));
 
-Alter table requester_user auto_increment= 700001;
+alter table requester_user auto_increment= 700001;
 
-Drop table if exists request;
+drop table if exists request;
 
 create table if not exists request(
-Request_Id bigint(10)  primary key auto_increment,
-requester_Id bigint(10) ,
-Learner_Id bigint(10) ,
-Status_Id varchar(20),
-foreign key(requester_Id) references requester_User(requester_Id),
-foreign key(Learner_Id) references Learner(Learner_Id)
+request_id bigint(10)  primary key auto_increment,
+requester_id bigint(10) ,
+learner_id bigint(10) ,
+status_id varchar(20),
+foreign key(requester_id) references requester_user(requester_id),
+foreign key(learner_id) references learner(learner_id)
 );
 
-Alter table request auto_increment= 800001;
+alter table request auto_increment= 800001;
 
-Drop table if exists requester;
+drop table if exists requester;
 
 create table if not exists requester(
-Request_Id bigint(10) ,
-Contact_ID bigint(10) ,
-foreign key(Request_Id) references Request(Request_Id),
-foreign key(Contact_Id) references Contact(Contact_Id));
+request_id bigint(10) ,
+contact_id bigint(10) ,
+foreign key(request_id) references request(request_id),
+foreign key(contact_id) references contact(contact_id));
 
 
-Drop table if exists tempcsdata;
+drop table if exists tempcsdata;
 
 create table tempcsdata(
-Institution_Name varchar(500),
-Course_Name varchar(200),
-Course_Period varchar(4),
-Subject_Name varchar(30) 
+institution_name varchar(500),
+course_name varchar(200),
+course_period varchar(4),
+subject_name varchar(30) 
 );
 
-Drop table if exists errorcsdata;
+drop table if exists errorcsdata;
 
 create table errorcsdata(
-Institution_Name varchar(500),
-Course_Name varchar(200),
-Course_Period varchar(4),
-Subject_Name varchar(30) 
+institution_name varchar(500),
+course_name varchar(200),
+course_period varchar(4),
+subject_name varchar(30) 
 );
 
 
-Drop table if exists course;
+drop table if exists course;
 
 create table if not exists course(
-Course_Id bigint(10)  primary key auto_increment,
-Course_Name varchar(200) ,
-Short_Name varchar(10),
-Description varchar(100),
-Institution_Id bigint(10) ,
-Course_Period varchar(4) ,
-foreign key(Institution_Id) references Institution(Institution_Id));
+course_id bigint(10)  primary key auto_increment,
+course_name varchar(200) ,
+short_name varchar(10),
+description varchar(100),
+institution_id bigint(10) ,
+course_period varchar(4) ,
+foreign key(institution_id) references institution(institution_id));
 
-Alter table course auto_increment= 900001;
+alter table course auto_increment= 900001;
 
 
 
-Drop table if exists `subject`;
+drop table if exists `subject`;
 
-Create table if not exists `subject`(
-Subject_Id bigint(10)   primary key auto_increment,
-Subject_Name varchar(30) ,
-Course_Id bigint(10) ,
-foreign key(Course_Id) references Course(Course_Id)
+create table if not exists `subject`(
+subject_id bigint(10)   primary key auto_increment,
+subject_name varchar(30) ,
+course_id bigint(10) ,
+foreign key(course_id) references course(course_id)
 );
 
-alter table `subject` add foreign key (Course_Id) references Course(Course_Id);
+alter table `subject` add foreign key (course_id) references course(course_id);
 
-Alter table `subject` auto_increment= 1000001;
+alter table `subject` auto_increment= 1000001;
 
-Drop table if exists Grade;
+drop table if exists grade;
 
-create table if not exists Grade(
-Grade_Id bigint(10)  primary key,
-Grade_Name varchar(20),
-Description varchar(20));
+create table if not exists grade(
+grade_id bigint(10)  primary key,
+grade_name varchar(20),
+description varchar(20));
 
 
-Drop table if exists  subject_marks;
+drop table if exists  subject_marks;
 
-CREATE TABLE if not exists subject_marks
-(  `Learner_Id` bigint(10)  , 
- `Subject_Id` bigint(10)  ,
-Course_Id bigint(10)  ,
+create table if not exists subject_marks
+(  `learner_id` bigint(10)  , 
+ `subject_id` bigint(10)  ,
+course_id bigint(10)  ,
 `Year` Year(4),
-Grade_Id bigint(10),  
-`Marks` bigint(4) ,
-foreign key(Learner_Id) references Learner(Learner_Id),
-foreign key(Subject_Id) references `Subject`(Subject_Id),
-foreign key(Course_Id) references Course(Course_Id),
-foreign key(Grade_Id) references Grade(Grade_Id)
+grade_id bigint(10),  
+`marks` bigint(4) ,
+foreign key(learner_id) references learner(learner_id),
+foreign key(subject_id) references `subject`(subject_id),
+foreign key(course_id) references course(course_id),
+foreign key(grade_id) references grade(grade_id)
 );
 
-Drop table if exists Course_Grade;
+drop table if exists course_grade;
 
-create table if not exists Course_Grade(
-Course_Id bigint(10) ,
-Grade_Id bigint(10),
-foreign key(Course_Id) references Course(Course_Id),
-foreign key(Grade_Id) references Grade(Grade_Id));
+create table if not exists course_grade(
+course_id bigint(10) ,
+grade_id bigint(10),
+foreign key(course_id) references course(course_id),
+foreign key(grade_id) references grade(grade_id));
 
-Drop table if exists Credential;
+drop table if exists credential;
 
-create table if not exists Credential(
-Credential_Id bigint(11)  primary key auto_increment,
-Credential_Name varchar(20),
-Credential_Year Date,
-Course_Id bigint(10),
-Institution_Id bigint(10),
-foreign key(Course_Id) references Course(Course_Id),
-foreign key(Institution_Id) references Institution(Institution_Id));
+create table if not exists credential(
+credential_id bigint(11)  primary key auto_increment,
+credential_name varchar(20),
+credential_Year date,
+course_id bigint(10),
+institution_id bigint(10),
+foreign key(course_id) references course(course_id),
+foreign key(institution_id) references institution(institution_id));
 
-Alter table Credential auto_increment= 1100001;
+alter table credential auto_increment= 1100001;
 
-Drop table if exists  Request_Credential_List;
+drop table if exists  request_credential_list;
 
-create table if not exists Request_Credential_List(
-Request_Id bigint(10),
-Credential_Id bigint(10),
-foreign key(Request_Id) references Request(Request_Id),
-foreign key(Credential_Id) references Credential(Credential_Id));
+create table if not exists request_credential_list(
+request_id bigint(10),
+credential_id bigint(10),
+foreign key(request_id) references request(request_id),
+foreign key(credential_id) references credential(credential_id));
 
-Drop table if exists learner_credential;
+drop table if exists learner_credential;
 
 create table if not exists learner_credential(
-Learner_Credential_Id bigint(10) primary key auto_increment,
-Learner_Id bigint(10),
-Credential_Id bigint(10),
-Course_Id bigint(10),
-Grade_Id bigint(10),
-Marks varchar(4),
-Issued_Date Date,
-foreign key(Learner_Id) references Learner(Learner_Id),
-foreign key(Credential_Id) references Credential(Credential_Id),
-foreign key(Course_Id) references Course(Course_Id),
-foreign key(Grade_Id) references Grade(Grade_Id));
+learner_credential_id bigint(10) primary key auto_increment,
+learner_id bigint(10),
+credential_id bigint(10),
+course_id bigint(10),
+grade_id bigint(10),
+marks varchar(4),
+issued_date date,
+foreign key(learner_id) references learner(learner_id),
+foreign key(credential_id) references credential(credential_id),
+foreign key(course_id) references course(course_id),
+foreign key(grade_id) references grade(grade_id));
 
-Alter table learner_credential auto_increment= 1200001;
+alter table learner_credential auto_increment= 1200001;
 
-Drop table if exists Learner_Credential_Resourse;
+drop table if exists learner_credential_resourse;
 
-create table Learner_Credential_Resourse(
-Learner_Credential_Id bigint(10),
-Resourse_Id bigint(10)  primary key,
-Resourse varchar(20) Unique,
-foreign key(Learner_Credential_Id) references Learner_Credential(Learner_Credential_Id));
+create table learner_credential_resourse(
+learner_credential_id bigint(10),
+resourse_id bigint(10)  primary key,
+resourse varchar(20) unique,
+foreign key(learner_credential_id) references learner_credential(learner_credential_id));
 
-Alter table learner_credential_Resourse auto_increment= 1300001;
+alter table learner_credential_resourse auto_increment= 1300001;
 
-insert into address_type values('P','Permanent');
-insert into address_type values('T','Temporary');
-insert into address_type values('O','Office');
-insert into address_type values('H','HeadOffice');
-insert into address_type values('B','BranchOffice');
+insert into address_type values('p','permanent');
+insert into address_type values('t','temporary');
+insert into address_type values('o','office');
+insert into address_type values('H','Headoffice');
+insert into address_type values('b','branchoffice');
 
-Insert into grade  values(1,'A','Outstanding');
-Insert into grade  values(2,'B','Excellent');
-Insert into grade  values(3,'C','Good');
-Insert into grade  values(4,'D','Average');
-Insert into grade  values(5,'E','Accepted');
-Insert into grade  values(6,'F','Satisfactory');
+insert into grade  values(1,'a','outstanding');
+insert into grade  values(2,'b','excellent');
+insert into grade  values(3,'c','good');
+insert into grade  values(4,'d','average');
+insert into grade  values(5,'e','accepted');
+insert into grade  values(6,'f','satisfactory');
 
-Insert into `role` values (1,'Learner','Student');
-Insert into `role` values (2,'Institute Admin','Credential Issuing Authority');
-Insert into `role` values (3,'Requester','Requesting for Credential');
+insert into `role` values (1,'learner','student');
+insert into `role` values (2,'institute admin','credential issuing authority');
+insert into `role` values (3,'requester','requesting for credential');
 
 
-CREATE VIEW institution_course_subject AS
-select ins.Institution_Id,ins.Institution_Name,co.Course_Id,co.Course_Name,co.Course_Period,sb.Subject_Id,sb.Subject_Name from Institution as ins
-join course as co on ins.Institution_Id=co.Institution_Id join `subject` as sb on co.Course_Id=sb.Course_Id;
+create VieW institution_course_subject as
+select ins.institution_id,ins.institution_name,co.course_id,co.course_name,co.course_period,sb.subject_id,sb.subject_name from institution as ins
+join course as co on ins.institution_id=co.institution_id join `subject` as sb on co.course_id=sb.course_id;
 
 select * from institution_course_subject;
 
-CREATE VIEW `institution_contact` AS
-    SELECT 
-        `it`.`Institution_Id` AS `Institution_id`,
-        `it`.`Institution_Name` AS `Institution_name`,
-        `co`.`Contact_Id` AS `Contact_Id`,
-        `co`.`Mobile_Number_1` AS `Mobile_Number`,
-        `co`.`Email_Id_1` AS `Email_id`,
-        `ca`.`Address_Id` AS `Address_Id`,
-        `ca`.`Address_Type` AS `Address_Type`,
-        `ca`.`Address_1` AS `Address`,
-        `ca`.`City` AS `City`,
-        `ca`.`State` AS `State`,
-        `ca`.`Country` AS `Country`,
-        `ca`.`Postal_Code` AS `Postal_Code`
-    FROM
+create VieW `institution_contact` as
+    select 
+        `it`.`institution_id` as `institution_id`,
+        `it`.`institution_name` as `institution_name`,
+        `co`.`contact_id` as `contact_id`,
+        `co`.`mobile_number_1` as `mobile_number`,
+        `co`.`email_id_1` as `email_id`,
+        `ca`.`address_id` as `address_id`,
+        `ca`.`address_type` as `address_type`,
+        `ca`.`address_1` as `address`,
+        `ca`.`city` as `city`,
+        `ca`.`state` as `state`,
+        `ca`.`country` as `country`,
+        `ca`.`postal_code` as `postal_code`
+    from
         ((`institution` `it`
-        JOIN `contact` `co` ON ((`it`.`Contact_Id` = `co`.`Contact_Id`)))
-        JOIN `contact_address` `ca` ON ((`ca`.`Contact_Id` = `co`.`Contact_Id`)));
+        Join `contact` `co` on ((`it`.`contact_id` = `co`.`contact_id`)))
+        Join `contact_address` `ca` on ((`ca`.`contact_id` = `co`.`contact_id`)));
         
        
-	CREATE VIEW `institution_course_details` AS
-    SELECT 
-        `iu`.`User_Id` AS `Institution_user_id`,
-        `iu`.`Institution_Id` AS `institution_id`,
-        `it`.`Institution_Name` AS `Institution_name`,
-        `co`.`Course_Id` AS `course_id`,
-        `co`.`Course_Name` AS `course_name`,
-        `co`.`Course_Period` AS `course_period`,
-        `sb`.`Subject_Id` AS `subject_id`,
-        `sb`.`Subject_Name` AS `subject_name`
-    FROM
+	create VieW `institution_course_details` as
+    select 
+        `iu`.`user_id` as `institution_user_id`,
+        `iu`.`institution_id` as `institution_id`,
+        `it`.`institution_name` as `institution_name`,
+        `co`.`course_id` as `course_id`,
+        `co`.`course_name` as `course_name`,
+        `co`.`course_period` as `course_period`,
+        `sb`.`subject_id` as `subject_id`,
+        `sb`.`subject_name` as `subject_name`
+    from
         (((`institution_user` `iu`
-        JOIN `contact` `cn` ON ((`iu`.`Contact_Id` = `cn`.`Contact_Id`)))
-        JOIN `institution` `it` ON ((`it`.`Contact_Id` = `cn`.`Contact_Id`)))
-        JOIN `course` `co` ON ((`it`.`Institution_Id` = `co`.`Institution_Id`)))
-        JOIN `subject` `sb` ON ((`sb`.`Course_Id` = `co`.`Course_Id`));
+        Join `contact` `cn` on ((`iu`.`contact_id` = `cn`.`contact_id`)))
+        Join `institution` `it` on ((`it`.`contact_id` = `cn`.`contact_id`)))
+        Join `course` `co` on ((`it`.`institution_id` = `co`.`institution_id`)))
+        Join `subject` `sb` on ((`sb`.`course_id` = `co`.`course_id`));
         
-        CREATE VIEW `institution_user_details` AS
-    SELECT 
-        `iu`.`User_Id` AS `User_Id`,
-        `co`.`Contact_Id` AS `Contact_Id`,
-        `iu`.`Institution_Id` AS `Institution_Id`,
-        `it`.`Institution_Name` AS `Institution_Name`,
-        `iu`.`Institution_User_Id` AS `Institution_User_Id`,
-        `co`.`Full_Name` AS `Institution_UserName`,
-        `co`.`Mobile_Number_2` AS `Institution_User_Mobile_Number`,
-        `co`.`Email_Id_2` AS `Institution_User_Email_Id`,
-        `ca`.`Address_Id` AS `Institution_Address_Id`,
-        `ca`.`Address_Type` AS `Address_Type`,
-        `ca`.`Address_1` AS `Institution_Address`,
-        `ca`.`City` AS `city`,
-        `ca`.`State` AS `State`,
-        `ca`.`Country` AS `Country`,
-        `ca`.`Postal_Code` AS `Postal_Code`
-    FROM
+        create VieW `institution_user_details` as
+    select 
+        `iu`.`user_id` as `user_id`,
+        `co`.`contact_id` as `contact_id`,
+        `iu`.`institution_id` as `institution_id`,
+        `it`.`institution_name` as `institution_name`,
+        `iu`.`institution_user_id` as `institution_user_id`,
+        `co`.`full_name` as `institution_username`,
+        `co`.`mobile_number_2` as `institution_user_mobile_number`,
+        `co`.`email_id_2` as `institution_user_email_id`,
+        `ca`.`address_id` as `institution_address_id`,
+        `ca`.`address_type` as `address_type`,
+        `ca`.`address_1` as `institution_address`,
+        `ca`.`city` as `city`,
+        `ca`.`state` as `state`,
+        `ca`.`country` as `country`,
+        `ca`.`postal_code` as `postal_code`
+    from
         (((`institution_user` `iu`
-        JOIN `contact` `co` ON ((`iu`.`Contact_Id` = `co`.`Contact_Id`)))
-        JOIN `institution` `it` ON ((`it`.`Contact_Id` = `co`.`Contact_Id`)))
-        JOIN `contact_address` `ca` ON ((`co`.`Contact_Id` = `ca`.`Contact_Id`)));
+        Join `contact` `co` on ((`iu`.`contact_id` = `co`.`contact_id`)))
+        Join `institution` `it` on ((`it`.`contact_id` = `co`.`contact_id`)))
+        Join `contact_address` `ca` on ((`co`.`contact_id` = `ca`.`contact_id`)));
         
         
-        CREATE VIEW `learner_marks` AS
-    SELECT 
-        `ln`.`Learner_Id` AS `learner_id`,
-        `cn`.`Full_Name` AS `Learner_Name`,
-        `lc`.`Learner_Credential_Id` AS `learner_credential_id`,
-        `lc`.`Course_Id` AS `course_id`,
-        `co`.`Course_Name` AS `course_name`,
-        `co`.`Course_Period` AS `course_period`,
-        `sb`.`Subject_Id` AS `subject_id`,
-        `sb`.`Subject_Name` AS `subject_name`,
-        `lc`.`Grade_Id` AS `grade_id`,
-        `lc`.`Marks` AS `marks`,
-        `sm`.`Year` AS `year`
-    FROM
+        create VieW `learner_marks` as
+    select 
+        `ln`.`learner_id` as `learner_id`,
+        `cn`.`full_name` as `learner_name`,
+        `lc`.`learner_credential_id` as `learner_credential_id`,
+        `lc`.`course_id` as `course_id`,
+        `co`.`course_name` as `course_name`,
+        `co`.`course_period` as `course_period`,
+        `sb`.`subject_id` as `subject_id`,
+        `sb`.`subject_name` as `subject_name`,
+        `lc`.`grade_id` as `grade_id`,
+        `lc`.`marks` as `marks`,
+        `sm`.`Year` as `year`
+    from
         (((((`learner` `ln`
-        JOIN `contact` `cn` ON ((`ln`.`Contact_Id` = `cn`.`Contact_Id`)))
-        JOIN `learner_credential` `lc` ON ((`lc`.`Learner_Id` = `ln`.`Learner_Id`)))
-        JOIN `course` `co` ON ((`lc`.`Course_Id` = `co`.`Course_Id`)))
-        JOIN `subject` `sb` ON ((`co`.`Course_Id` = `sb`.`Course_Id`)))
-        JOIN `subject_marks` `sm` ON ((`sb`.`Subject_Id` = `sm`.`Subject_Id`)));
+        Join `contact` `cn` on ((`ln`.`contact_id` = `cn`.`contact_id`)))
+        Join `learner_credential` `lc` on ((`lc`.`learner_id` = `ln`.`learner_id`)))
+        Join `course` `co` on ((`lc`.`course_id` = `co`.`course_id`)))
+        Join `subject` `sb` on ((`co`.`course_id` = `sb`.`course_id`)))
+        Join `subject_marks` `sm` on ((`sb`.`subject_id` = `sm`.`subject_id`)));
         
-        CREATE VIEW `learner_user_details` AS
-    SELECT 
-        `us`.`User_Id` AS `User_Id`,
-        `co`.`Contact_Id` AS `Contact_Id`,
-        `lr`.`Learner_Id` AS `Learner_Id`,
-        `co`.`Full_Name` AS `Learner_Name`,
-        `co`.`DOB` AS `DOB`,
-        `co`.`Mobile_Number_1` AS `Mobile_Number_1`,
-        `co`.`Email_Id_1` AS `Email_Id_1`,
-        `ca`.`Address_Id` AS `Address_Id`,
-        `ca`.`Address_Type` AS `Address_Type`,
-        `ca`.`Address_1` AS `Address_1`,
-        `ca`.`City` AS `city`,
-        `ca`.`State` AS `State`,
-        `ca`.`Country` AS `Country`,
-        `ca`.`Postal_Code` AS `Postal_Code`
-    FROM
+        create VieW `learner_user_details` as
+    select 
+        `us`.`user_id` as `user_id`,
+        `co`.`contact_id` as `contact_id`,
+        `lr`.`learner_id` as `learner_id`,
+        `co`.`full_name` as `learner_name`,
+        `co`.`dob` as `dob`,
+        `co`.`mobile_number_1` as `mobile_number_1`,
+        `co`.`email_id_1` as `email_id_1`,
+        `ca`.`address_id` as `address_id`,
+        `ca`.`address_type` as `address_type`,
+        `ca`.`address_1` as `address_1`,
+        `ca`.`city` as `city`,
+        `ca`.`state` as `state`,
+        `ca`.`country` as `country`,
+        `ca`.`postal_code` as `postal_code`
+    from
         (((`user` `us`
-        JOIN `learner` `lr` ON ((`us`.`User_Id` = `lr`.`User_Id`)))
-        JOIN `contact` `co` ON ((`lr`.`Contact_Id` = `co`.`Contact_Id`)))
-        JOIN `contact_address` `ca` ON ((`co`.`Contact_Id` = `ca`.`Contact_Id`)));
+        Join `learner` `lr` on ((`us`.`user_id` = `lr`.`user_id`)))
+        Join `contact` `co` on ((`lr`.`contact_id` = `co`.`contact_id`)))
+        Join `contact_address` `ca` on ((`co`.`contact_id` = `ca`.`contact_id`)));
         
-        CREATE VIEW `requester_credential` AS
-    SELECT 
-        `rt`.`Requester_Id` AS `requester_id`,
-        `co`.`Full_Name` AS `Requester_name`,
-        `ru`.`Request_Id` AS `request_id`,
-        `ru`.`Learner_Id` AS `Learner_Id`,
-        `cr`.`Institution_Id` AS `Institution_Id`,
-        `it`.`Institution_Name` AS `institution_name`,
-        `cr`.`Credential_Id` AS `credential_id`,
-        `cr`.`Credential_Name` AS `credential_name`,
-        `cr`.`Credential_Year` AS `credential_year`,
-        `cr`.`Course_Id` AS `course_id`,
-        `lc`.`Grade_Id` AS `grade_Id`,
-        `lc`.`Marks` AS `Total_Marks`,
-        `lc`.`Issued_date` AS `Issued_date`
-    FROM
+        create VieW `requester_credential` as
+    select 
+        `rt`.`requester_id` as `requester_id`,
+        `co`.`full_name` as `requester_name`,
+        `ru`.`request_id` as `request_id`,
+        `ru`.`learner_id` as `learner_id`,
+        `cr`.`institution_id` as `institution_id`,
+        `it`.`institution_name` as `institution_name`,
+        `cr`.`credential_id` as `credential_id`,
+        `cr`.`credential_name` as `credential_name`,
+        `cr`.`credential_Year` as `credential_year`,
+        `cr`.`course_id` as `course_id`,
+        `lc`.`grade_id` as `grade_id`,
+        `lc`.`marks` as `total_marks`,
+        `lc`.`issued_date` as `issued_date`
+    from
         (((((`requester_user` `rt`
-        JOIN `contact` `co` ON ((`rt`.`Contact_Id` = `co`.`Contact_Id`)))
-        JOIN `request` `ru` ON ((`ru`.`Requester_Id` = `rt`.`Requester_Id`)))
-        JOIN `learner_credential` `lc` ON ((`lc`.`Learner_Id` = `ru`.`Learner_Id`)))
-        JOIN `credential` `cr` ON ((`cr`.`Course_Id` = `lc`.`Course_Id`)))
-        JOIN `institution` `it` ON ((`it`.`Institution_Id` = `cr`.`Institution_Id`)));
+        Join `contact` `co` on ((`rt`.`contact_id` = `co`.`contact_id`)))
+        Join `request` `ru` on ((`ru`.`requester_id` = `rt`.`requester_id`)))
+        Join `learner_credential` `lc` on ((`lc`.`learner_id` = `ru`.`learner_id`)))
+        Join `credential` `cr` on ((`cr`.`course_id` = `lc`.`course_id`)))
+        Join `institution` `it` on ((`it`.`institution_id` = `cr`.`institution_id`)));
         
-        CREATE VIEW `requester_user_details` AS
-    SELECT 
-        `us`.`User_Id` AS `User_Id`,
-        `ru`.`Contact_Id` AS `Contact_Id`,
-        `ru`.`Requester_Id` AS `requester_Id`,
-        `co`.`Full_Name` AS `Requester_Name`,
-        `co`.`Mobile_Number_1` AS `Mobile_Number_1`,
-        `co`.`Email_Id_1` AS `Email_Id_1`,
-        `ca`.`Address_Id` AS `Address_Id`,
-        `ca`.`Address_Type` AS `Address_Type`,
-        `ca`.`Address_1` AS `Address_1`,
-        `ca`.`City` AS `city`,
-        `ca`.`State` AS `State`,
-        `ca`.`Country` AS `Country`,
-        `ca`.`Postal_Code` AS `Postal_Code`
-    FROM
+        create VieW `requester_user_details` as
+    select 
+        `us`.`user_id` as `user_id`,
+        `ru`.`contact_id` as `contact_id`,
+        `ru`.`requester_id` as `requester_id`,
+        `co`.`full_name` as `requester_name`,
+        `co`.`mobile_number_1` as `mobile_number_1`,
+        `co`.`email_id_1` as `email_id_1`,
+        `ca`.`address_id` as `address_id`,
+        `ca`.`address_type` as `address_type`,
+        `ca`.`address_1` as `address_1`,
+        `ca`.`city` as `city`,
+        `ca`.`state` as `state`,
+        `ca`.`country` as `country`,
+        `ca`.`postal_code` as `postal_code`
+    from
         (((`requester_user` `ru`
-        JOIN `user` `us` ON ((`ru`.`User_Id` = `us`.`User_Id`)))
-        JOIN `contact` `co` ON ((`ru`.`Contact_Id` = `co`.`Contact_Id`)))
-        JOIN `contact_address` `ca` ON ((`co`.`Contact_Id` = `ca`.`Contact_Id`)));
+        Join `user` `us` on ((`ru`.`user_id` = `us`.`user_id`)))
+        Join `contact` `co` on ((`ru`.`contact_id` = `co`.`contact_id`)))
+        Join `contact_address` `ca` on ((`co`.`contact_id` = `ca`.`contact_id`)));
         
         
         
         
-        CREATE VIEW `institutecontactaddress` AS
-    SELECT 
-        `it`.`Institution_Id` AS `Institution_Id`,
-        `it`.`Institution_Name` AS `Institution_Name`,
-        `co`.`Contact_Id` AS `Contact_Id`,
-        `co`.`Mobile_Number_1` AS `Mobile_Number_1`,
-        `co`.`Mobile_Number_2` AS `Mobile_Number_2`,
-        `co`.`Email_Id_1` AS `Email_Id_1`,
-        `co`.`Email_Id_2` AS `Email_Id_2`,
-        `ca`.`Address_1` AS `Address_1`,
-        `ca`.`Address_2` AS `Address_2`,
-        `ca`.`Address_3` AS `Address_3`,
-        `ca`.`City` AS `City`,
-        `ca`.`State` AS `State`,
-        `ca`.`Country` AS `Country`,
-        `ca`.`Postal_Code` AS `Postal_Code`
-    FROM
+        create VieW `institutecontactaddress` as
+    select 
+        `it`.`institution_id` as `institution_id`,
+        `it`.`institution_name` as `institution_name`,
+        `co`.`contact_id` as `contact_id`,
+        `co`.`mobile_number_1` as `mobile_number_1`,
+        `co`.`mobile_number_2` as `mobile_number_2`,
+        `co`.`email_id_1` as `email_id_1`,
+        `co`.`email_id_2` as `email_id_2`,
+        `ca`.`address_1` as `address_1`,
+        `ca`.`address_2` as `address_2`,
+        `ca`.`address_3` as `address_3`,
+        `ca`.`city` as `city`,
+        `ca`.`state` as `state`,
+        `ca`.`country` as `country`,
+        `ca`.`postal_code` as `postal_code`
+    from
         ((`institution` `it`
-        JOIN `contact` `co` ON ((`it`.`Contact_Id` = `co`.`Contact_Id`)))
-        JOIN `contact_address` `ca` ON ((`ca`.`Contact_Id` = `co`.`Contact_Id`)))
+        Join `contact` `co` on ((`it`.`contact_id` = `co`.`contact_id`)))
+        Join `contact_address` `ca` on ((`ca`.`contact_id` = `co`.`contact_id`)))
         
         
         
