@@ -79,6 +79,22 @@ foreign key(address_type) references address_type(address_type)
 alter table contact_address auto_increment= 300001;
 
 
+
+CREATE TABLE `learner` (
+  `learner_id` bigint(10) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(10) DEFAULT NULL,
+  `contact_id` bigint(10) DEFAULT NULL,
+  PRIMARY KEY (`learner_id`),
+  KEY `user_id` (`user_id`),
+  KEY `contact_id` (`contact_id`),
+  CONSTRAINT `learner_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+  CONSTRAINT `learner_ibfk_2` FOREIGN KEY (`contact_id`) REFERENCES `contact` (`contact_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+
+
+
 drop table if exists institution;
 
 create table if not exists institution(
@@ -128,4 +144,79 @@ foreign key(course_id) references course(course_id)
 
 alter table `subject` add foreign key (course_id) references course(course_id);
                                           
-alter table `subject` auto_increment= 1000001;                                          
+alter table `subject` auto_increment= 1000001;   
+
+
+
+CREATE TABLE `credential` (
+  `credential_id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `credential_name` varchar(20) DEFAULT NULL,
+  `credential_Year` date DEFAULT NULL,
+  `course_id` bigint(10) DEFAULT NULL,
+  `institution_id` bigint(10) DEFAULT NULL,
+  PRIMARY KEY (`credential_id`),
+  KEY `course_id` (`course_id`),
+  KEY `institution_id` (`institution_id`),
+  CONSTRAINT `credential_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`),
+  CONSTRAINT `credential_ibfk_2` FOREIGN KEY (`institution_id`) REFERENCES `institution` (`institution_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE `learner_credential` (
+  `learner_credential_id` bigint(10) NOT NULL AUTO_INCREMENT,
+  `learner_id` bigint(10) DEFAULT NULL,
+  `credential_id` bigint(10) DEFAULT NULL,
+  `course_id` bigint(10) DEFAULT NULL,
+  `grade_id` bigint(10) DEFAULT NULL,
+  `marks` float DEFAULT NULL,
+  `issued_date` date DEFAULT NULL,
+  PRIMARY KEY (`learner_credential_id`),
+  KEY `learner_id` (`learner_id`),
+  KEY `credential_id` (`credential_id`),
+  KEY `course_id` (`course_id`),
+  KEY `grade_id` (`grade_id`),
+  CONSTRAINT `learner_credential_ibfk_1` FOREIGN KEY (`learner_id`) REFERENCES `learner` (`learner_id`),
+  CONSTRAINT `learner_credential_ibfk_2` FOREIGN KEY (`credential_id`) REFERENCES `credential` (`credential_id`),
+  CONSTRAINT `learner_credential_ibfk_3` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`),
+  CONSTRAINT `learner_credential_ibfk_4` FOREIGN KEY (`grade_id`) REFERENCES `grade` (`grade_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+
+
+
+
+
+CREATE TABLE `learner_credential_resourse` (
+  `learner_credential_id` bigint(10) DEFAULT NULL,
+  `resource_id` bigint(10) NOT NULL AUTO_INCREMENT,
+  `file_path` varchar(20) DEFAULT NULL,
+  `file_type` varchar(45) DEFAULT NULL,
+  `thumbnail_path` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`resource_id`),
+  UNIQUE KEY `resourse` (`file_path`),
+  KEY `learner_credential_id` (`learner_credential_id`),
+  CONSTRAINT `learner_credential_resourse_ibfk_1` FOREIGN KEY (`learner_credential_id`) REFERENCES `learner_credential` (`learner_credential_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+
+
+
+
+
+
+
