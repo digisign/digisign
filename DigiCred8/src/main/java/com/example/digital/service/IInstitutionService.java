@@ -11,7 +11,7 @@ import com.example.digital.entity.Subject;
 
 public interface IInstitutionService {
 
-	Institution getInstitutionById(long institution_Id);
+/*	Institution getInstitutionById(long institution_Id);
 
 	Institution getContactById(Contact contact);
 
@@ -51,7 +51,7 @@ public interface IInstitutionService {
 
 	List<Credential> getAllCredential();
 
-	boolean addCredential(Credential credential);
+	boolean addCredential(Credential credential);*/
 
 	
 }

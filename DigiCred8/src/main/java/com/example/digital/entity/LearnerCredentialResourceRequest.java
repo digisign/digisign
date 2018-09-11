@@ -1,0 +1,108 @@
+package com.example.digital.entity;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Date;
+
+public class LearnerCredentialResourceRequest {
+  private MultipartFile file;
+  private Long userId;
+  private Long learnerId;
+  private Long courseId;
+  private Long institutionId;
+  private Long gradeId;
+  private Float marks;
+  private String courseStartDate;
+  private String courseEndDate;
+  private String issuedYear;
+  private String degree;
+
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
+
+    public Long getInstitutionId() {
+        return institutionId;
+    }
+
+    public void setInstitutionId(Long institutionId) {
+        this.institutionId = institutionId;
+    }
+
+    public Long getGradeId() {
+        return gradeId;
+    }
+
+    public void setGradeId(Long gradeId) {
+        this.gradeId = gradeId;
+    }
+
+    public Float getMarks() {
+        return marks;
+    }
+
+    public void setMarks(Float marks) {
+        this.marks = marks;
+    }
+
+    public String getCourseStartDate() {
+        return courseStartDate;
+    }
+
+    public void setCourseStartDate(String courseStartDate) {
+        this.courseStartDate = courseStartDate;
+    }
+
+    public String getCourseEndDate() {
+        return courseEndDate;
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
+    public void setCourseEndDate(String courseEndDate) {
+        this.courseEndDate = courseEndDate;
+    }
+
+    public String getIssuedYear() {
+        return issuedYear;
+    }
+
+    public void setIssuedYear(String issuedYear) {
+        this.issuedYear = issuedYear;
+    }
+
+    public Long getLearnerId() {
+        return learnerId;
+    }
+
+    public void setLearnerId(Long learnerId) {
+        this.learnerId = learnerId;
+    }
+}

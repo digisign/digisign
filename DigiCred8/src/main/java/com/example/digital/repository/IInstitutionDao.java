@@ -10,11 +10,11 @@ import com.example.digital.entity.Institution;
 
 public interface IInstitutionDao {
 
-	List<Institution> getAllInstitutions();
+	/*List<Institution> getAllInstitutions();
 	Institution getInstitutionByid(long institution_Id);
     void addInstitution(Institution institution);
     void updateInstitution(Institution institution);
    // void deleteInstitution(Institution institution);
     public boolean institutionExists(long institution_Id, long contact_id, long parent_Institution_Id,
-			String institution_Name);
+			String institution_Name);*/
 }

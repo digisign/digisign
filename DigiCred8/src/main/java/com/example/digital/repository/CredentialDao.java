@@ -14,7 +14,7 @@ import com.example.digital.entity.Credential;
 @Repository
 public class CredentialDao implements ICredentialDAO {
 
-	@PersistenceContext	
+/*	@PersistenceContext
 	private EntityManager entityManager;
 	
 	@Override
@@ -56,6 +56,6 @@ public class CredentialDao implements ICredentialDAO {
 		              .setParameter(3, credentialYear).setParameter(4, course_Id).setParameter(5, institution_Id).getResultList().size();
 		return count > 0 ? true : false;  
 	}
-	
+	*/
 
 }

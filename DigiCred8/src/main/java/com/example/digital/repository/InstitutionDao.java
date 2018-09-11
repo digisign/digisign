@@ -17,7 +17,7 @@ import com.example.digital.entity.Institution;
 @Repository
 public class InstitutionDao implements IInstitutionDao {
 
-	@PersistenceContext	
+/*	@PersistenceContext
 	private EntityManager entityManager;
 	
 	@Override
@@ -34,13 +34,13 @@ public class InstitutionDao implements IInstitutionDao {
 	public void addInstitution(Institution institution) {
 		entityManager.persist(institution);
 	}
-	/*@Override
+	*//*@Override
 	public void updateInstitution(Institution institution) {
 		Institution ins = getInstitutionByid(institution.getInstitution_Id());
 		ins.setContact(institution.getContact().getContact_Id());
 		ins.setParent_Institution_Id(institution.getParent_Institution_Id());
 		entityManager.flush();
-	}*/
+	}*//*
 	
 	@Override
 	public void updateInstitution(Institution institution) {
@@ -77,6 +77,6 @@ public class InstitutionDao implements IInstitutionDao {
 		int count = entityManager.createQuery(hql).setParameter(1, institution_Id).setParameter(2, contact_id)
 		              .setParameter(3, parent_Institution_Id).setParameter(4, institution_Name).getResultList().size();
 		return count > 0 ? true : false;
-	}
+	}*/
 
 }

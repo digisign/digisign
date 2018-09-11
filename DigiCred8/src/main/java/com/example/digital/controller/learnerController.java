@@ -1,30 +1,14 @@
 package com.example.digital.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.example.digital.repository.ILearner_Credential_ResourseDao;
+import com.example.digital.service.LearnerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import com.example.digital.entity.Contact;
-import com.example.digital.entity.Contact_Address;
-import com.example.digital.entity.Learner;
-import com.example.digital.entity.Learner_Credential;
-import com.example.digital.repository.ILearner_Credential_ResourseDao;
-import com.example.digital.service.ILearnerService;
 
 
 @RestController
@@ -35,7 +19,7 @@ public class learnerController {
 	private static final Logger logger = LoggerFactory.getLogger(learnerController.class);
 	
 	@Autowired
-	private ILearnerService learnerService;
+	private LearnerService learnerService;
 	
 	private ILearner_Credential_ResourseDao resouseDao;
 	
@@ -43,7 +27,7 @@ public class learnerController {
 	
 	//---------------------------Getting particular learner or all learner data---------------------------
 	
-	@RequestMapping(value="/learner/{id}",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+/*	@RequestMapping(value="/learner/{id}",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Learner>> getLearnersById(@PathVariable("id") Long id) {
     	System.out.println("Fetching learner with id " + id);
     	List<Learner> list = new ArrayList<Learner>();
@@ -63,11 +47,11 @@ public class learnerController {
     	
       return new ResponseEntity<List<Learner>>(list, HttpStatus.OK);
       
-    } 
+    } */
 	
 	//---------------------------------Saving Learner Data and fetching particular learner through its learnerId--------------------------------------------
 	
-	@RequestMapping(value="/addlearner",method = RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
+	/*@RequestMapping(value="/addlearner",method = RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> saveLearner(@RequestBody Learner learner, UriComponentsBuilder builder) {
 		
 		
@@ -84,12 +68,12 @@ public class learnerController {
 
 	        
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-	}
+	}*/
 	
 	
 	
 	//-----------------------------------Modifying Learner Details------------------------------------------------
-	@RequestMapping(value="/modifylearner",method = RequestMethod.PUT,produces=MediaType.APPLICATION_JSON_VALUE)
+	/*@RequestMapping(value="/modifylearner",method = RequestMethod.PUT,produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Learner> modifyLearner(@RequestBody Learner learner, UriComponentsBuilder builder) {
 		
 		Contact contact=new Contact();
@@ -105,10 +89,10 @@ public class learnerController {
 		
 	        
 		return new ResponseEntity<Learner>(learner, HttpStatus.CREATED);
-	}
+	}*/
 	
 	//-----------------------------------Deleting Learner Details------------------------------------------------
-	@RequestMapping(value="/deleteLearner",method = RequestMethod.DELETE)
+/*	@RequestMapping(value="/deleteLearner",method = RequestMethod.DELETE)
     public ResponseEntity<Learner> deleteLearners(long Learner_id) {
     	System.out.println("Fetching & Deleting Learner with id " + Learner_id);
     	
@@ -119,7 +103,7 @@ public class learnerController {
          }
     	//learnerservice.deleteLearner(Learner_id);
     	return new ResponseEntity<Learner>(HttpStatus.NO_CONTENT);
-    } 
+    } */
 	
 	
 }

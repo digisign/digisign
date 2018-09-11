@@ -2,8 +2,10 @@ package com.example.digital.service;
 import java.util.*;
 
 import com.example.digital.config.CredentialEncryptionConfig;
+import com.example.digital.entity.Learner;
 import com.example.digital.entity.Role;
 import com.example.digital.exception.DigiSignException;
+import com.example.digital.repository.LearnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,9 @@ public class UserServiceImpl  implements UserService {
 	
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+	private LearnerService learnerService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -47,7 +52,14 @@ public class UserServiceImpl  implements UserService {
 			user.setActive(true);
 			user.setCreatedDate(new Date());
 			user.setUpdatedDate(new Date());
-			return  userRepository.save(user);
+			User savedUser=new User();
+			if(user.getRoleId()==1){
+				Learner learner=new Learner();
+				learner.setUser(user);
+				learner=learnerService.save(learner);
+				savedUser=learner.getUser();
+			}
+			return savedUser;
 		}
     }
 

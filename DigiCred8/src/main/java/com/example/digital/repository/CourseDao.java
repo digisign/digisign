@@ -16,7 +16,7 @@ import com.example.digital.entity.Institution;
 @Repository
 public class CourseDao implements ICourseDao {
 
-	@PersistenceContext	
+	/*@PersistenceContext
 	private EntityManager entityManager;
 	
 	@Override
@@ -33,7 +33,7 @@ public class CourseDao implements ICourseDao {
 	public void addCourse(Course course) {
 		entityManager.persist(course);
 	}
-	/*@Override
+	*//*@Override
 	public void updateCourse(Course course) {
 		Course ce = getCourseByid(course.getCourse_Id());
 		ce.setCourse_Name(course.getCourse_Name());
@@ -41,7 +41,7 @@ public class CourseDao implements ICourseDao {
 		ce.setDescription(course.getDescription());
 		ce.setCourse_Period(course.getCourse_Period());
 		entityManager.flush();
-	}*/
+	}*//*
 	
 	@Override
 	public void updateCourse(Course course) {
@@ -67,6 +67,6 @@ public class CourseDao implements ICourseDao {
 		return count > 0 ? true : false;
 	}
 	
-
+*/
 }
 	

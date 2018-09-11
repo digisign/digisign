@@ -1,24 +1,14 @@
 package com.example.digital.repository;
 
-import java.sql.Date;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.example.digital.entity.Course;
-import com.example.digital.entity.Credential;
-import com.example.digital.entity.Grade;
-import com.example.digital.entity.Learner;
-import com.example.digital.entity.Learner_Credential;
 
 @Transactional
 @Repository
 public class Learner_CredentialDao implements ILearnerCredentialDao {
 
-	@PersistenceContext	
+/*
+	@PersistenceContext
 	private EntityManager entityManager;
 	
 	@Override
@@ -35,7 +25,8 @@ public class Learner_CredentialDao implements ILearnerCredentialDao {
 	public void addLearner_Credential(Learner_Credential learner_credential_Id) {
 		entityManager.persist(learner_credential_Id);
 	}
-	/*@Override
+	*/
+/*@Override
 	public void updateLearner_Credential(Learner_Credential learner_credential) {
 		Learner_Credential lc = getLearner_CredentialByid(learner_credential.getLearner_Credential_Id());
 		lc.setLearner_Id(learner_credential.getLearner_Id());
@@ -45,7 +36,8 @@ public class Learner_CredentialDao implements ILearnerCredentialDao {
 		lc.setMarks(learner_credential.getMarks());
 		lc.setIssued_date(learner_credential.getIssued_date());
 		entityManager.flush();
-	}*/
+	}*//*
+
 	
 	@Override
 	public void updateLearner_Credential(Learner_Credential learner_Credential) {
@@ -75,6 +67,7 @@ public class Learner_CredentialDao implements ILearnerCredentialDao {
 		              setParameter(6, issued_date).getResultList().size();
 		return count > 0 ? true : false;
 	}
+*/
 
 
 }

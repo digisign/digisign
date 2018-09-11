@@ -2,12 +2,13 @@ package com.example.digital.repository;
 
 import javax.transaction.Transactional;
 
-import com.example.digital.entity.Learner_Credential_Resourse;
+import com.example.digital.entity.LearnerCredentialResource;
+
 
 @Transactional
 public interface ILearner_Credential_ResourseDao  {
 
-	public Learner_Credential_Resourse findByresourseId(long resourseId);
+	public LearnerCredentialResource findByresourseId(long resourseId);
 
-	public void save(Learner_Credential_Resourse filemode);
+	public void save(LearnerCredentialResource filemode);
 }

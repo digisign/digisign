@@ -22,46 +22,45 @@ public class Grade implements Serializable {
 	}
 
 	@Id
-	@Column(name="Grade_Id",insertable=false,updatable=false)
-	private int Grade_Id;
-	@Column(name="Grade_Name")
-	private String Grade_Name;
-	@Column(name="Description")
-	private String Description;
-	
+	@Column(name="grade_id",insertable=false,updatable=false)
+	private Long gradeId;
+	@Column(name="grade_name")
+	private String gradeName;
+	@Column(name="description")
+	private String description;
 	@JsonIgnore
 	@OneToMany(mappedBy="grades")
 	private Set<Course> courses;
-	
-	
-	public int getGrade_Id() {
-		return Grade_Id;
+
+	public Long getGradeId() {
+		return gradeId;
 	}
-	public String getGrade_Name() {
-		return Grade_Name;
+
+	public void setGradeId(Long gradeId) {
+		this.gradeId = gradeId;
 	}
-	public void setGrade_Id(int grade_Id) {
-		Grade_Id = grade_Id;
+
+	public String getGradeName() {
+		return gradeName;
 	}
-	public void setGrade_Name(String grade_Name) {
-		Grade_Name = grade_Name;
+
+	public void setGradeName(String gradeName) {
+		this.gradeName = gradeName;
 	}
-	public void setDescription(String description) {
-		Description = description;
-	}
+
 	public String getDescription() {
-		return Description;
+		return description;
 	}
-	@Override
-	public String toString() {
-		return "Grade [Grade_Id=" + Grade_Id + ", Grade_Name=" + Grade_Name + ", Description=" + Description + "]";
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
+
 	public Set<Course> getCourses() {
 		return courses;
 	}
+
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
 	}
-	
-	
 }

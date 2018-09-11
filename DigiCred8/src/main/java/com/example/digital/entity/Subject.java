@@ -47,10 +47,5 @@ public class Subject implements Serializable {
 	public void setCourse(Course course) {
 		this.course = course;
 	}
-	@Override
-	public String toString() {
-		return "Subject [subjectId=" + subjectId + ", subjectName=" + subjectName + ", course=" + course.getCourse_Id() + "]";
-	}
 
-	
 }

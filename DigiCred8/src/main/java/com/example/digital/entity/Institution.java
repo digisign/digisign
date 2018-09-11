@@ -1,105 +1,78 @@
 package com.example.digital.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="institution")
 public class Institution implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7109682383546677670L;
 
-
-
-	public Institution() {
-		super();
-	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="Institution_Id")
-	private long Institution_Id;
-	@JoinColumn(name="Contact_Id")
+	@Column(name="institution_id")
+	private Long institutionId;
+
+	@JsonIgnore
+	@JoinColumn(name="contact_id")
 	@OneToOne(targetEntity = Contact.class, fetch = FetchType.EAGER)
 	private Contact contact;
-	@Column(name="Parent_Institution_Id")
-	private Integer Parent_Institution_Id;
-	@Column(name="Institution_Name")
-	private String Institution_Name;
-	
-	
-	
-	public Institution(long institution_Id, Contact contact, Integer parent_Institution_Id, String institution_Name) {
-		super();
-		Institution_Id = institution_Id;
-		this.contact = contact;
-		Parent_Institution_Id = parent_Institution_Id;
-		Institution_Name = institution_Name;
+	@Column(name="parent_institution_id")
+	private Long parentInstitutionId;
+	@Column(name="institution_name")
+	private String institutionName;
+
+
+	@OneToMany(mappedBy = "institution")
+	private Set<Course> courses;
+
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
 	}
 
-	
-	
-	public String getInstitution_Name() {
-		return Institution_Name;
+	public Long getInstitutionId() {
+		return institutionId;
 	}
 
-	public void setInstitution_Name(String institution_Name) {
-		Institution_Name = institution_Name;
-	}
-
-	public long getInstitution_Id() {
-		return Institution_Id;
-	}
-	
-	public void setParent_Institution_Id(Integer parent_Institution_Id) {
-		Parent_Institution_Id = parent_Institution_Id;
-	}
-	public void setInstitution_Id(long institution_Id) {
-		Institution_Id = institution_Id;
-	}
-	
-	public Integer getParent_Institution_Id() {
-		return Parent_Institution_Id;
+	public void setInstitutionId(Long institutionId) {
+		this.institutionId = institutionId;
 	}
 
 	public Contact getContact() {
 		return contact;
 	}
-	
 
 	public void setContact(Contact contact) {
 		this.contact = contact;
 	}
-	
 
-	@Override
-	public String toString() {
-		return "Institution [Institution_Id=" + Institution_Id + ", contact=" + contact.getContact_Id() + ", Parent_Institution_Id="
-				+ Parent_Institution_Id + ", Institution_Name=" + Institution_Name + "]";
+	public Long getParentInstitutionId() {
+		return parentInstitutionId;
 	}
 
-
-
-	public boolean isPresent() {
-		// TODO Auto-generated method stub
-		return false;
+	public void setParentInstitutionId(Long parentInstitutionId) {
+		this.parentInstitutionId = parentInstitutionId;
 	}
 
+	public String getInstitutionName() {
+		return institutionName;
+	}
 
+	public void setInstitutionName(String institutionName) {
+		this.institutionName = institutionName;
+	}
 
-	
+	public Set<Course> getCourses() {
+		return courses;
+	}
 
-	
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
+	}
 }

@@ -32,22 +32,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="learner")
-//@XmlRootElement (name = "learner")
 public class Learner implements Serializable {
 	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "Learner_id", nullable = false, updatable = false)
-	private long learnerId;
-	//@PrimaryKeyJoinColumn(name = "Learner_id",referencedColumnName="User_Id")
-	@OneToOne(/*mappedBy="learner",*/cascade=CascadeType.ALL)
+	@Column(name = "learner_id", nullable = false, updatable = false)
+	private Long learnerId;
+
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="user_id")
 	private User user;
-	
-	
-	// @XmlElement(required = true)
-	@JoinColumn(name="Contact_Id")
+
+	@JoinColumn(name="contact_id")
 	@OneToOne(/*targetEntity = Contact.class, fetch = FetchType.EAGER,*/cascade=CascadeType.ALL)
 	private Contact contact;
 	
@@ -62,13 +59,6 @@ public class Learner implements Serializable {
 		super();
 	}
 
-	public long getLearnerId() {
-		return learnerId;
-	}
-
-	public void setLearnerId(long learnerId) {
-		this.learnerId = learnerId;
-	}
 
 	public User getUser() {
 		return user;
@@ -87,13 +77,12 @@ public class Learner implements Serializable {
 		this.contact = contact;
 	}
 
-	@Override
-	public String toString() {
-		return "Learner [learnerId=" + learnerId + ", user=" + user.getUserId() + ", contact=" + contact.getContact_Id() + "]";
+
+	public Long getLearnerId() {
+		return learnerId;
 	}
 
-
-	
-
-		
+	public void setLearnerId(Long learnerId) {
+		this.learnerId = learnerId;
 	}
+}

@@ -29,46 +29,47 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="learner_credential")
-public class Learner_Credential implements Serializable {
+public class LearnerCredential implements Serializable {
 
-	public Learner_Credential() {
+	public LearnerCredential() {
 		super();
 	}
-	
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "Learner_Credential_Id", nullable = false, updatable = false)
-	private long Learner_Credential_Id;
+	@Column(name = "learner_credential_id", nullable = false, updatable = false)
+	private Long learnerCredentialId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="Learner_id")
+	@JoinColumn(name="learner_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Learner learner;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="Credential_Id")
+	@JoinColumn(name="credential_id")
 	private Credential credential;
-	
-	@OneToOne(targetEntity = Grade.class, fetch = FetchType.EAGER)
+
+	@OneToOne(targetEntity = Grade.class, cascade = CascadeType.ALL)
+	@JoinColumn(name="grade_id")
 	private Grade grade;
 	
-	@Column(name="Marks")
-	private String Marks;
+	@Column(name="marks")
+	private Float Marks;
 	
-	@Column(name="Issued_date")
-	private Date Issued_date;
+	@Column(name="issued_date")
+	private Date issuedDate;
 	
-	@JoinColumn(name="Course_Id")
+	@JoinColumn(name="course_id")
 	@OneToOne(targetEntity = Course.class, fetch = FetchType.EAGER)
 	private Course course;
-	
-	public long getLearner_Credential_Id() {
-		return Learner_Credential_Id;
+
+
+	public Long getLearnerCredentialId() {
+		return learnerCredentialId;
 	}
 
-	public void setLearner_Credential_Id(long learner_Credential_Id) {
-		Learner_Credential_Id = learner_Credential_Id;
+	public void setLearnerCredentialId(Long learnerCredentialId) {
+		this.learnerCredentialId = learnerCredentialId;
 	}
 
 	public Learner getLearner() {
@@ -95,20 +96,20 @@ public class Learner_Credential implements Serializable {
 		this.grade = grade;
 	}
 
-	public String getMarks() {
+	public Float getMarks() {
 		return Marks;
 	}
 
-	public void setMarks(String marks) {
+	public void setMarks(Float marks) {
 		Marks = marks;
 	}
 
-	public Date getIssued_date() {
-		return Issued_date;
+	public Date getIssuedDate() {
+		return issuedDate;
 	}
 
-	public void setIssued_date(Date issued_date) {
-		Issued_date = issued_date;
+	public void setIssuedDate(Date issuedDate) {
+		this.issuedDate = issuedDate;
 	}
 
 	public Course getCourse() {
@@ -118,13 +119,4 @@ public class Learner_Credential implements Serializable {
 	public void setCourse(Course course) {
 		this.course = course;
 	}
-
-	@Override
-	public String toString() {
-		return "Learner_Credential [Learner_Credential_Id=" + Learner_Credential_Id + ", learner=" + learner.getLearnerId()
-				+ ", credential=" + credential.getCredential_Id() + ", grade=" + grade.getGrade_Id() + ", Marks=" + Marks + ", Issued_date="
-				+ Issued_date + ", course=" + course.getCourse_Id() + "]";
-	}
-
-	
 }

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.digital.entity.*;
+import com.example.digital.repository.CourseRepository;
+import com.example.digital.repository.InstitutionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,24 +20,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.example.digital.entity.Course;
-import com.example.digital.entity.Credential;
-import com.example.digital.entity.Institution;
-import com.example.digital.entity.Learner;
 import com.example.digital.repository.IInstitutionDao;
 import com.example.digital.service.IInstitutionService;
 @RestController
 @CrossOrigin(origins = {"*"},allowedHeaders={"Content-Type"},allowCredentials="false",maxAge=4800)
-@RequestMapping("/app1")
 public class InstitutionController {
 
 	@Autowired
 	private IInstitutionService institutionService;
-	
-	@Autowired
-	private IInstitutionDao iInstitutionDao;
 
-	@RequestMapping(value="/institution/{id}",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@Autowired
+	private InstitutionRepository institutionRepository;
+
+	@Autowired
+	private CourseRepository courseRepository;
+
+	@RequestMapping(value="/institution",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<Institution> getInstitutions() throws Exception {
+		return institutionRepository.findAll();
+	}
+
+
+	@RequestMapping(value="/courses",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<Course> getCourses() throws Exception {
+		return courseRepository.findAll();
+	}
+
+
+
+/*	@RequestMapping(value="/institution/{id}",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Institution>> getInstitutionsById(@PathVariable("id") Long id) {
     	System.out.println("Fetching institution with id " + id);
     	List<Institution> list = new ArrayList<Institution>();
@@ -160,7 +174,7 @@ public class InstitutionController {
 		iInstitutionDao.addInstitution(institutions);
 
 		return ResponseEntity.noContent().build();
-	}
+	}*/
 	
 	
 }

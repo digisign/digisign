@@ -74,10 +74,6 @@ public class Subject_Marks implements Serializable {
 	public void setGrade(Grade grade) {
 		this.grade = grade;
 	}
-	@Override
-	public String toString() {
-		return "Subject_Marks [learner=" + learner + ", subject=" + subject.getSubjectId() + ", course=" + course.getCourse_Id() + ", Year=" + Year
-				+ ", grade=" + grade.getGrade_Id() + ", Marks=" + Marks + "]";
-	}
+
 
 }

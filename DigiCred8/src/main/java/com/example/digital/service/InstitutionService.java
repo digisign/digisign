@@ -24,6 +24,7 @@ import javax.imageio.ImageIO;
 @Service
 public class InstitutionService implements IInstitutionService {
 
+/*
 	 @Autowired
 	private InstitutionDao institutionDAO;
 	 
@@ -197,13 +198,15 @@ public class InstitutionService implements IInstitutionService {
 	@Override
 	public synchronized boolean addCredential(Credential credential){
 		
-	/*
+	*/
+/*
 		if (iCredentialDAO.CredentialExists(credential.getCredential_Id(),credential.getCredentialName(),credential.getCredentialYear(), credential.getCourse().getCourse_Id(),credential.getInstitution().getInstitution_Id()))
 				 {
     	   return false;
        } else {
     	  
-    	   iCredentialDAO.addCredential(credential);*/
+    	   iCredentialDAO.addCredential(credential);*//*
+
 
 
 
@@ -213,6 +216,7 @@ public class InstitutionService implements IInstitutionService {
     	   return true;
       // }
 	}
+*/
 
 
 

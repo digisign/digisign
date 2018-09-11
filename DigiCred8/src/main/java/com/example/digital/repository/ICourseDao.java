@@ -8,7 +8,7 @@ import com.example.digital.entity.Institution;
 
 
 public interface ICourseDao {
-
+/*
 	List<Course> getAllCourses();
 	Course getCourseByid(long course_Id);
     void addCourse(Course course);
@@ -16,6 +16,6 @@ public interface ICourseDao {
     //void deleteCourse(Course course);
 	
 	boolean CourseExists(long course_Id, String course_Name, String short_Name, String description, long institution_Id,
-			String course_Period);
+			String course_Period);*/
 	
 }

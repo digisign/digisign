@@ -1,13 +1,12 @@
 package com.example.digital.repository;
 
-import javax.transaction.Transactional;
-
+import com.example.digital.entity.LearnerCredentialResource;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.digital.entity.Learner_Credential_Resourse;
+import javax.transaction.Transactional;
 
 @Transactional
-public interface FileRepository extends JpaRepository<Learner_Credential_Resourse, Long>{	
+public interface FileRepository extends JpaRepository<LearnerCredentialResource, Long>{
 
 	//public Learner_Credential_Resourse findByfileName(String filename);
 }
