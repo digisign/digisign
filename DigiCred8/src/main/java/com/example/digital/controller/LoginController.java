@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"*"},allowedHeaders={"Content-Type"},allowCredentials="false",maxAge=4800)
 @RequestMapping("/")
 public class LoginController {
 

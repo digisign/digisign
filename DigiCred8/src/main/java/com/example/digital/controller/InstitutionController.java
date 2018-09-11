@@ -23,7 +23,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.example.digital.repository.IInstitutionDao;
 import com.example.digital.service.IInstitutionService;
 @RestController
-@CrossOrigin(origins = {"*"},allowedHeaders={"Content-Type"},allowCredentials="false",maxAge=4800)
 public class InstitutionController {
 
 	@Autowired

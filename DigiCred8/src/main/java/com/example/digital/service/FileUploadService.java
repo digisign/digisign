@@ -12,4 +12,5 @@ public interface FileUploadService {
      String uploadFile(File file) throws Exception;
      String getThumbNail(File sourceFile) throws IOException;
      Map<String,List<String>> uploadFiles(MultipartFile[] sourceFile) throws Exception;
+     byte[] getDocument(String downloadLink,boolean isThumbNail) throws Exception;
 }

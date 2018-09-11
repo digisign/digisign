@@ -42,7 +42,6 @@ import com.example.digital.validator.UserValidator;
 import javax.xml.ws.soap.Addressing;
 
 @RestController
-@CrossOrigin(origins = {"*"},maxAge = 4800, allowCredentials = "false")
 public class UserController {
 
      @Autowired

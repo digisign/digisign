@@ -2,20 +2,22 @@ package com.example.digital.controller;
 
 import com.example.digital.service.DBFileStorageService;
 import com.example.digital.service.FileUploadService;
+import com.example.digital.util.FileUploadUtil;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import javax.ws.rs.QueryParam;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/file")
 public class FileController {
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
@@ -54,5 +56,19 @@ public class FileController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + dbFile.getFileName() + "\"")
                 .body(new ByteArrayResource(dbFile.getResourse().getBytes()));
     }*/
+
+    @GetMapping("/file")
+    public ResponseEntity<byte[]> downloadFile(@QueryParam(value="fileName") String fileName,@QueryParam("isThumbNail") boolean isThumbNail)  throws Exception {
+
+        byte[] bytes=fileUploadService.getDocument(fileName,isThumbNail);
+        final HttpHeaders headers = new HttpHeaders();
+        String fileBaseName= FilenameUtils.getBaseName(fileName);
+        String fileType=FilenameUtils.getExtension(fileName);
+        fileBaseName=fileBaseName.substring(0,fileBaseName.lastIndexOf("_"));
+        headers.set("Content-Type", FileUploadUtil.getContentType(fileType));
+        String header = "attachment; filename=" + fileBaseName + "." + fileType;
+        headers.set("Content-Disposition", header);
+        return new ResponseEntity<byte[]>(bytes, headers, HttpStatus.OK);
+    }
 
 }

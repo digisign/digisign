@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @Configuration
-@EnableWebSecurity
+//@EnableWebSecurity
 public class WebAppConfig extends WebSecurityConfigurerAdapter {
 	
 	/*@Autowired
@@ -31,7 +31,7 @@ public class WebAppConfig extends WebSecurityConfigurerAdapter {
 		 
 	 }*/
 	 
-	 @Bean
+	    @Bean
 		@Override
 		 public AuthenticationManager authenticationManagerBean() throws Exception {
 		      return super.authenticationManagerBean();

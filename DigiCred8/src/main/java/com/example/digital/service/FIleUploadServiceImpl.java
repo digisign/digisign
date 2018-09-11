@@ -3,6 +3,7 @@ package com.example.digital.service;
 import com.example.digital.common.FileType;
 import com.example.digital.util.FileUploadUtil;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +26,9 @@ public class FIleUploadServiceImpl implements FileUploadService {
     @Value("${documenstPath}")
     private String documentsPath;
 
+    @Value("${thumbNailsPath}")
+    private String thumbNailPath ;
+
     public String uploadFile(File file) throws Exception {
         String homeDir = System.getProperty("user.home");
         Path path = Paths.get(homeDir + "/" + documentsPath);
@@ -44,7 +48,8 @@ public class FIleUploadServiceImpl implements FileUploadService {
     public String getThumbNail(File sourceFile) throws IOException {
         String fileType = FilenameUtils.getExtension(sourceFile.getName());
         String homeDir = System.getProperty("user.home");
-        String destinationDir = homeDir + "/digisignThumdNailFiles/";
+
+        String destinationDir = homeDir + thumbNailPath;
         File destinationFile = new File(destinationDir);
         BufferedImage bufferedImage = null;
         String fileName = FilenameUtils.getBaseName(sourceFile.getName());
@@ -93,6 +98,17 @@ public class FIleUploadServiceImpl implements FileUploadService {
         paths.put("filePaths",filePaths);
         paths.put("thumbNailPaths",thumbNailPaths);
         return paths;
+    }
+
+    public byte[] getDocument(String downloadLink,boolean isThumbNail) throws Exception {
+        String homeDir = System.getProperty("user.home");
+        String fileUpload= documentsPath;
+        if(!isThumbNail){
+            fileUpload= documentsPath;
+        }else{
+            fileUpload= thumbNailPath;
+        }
+        return IOUtils.toByteArray(new FileInputStream(new File(homeDir + "/" + fileUpload + "/" + downloadLink)));
     }
 
 }

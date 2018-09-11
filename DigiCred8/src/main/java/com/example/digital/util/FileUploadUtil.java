@@ -32,4 +32,31 @@ public class FileUploadUtil {
     }
 
 
+
+    public static String getContentType(String fileExt) {
+        switch (fileExt.toLowerCase()) {
+            case "csv":
+            case ".csv":
+                return "text/csv";
+            case "xlsx":
+            case ".xlsx":
+                return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            case "pdf":
+            case ".pdf":
+                return "application/pdf";
+            case ".png":
+            case "png":
+                return "image/png";
+            case ".jpg":
+            case "jpg":
+                return "image/jpg";
+            case ".gif":
+            case "gif":
+                return "image/gif";
+            default:
+                return "document/html";
+        }
+    }
+
+
 }
