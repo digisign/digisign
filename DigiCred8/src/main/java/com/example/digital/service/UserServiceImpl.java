@@ -1,19 +1,16 @@
 package com.example.digital.service;
-import java.util.*;
 
 import com.example.digital.config.CredentialEncryptionConfig;
 import com.example.digital.entity.Learner;
 import com.example.digital.entity.Role;
-import com.example.digital.exception.DigiSignException;
-import com.example.digital.repository.LearnerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.example.digital.entity.User;
+import com.example.digital.exception.DigiSignException;
 import com.example.digital.repository.RoleRepository;
 import com.example.digital.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 import static com.example.digital.common.ErrorMessages.USER_ALREADY_EXISTS;
 import static com.example.digital.common.ErrorMessages.WRONG_CREDENTIALS;
@@ -29,9 +26,6 @@ public class UserServiceImpl  implements UserService {
 
     @Autowired
 	private LearnerService learnerService;
-
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public User save(User user) {

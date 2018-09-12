@@ -1,3 +1,4 @@
+/*
 package com.example.digital.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,10 @@ import com.example.digital.service.UserService;
 
 @Component
 public class UserValidator implements Validator {
+*/
 /*    @Autowired
-    private UserService userService;*/
+    private UserService userService;*//*
+
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -21,7 +24,8 @@ public class UserValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-     /*   User user = (User) o;
+     */
+/*   User user = (User) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
         if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
@@ -34,8 +38,10 @@ public class UserValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
         if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
             errors.rejectValue("password", "Size.userForm.password");
-        }*/
+        }*//*
+
 
         
     }
 }
+*/

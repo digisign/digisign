@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-public class DigiSignConfig implements WebMvcConfigurer {
+public class DigiSignConfig extends WebMvcConfigurerAdapter {
 
 
     @Override
