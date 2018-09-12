@@ -31,15 +31,15 @@ public class WebAppConfig extends WebSecurityConfigurerAdapter {
 		 
 	 }*/
 	 
-	    @Bean
+	 /*   @Bean
 		@Override
 		 public AuthenticationManager authenticationManagerBean() throws Exception {
 		      return super.authenticationManagerBean();
-		}  
+		}  */
 		
 	 
 	 
-	 @Override
+/*	 @Override
 	    protected void configure(HttpSecurity http) throws Exception {
 	        http
 	        .requestMatchers().antMatchers("/").and()
@@ -47,14 +47,14 @@ public class WebAppConfig extends WebSecurityConfigurerAdapter {
 	                    .antMatchers("/api/file/**", "/user1/**","/app1/**","/**").permitAll()
 	                    .anyRequest().authenticated();
 	        
-	                  /*  .and()
+	                  *//*  .and()
 	                .formLogin()
 	                    .loginPage("/login")	
 	                    .permitAll()
 	                    .and()
 	                .logout()
-	                    .permitAll();*/
-	    }
+	                    .permitAll();*//*
+	    }*/
 
 	    @Autowired
 	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
