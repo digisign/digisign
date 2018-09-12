@@ -6,18 +6,15 @@ import com.example.digital.exception.DigiSignException;
 import com.example.digital.repository.*;
 import com.example.digital.service.FileUploadService;
 import com.example.digital.service.LearnerCredentialResourceService;
-import com.example.digital.service.LearnerService;
 import com.example.digital.service.UserService;
-import com.example.digital.util.FileUploadUtil;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.tools.JavaCompiler;
-import java.io.File;
-import java.io.IOException;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class LearnerCredentialResourceServiceImpl implements LearnerCredentialResourceService {
@@ -43,47 +40,100 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
     @Autowired
     private GradeRepository gradeRepository;
 
+    @Autowired
+    private InstitutionRepository institutionRepository;
 
-   public  LearnerCredentialResource save(LearnerCredentialResourceRequest learnerCredentialResourceRequest) throws Exception {
 
-       LearnerCredentialResource learnerCredentialResource=new LearnerCredentialResource();
-       LearnerCredential learnerCredential=new LearnerCredential();
-       Credential credential =new Credential();
+    @Transactional
+    public LearnerCredentialResource save(LearnerCredentialResourceRequest learnerCredentialResourceRequest) throws Exception {
 
-       Optional<Learner> learner=learnerRepository.findById(learnerCredentialResourceRequest.getLearnerId());
-        if(!learner.isPresent()){
-            throw new DigiSignException(ErrorMessages.LEARNER_NOT_AVAILABLE.getReasonPhrase(),ErrorMessages.LEARNER_NOT_AVAILABLE.getCode());
-        }else{
+        LearnerCredential learnerCredential = new LearnerCredential();
+
+        Optional<Learner> learner = learnerRepository.findById(learnerCredentialResourceRequest.getLearnerId());
+        if (!learner.isPresent()) {
+            throw new DigiSignException(ErrorMessages.LEARNER_NOT_AVAILABLE.getReasonPhrase(), ErrorMessages.LEARNER_NOT_AVAILABLE.getCode());
+        } else {
             learnerCredential.setLearner(learner.get());
         }
+        Institution institution = getInstitution(learnerCredentialResourceRequest);
+        Course course = getCourse(learnerCredentialResourceRequest, institution);
+        Grade grade=getGrade(learnerCredentialResourceRequest);
+        Set<Grade> grades=new HashSet<>();
+        grades.add(grade);
+        course.setGrades(grades);
 
-       Optional<Course> course=courseRepository.findById(learnerCredentialResourceRequest.getCourseId());
-       if(!course.isPresent()){
-           throw new DigiSignException(ErrorMessages.COURSE_NOT_AVAILABLE.getReasonPhrase(),ErrorMessages.COURSE_NOT_AVAILABLE.getCode());
-       }else{
-           learnerCredential.setCourse(course.get());
-           credential.setCourse(course.get());
-           //credential.setCredentialYear(learnerCredentialResourceRequest.getIssuedYear());
-           credential.setCredentialName(learnerCredentialResourceRequest.getDegree());
-          //credential=credentialRepository.save(credential);
-           learnerCredential.setCredential(credential);
-           learnerCredential.setMarks(learnerCredentialResourceRequest.getMarks());
-       }
+        Credential credential = new Credential();
+        credential.setCourse(course);
+        credential.setCredentialName(learnerCredentialResourceRequest.getDegree());
 
-       Optional<Grade> grade=gradeRepository.findById(learnerCredentialResourceRequest.getGradeId());
-       if(!grade.isPresent()){
-           throw new DigiSignException(ErrorMessages.GRADE_NOT_AVAILABLE.getReasonPhrase(),ErrorMessages.GRADE_NOT_AVAILABLE.getCode());
-       }else{
-           learnerCredential.setGrade(grade.get());
-       }
 
-       learnerCredentialResource.setLearnerCredential(learnerCredential);
-       MultipartFile file= learnerCredentialResourceRequest.getFile();
-       File uploadedFile=FileUploadUtil.frameFileData(file);
-       learnerCredentialResource.setFilePath(fileUploadService.uploadFile(uploadedFile));
-       learnerCredentialResource.setFileType(FilenameUtils.getExtension(file.getName()));
-       learnerCredentialResource.setThumbNailPath(fileUploadService.getThumbNail(uploadedFile));
-       FileUploadUtil.clearTempFiles(new File[]{uploadedFile});
-       return learnerCredentialResourceRepository.save(learnerCredentialResource);
-   }
+        learnerCredential.setCourse(course);
+        learnerCredential.setCredential(credential);
+        learnerCredential.setMarks(learnerCredentialResourceRequest.getMarks());
+
+        LearnerCredentialResource learnerCredentialResource = new LearnerCredentialResource();
+        learnerCredentialResource.setLearnerCredential(learnerCredential);
+        learnerCredentialResource.setFilePath(learnerCredentialResourceRequest.getFilePath());
+        learnerCredentialResource.setFileType(FilenameUtils.getExtension(learnerCredentialResourceRequest.getFilePath()));
+        learnerCredentialResource.setThumbNailPath(learnerCredentialResourceRequest.getThumbNailPath());
+
+        return learnerCredentialResourceRepository.save(learnerCredentialResource);
+    }
+
+
+    private Institution getInstitution(LearnerCredentialResourceRequest learnerCredentialResourceRequest) {
+        Long instituteId = learnerCredentialResourceRequest.getInstitutionId();
+        if (instituteId != null) {
+            Optional<Institution> institution = institutionRepository.findById(instituteId);
+            if (!institution.isPresent()) {
+                throw new DigiSignException(ErrorMessages.INSTITUION_NOT_AVAILABLE.getReasonPhrase(), ErrorMessages.INSTITUION_NOT_AVAILABLE.getCode());
+            } else {
+                return institution.get();
+            }
+        } else {
+            Institution institution = new Institution();
+            institution.setInstitutionName(learnerCredentialResourceRequest.getInstitutionName());
+            return institutionRepository.save(institution);
+        }
+
+    }
+
+
+    private Course getCourse(LearnerCredentialResourceRequest learnerCredentialResourceRequest, Institution institution) {
+
+        Long courseId = learnerCredentialResourceRequest.getCourseId();
+        if (courseId != null) {
+            Optional<Course> course = courseRepository.findById(courseId);
+            if (!course.isPresent()) {
+                throw new DigiSignException(ErrorMessages.COURSE_NOT_AVAILABLE.getReasonPhrase(), ErrorMessages.COURSE_NOT_AVAILABLE.getCode());
+            } else {
+                return course.get();
+            }
+        } else {
+            Course course = new Course();
+            course.setCourseName(learnerCredentialResourceRequest.getCourseName());
+            course.setInstitution(institution);
+            return courseRepository.save(course);
+        }
+    }
+
+
+    private Grade getGrade(LearnerCredentialResourceRequest learnerCredentialResourceRequest) {
+
+        Long gradeId = learnerCredentialResourceRequest.getGradeId();
+        if (gradeId != null) {
+            Optional<Grade> grade = gradeRepository.findById(learnerCredentialResourceRequest.getGradeId());
+            if (!grade.isPresent()) {
+                throw new DigiSignException(ErrorMessages.GRADE_NOT_AVAILABLE.getReasonPhrase(), ErrorMessages.GRADE_NOT_AVAILABLE.getCode());
+            } else {
+                return grade.get();
+            }
+        } else {
+            Grade grade = new Grade();
+            grade.setGradeName(learnerCredentialResourceRequest.getGradeName());
+            return gradeRepository.save(grade);
+        }
+
+    }
+
 }

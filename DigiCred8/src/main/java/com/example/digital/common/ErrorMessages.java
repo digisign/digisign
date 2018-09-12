@@ -6,7 +6,8 @@ public enum ErrorMessages {
     WRONG_CREDENTIALS("DIG-002", "wrong credentials"),
     LEARNER_NOT_AVAILABLE("DIG-003", "learner with id doesn't exist"),
     COURSE_NOT_AVAILABLE("DIG-004", "course with id doesn't exist"),
-    GRADE_NOT_AVAILABLE("DIG-005", "grade with id doesn't exist");
+    GRADE_NOT_AVAILABLE("DIG-005", "grade with id doesn't exist"),
+    INSTITUION_NOT_AVAILABLE("DIG-005", "institution with id doesn't exist");
 
 
     private final String code;

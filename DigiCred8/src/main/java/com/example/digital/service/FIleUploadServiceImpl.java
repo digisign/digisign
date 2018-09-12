@@ -1,6 +1,7 @@
 package com.example.digital.service;
 
 import com.example.digital.common.FileType;
+import com.example.digital.entity.FilePath;
 import com.example.digital.util.FileUploadUtil;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -83,21 +84,20 @@ public class FIleUploadServiceImpl implements FileUploadService {
         return image;
     }
 
-    public Map<String,List<String>> uploadFiles(MultipartFile[] multipartFiles) throws Exception {
+    public List<FilePath> uploadFiles(MultipartFile[] multipartFiles) throws Exception {
 
         List<MultipartFile> multipartFileList = Arrays.asList(multipartFiles);
-        List<String> filePaths = new ArrayList<>();
-        List<String> thumbNailPaths=new ArrayList<>();
+        List<FilePath> filePaths = new ArrayList<>();
         for (MultipartFile multipartFile : multipartFileList) {
             File recipientsFile = FileUploadUtil.frameFileData(multipartFile);
-            filePaths.add(uploadFile(recipientsFile));
-            thumbNailPaths.add(getThumbNail(recipientsFile));
+            FilePath  filePath=new FilePath();
+            filePath.setFilePath(uploadFile(recipientsFile));
+            filePath.setThumbNailPath(getThumbNail(recipientsFile));
             FileUploadUtil.clearTempFiles(new File[]{recipientsFile});
+            filePaths.add(filePath);
         }
-        Map<String,List<String>> paths=new HashMap<>();
-        paths.put("filePaths",filePaths);
-        paths.put("thumbNailPaths",thumbNailPaths);
-        return paths;
+
+        return filePaths;
     }
 
     public byte[] getDocument(String downloadLink,boolean isThumbNail) throws Exception {

@@ -5,8 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Date;
 
 public class LearnerCredentialResourceRequest {
-  private MultipartFile file;
-  private Long userId;
+
   private Long learnerId;
   private Long courseId;
   private Long institutionId;
@@ -16,23 +15,12 @@ public class LearnerCredentialResourceRequest {
   private String courseEndDate;
   private String issuedYear;
   private String degree;
+  private String filePath;
+  private String thumbNailPath;
+  private String institutionName;
+  private String courseName;
+  private String gradeName;
 
-
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    public void setFile(MultipartFile file) {
-        this.file = file;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public Long getCourseId() {
         return courseId;
@@ -104,5 +92,45 @@ public class LearnerCredentialResourceRequest {
 
     public void setLearnerId(Long learnerId) {
         this.learnerId = learnerId;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getThumbNailPath() {
+        return thumbNailPath;
+    }
+
+    public void setThumbNailPath(String thumbNailPath) {
+        this.thumbNailPath = thumbNailPath;
+    }
+
+    public String getInstitutionName() {
+        return institutionName;
+    }
+
+    public void setInstitutionName(String institutionName) {
+        this.institutionName = institutionName;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public String getGradeName() {
+        return gradeName;
+    }
+
+    public void setGradeName(String gradeName) {
+        this.gradeName = gradeName;
     }
 }

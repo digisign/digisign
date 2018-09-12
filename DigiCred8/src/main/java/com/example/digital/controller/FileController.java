@@ -1,5 +1,6 @@
 package com.example.digital.controller;
 
+import com.example.digital.entity.FilePath;
 import com.example.digital.service.DBFileStorageService;
 import com.example.digital.service.FileUploadService;
 import com.example.digital.util.FileUploadUtil;
@@ -42,7 +43,7 @@ public class FileController {
 */
 
     @PostMapping("/files")
-    public Map<String,List<String>> uploadFiles(@RequestParam("files") MultipartFile[] files)  throws Exception{
+    public List<FilePath> uploadFiles(@RequestParam("files") MultipartFile[] files)  throws Exception{
        return  fileUploadService.uploadFiles(files);
     }
 /*
