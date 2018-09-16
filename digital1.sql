@@ -228,7 +228,7 @@ alter table `subject` auto_increment= 1000001;
 drop table if exists grade;
 
 create table if not exists grade(
-grade_id bigint(10)  primary key,
+grade_id bigint(10)  primary key auto_increment,
 grade_name varchar(20),
 description varchar(20));
 
