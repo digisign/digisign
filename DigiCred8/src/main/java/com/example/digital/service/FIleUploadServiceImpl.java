@@ -30,21 +30,23 @@ public class FIleUploadServiceImpl implements FileUploadService {
     @Value("${thumbNailsPath}")
     private String thumbNailPath ;
 
-    public String uploadFile(File file) throws Exception {
+    public File uploadFile(MultipartFile multipartFile) throws Exception {
         String homeDir = System.getProperty("user.home");
         Path path = Paths.get(homeDir + "/" + documentsPath);
         if (!Files.exists(path)) {
             File directory = new File(String.valueOf(path));
             directory.mkdir();
         }
-
-        String fileName= FilenameUtils.getBaseName(file.getName());
-        String fileType=FilenameUtils.getExtension(file.getName());
-        Path p = Files.copy(file.toPath(),
-                (new File(path + "/" + fileName+ "_" + new Date().getTime()+"."+fileType)).toPath(),
-                StandardCopyOption.REPLACE_EXISTING);
-        return p.getFileName().toString();
+        String fileName= FilenameUtils.getBaseName(multipartFile.getOriginalFilename());
+        String fileType=FilenameUtils.getExtension(multipartFile.getOriginalFilename());
+        File file = new File(path + "/" + fileName+ "_" + new Date().getTime()+"."+fileType);
+        file.createNewFile();
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(multipartFile.getBytes());
+        fos.close();
+        return file;
     }
+
 
     public String getThumbNail(File sourceFile) throws IOException {
         String fileType = FilenameUtils.getExtension(sourceFile.getName());
@@ -54,6 +56,8 @@ public class FIleUploadServiceImpl implements FileUploadService {
         File destinationFile = new File(destinationDir);
         BufferedImage bufferedImage = null;
         String fileName = FilenameUtils.getBaseName(sourceFile.getName());
+        fileName=fileName.substring(0,fileName.lastIndexOf("_"));
+
         if (!destinationFile.exists()) {
             destinationFile.mkdir();
         }
@@ -89,11 +93,10 @@ public class FIleUploadServiceImpl implements FileUploadService {
         List<MultipartFile> multipartFileList = Arrays.asList(multipartFiles);
         List<FilePath> filePaths = new ArrayList<>();
         for (MultipartFile multipartFile : multipartFileList) {
-            File recipientsFile = FileUploadUtil.frameFileData(multipartFile);
             FilePath  filePath=new FilePath();
-            filePath.setFilePath(uploadFile(recipientsFile));
-            filePath.setThumbNailPath(getThumbNail(recipientsFile));
-            FileUploadUtil.clearTempFiles(new File[]{recipientsFile});
+            File file=uploadFile(multipartFile);
+            filePath.setFilePath(file.getName());
+            filePath.setThumbNailPath(getThumbNail(file));
             filePaths.add(filePath);
         }
 

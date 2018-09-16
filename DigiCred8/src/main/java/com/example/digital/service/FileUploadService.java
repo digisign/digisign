@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface FileUploadService {
-     String uploadFile(File file) throws Exception;
+     File uploadFile(MultipartFile file) throws Exception;
      String getThumbNail(File sourceFile) throws IOException;
      List<FilePath>  uploadFiles(MultipartFile[] sourceFile) throws Exception;
      byte[] getDocument(String downloadLink,boolean isThumbNail) throws Exception;
