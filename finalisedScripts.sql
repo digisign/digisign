@@ -147,6 +147,14 @@ alter table `subject` add foreign key (course_id) references course(course_id);
 alter table `subject` auto_increment= 1000001;   
 
 
+CREATE TABLE `status` (
+  `status_id` bigint(10) NOT NULL,
+  `status_name` varchar(20) DEFAULT NULL,
+  `status_desc` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`status_id`)
+)
+
+
 
 CREATE TABLE `credential` (
   `credential_id` bigint(11) NOT NULL AUTO_INCREMENT,
@@ -200,18 +208,20 @@ CREATE TABLE `learner_credential` (
 
 
 
-CREATE TABLE `learner_credential_resourse` (
+ CREATE TABLE `learner_credential_resourse` (
   `learner_credential_id` bigint(10) DEFAULT NULL,
   `resource_id` bigint(10) NOT NULL AUTO_INCREMENT,
-  `file_path` varchar(20) DEFAULT NULL,
+  `file_path` varchar(20) NOT NULL,
   `file_type` varchar(45) DEFAULT NULL,
-  `thumbnail_path` varchar(45) DEFAULT NULL,
-  `status` varchar(45) NOT NULL DEFAULT 'not verified',
+  `thumbnail_path` varchar(45) NOT NULL,
+  `status_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`resource_id`),
   UNIQUE KEY `resourse` (`file_path`),
   KEY `learner_credential_id` (`learner_credential_id`),
-  CONSTRAINT `learner_credential_resourse_ibfk_1` FOREIGN KEY (`learner_credential_id`) REFERENCES `learner_credential` (`learner_credential_id`)
-)  ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+  KEY `learner_credential_resourse_ibfk_2_idx` (`status_id`),
+  CONSTRAINT `learner_credential_resourse_ibfk_1` FOREIGN KEY (`learner_credential_id`) REFERENCES `learner_credential` (`learner_credential_id`),
+  CONSTRAINT `learner_credential_resourse_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`)
+) ;  ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
 
 
