@@ -19,6 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -44,7 +45,8 @@ public class Credential implements Serializable {
 	
 	@Column(name="credential_year")
 	private Date credentialYear;
-	
+
+	@JsonIgnore
 	@JoinColumn(name="course_id")
 	@ManyToOne( fetch = FetchType.EAGER)
 	private Course course;

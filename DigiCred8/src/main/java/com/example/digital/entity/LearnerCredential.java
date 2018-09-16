@@ -39,7 +39,8 @@ public class LearnerCredential implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "learner_credential_id", nullable = false, updatable = false)
 	private Long learnerCredentialId;
-	
+
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="learner_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
