@@ -206,12 +206,12 @@ CREATE TABLE `learner_credential_resourse` (
   `file_path` varchar(20) DEFAULT NULL,
   `file_type` varchar(45) DEFAULT NULL,
   `thumbnail_path` varchar(45) DEFAULT NULL,
-   `status` varchar(45) DEFAULT 'not verified',
+  `status` varchar(45) NOT NULL DEFAULT 'not verified',
   PRIMARY KEY (`resource_id`),
   UNIQUE KEY `resourse` (`file_path`),
   KEY `learner_credential_id` (`learner_credential_id`),
   CONSTRAINT `learner_credential_resourse_ibfk_1` FOREIGN KEY (`learner_credential_id`) REFERENCES `learner_credential` (`learner_credential_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+)  ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
 
 
