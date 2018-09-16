@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.QueryParam;
+import java.util.List;
+
 @RestController
 
 public class LearnerCredentialController {
@@ -17,6 +20,12 @@ public class LearnerCredentialController {
     @RequestMapping(value="/credentialResource",method = RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
     public LearnerCredentialResource save(@RequestBody LearnerCredentialResourceRequest learnerCredentialResourceRequest) throws Exception {
         return learnerCredentialResourceService.save(learnerCredentialResourceRequest);
+    }
+
+
+    @RequestMapping(value="users/{userId}/credentialResource",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<LearnerCredentialResource> save(@PathVariable("userId") Long userId) throws Exception {
+        return learnerCredentialResourceService.getLeranerCredentialResourceByUserId(userId);
     }
 
 }

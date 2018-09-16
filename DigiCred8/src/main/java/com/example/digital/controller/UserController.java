@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.QueryParam;
 import java.security.Principal;
 import java.util.List;
 
@@ -146,4 +147,10 @@ public class UserController {
     }
     
     */
+
+	@RequestMapping(value="/user",method = RequestMethod.GET)
+	public User getUser(@QueryParam(value="email") String email) {
+		return userService.getUserByEmail(email);
+	}
+
 }

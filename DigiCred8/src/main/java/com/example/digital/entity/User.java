@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Transient;
 
@@ -47,6 +48,7 @@ public class User implements Serializable  {
 	@javax.persistence.Transient
     private Long roleId;
 
+	@JsonIgnore
 	@Column(name="salt")
 	private String salt;
 

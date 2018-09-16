@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 import static com.example.digital.common.ErrorMessages.USER_ALREADY_EXISTS;
+import static com.example.digital.common.ErrorMessages.USER_NOT_AVAILABLE;
 import static com.example.digital.common.ErrorMessages.WRONG_CREDENTIALS;
 
 @Service
@@ -29,7 +30,7 @@ public class UserServiceImpl  implements UserService {
 
     @Override
     public User save(User user) {
-		Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
+		Optional<User> existingUser = userRepository.findByEmailIgnoreCase(user.getEmail());
 		if(existingUser.isPresent()){
 			throw new DigiSignException(USER_ALREADY_EXISTS.getReasonPhrase(),USER_ALREADY_EXISTS.getCode());
 		}
@@ -60,7 +61,7 @@ public class UserServiceImpl  implements UserService {
 
 	@Override
 	public boolean  validateUser(User user) {
-		Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
+		Optional<User> existingUser = userRepository.findByEmailIgnoreCase(user.getEmail());
 		if(!existingUser.isPresent()){
 			throw new DigiSignException(WRONG_CREDENTIALS.getReasonPhrase(),WRONG_CREDENTIALS.getCode());
 		}
@@ -75,6 +76,27 @@ public class UserServiceImpl  implements UserService {
 				throw new DigiSignException(WRONG_CREDENTIALS.getReasonPhrase(),WRONG_CREDENTIALS.getCode());
 			}
 		}
+	}
+
+
+
+	@Override
+	public User  getUserByEmail(String email) {
+		Optional<User> existingUser = userRepository.findByEmailIgnoreCase(email);
+		if(!existingUser.isPresent()){
+			throw new DigiSignException(USER_NOT_AVAILABLE.getReasonPhrase(),USER_NOT_AVAILABLE.getCode());
+		}
+		return existingUser.get();
+	}
+
+
+	@Override
+	public User  getUserById(Long userId) {
+		Optional<User> existingUser = userRepository.findById(userId);
+		if(!existingUser.isPresent()){
+			throw new DigiSignException(USER_NOT_AVAILABLE.getReasonPhrase(),USER_NOT_AVAILABLE.getCode());
+		}
+		return existingUser.get();
 	}
 
 

@@ -40,6 +40,7 @@ public class Learner implements Serializable {
 	@Column(name = "learner_id", nullable = false, updatable = false)
 	private Long learnerId;
 
+	@JsonIgnore
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="user_id")
 	private User user;

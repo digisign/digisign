@@ -1,10 +1,10 @@
 package com.example.digital.controller;
 
 
-import com.example.digital.entity.Learner;
-import com.example.digital.entity.Role;
-import com.example.digital.entity.User;
+import com.example.digital.entity.*;
+import com.example.digital.repository.GradeRepository;
 import com.example.digital.repository.RoleRepository;
+import com.example.digital.repository.StatusRepository;
 import com.example.digital.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -29,6 +29,14 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+
+    @Autowired
+    private StatusRepository statusRepository;
+
+    @Autowired
+    private GradeRepository gradeRepository;
+
+
     @RequestMapping(value="/roles",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
     public List<Role> getRoles() {
         return roleRepository.findAll();
@@ -39,6 +47,18 @@ public class LoginController {
     public ResponseEntity login(@RequestBody User user, HttpServletRequest request) {
         userService.validateUser(user);
         return new ResponseEntity<String>("Logged in successfully",HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value="/statuses",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<Status> getStatuses() {
+        return statusRepository.findAll();
+    }
+
+
+    @RequestMapping(value="/grades",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<Grade> getGrades() {
+        return gradeRepository.findAll();
     }
 
 }

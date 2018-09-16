@@ -33,6 +33,9 @@ public class LearnerCredentialResource implements Serializable {
 	private String fileType;
 	@Column(name="thumbnail_path")
 	private String thumbNailPath;
+	@JoinColumn(name="status_id")
+	@OneToOne( fetch = FetchType.LAZY)
+	private Status status;
 
 	public String getFileType() {
 		return fileType;
@@ -72,5 +75,13 @@ public class LearnerCredentialResource implements Serializable {
 
 	public void setThumbNailPath(String thumbNailPath) {
 		this.thumbNailPath = thumbNailPath;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 }

@@ -7,7 +7,9 @@ public enum ErrorMessages {
     LEARNER_NOT_AVAILABLE("DIG-003", "learner with id doesn't exist"),
     COURSE_NOT_AVAILABLE("DIG-004", "course with id doesn't exist"),
     GRADE_NOT_AVAILABLE("DIG-005", "grade with id doesn't exist"),
-    INSTITUION_NOT_AVAILABLE("DIG-005", "institution with id doesn't exist");
+    INSTITUION_NOT_AVAILABLE("DIG-005", "institution with id doesn't exist"),
+    USER_NOT_AVAILABLE("DIG-006", "user with email doesn't exist"),
+    STATUS_NOT_AVAILABLE("DIG-007", "status with id doesn't exist");
 
 
     private final String code;

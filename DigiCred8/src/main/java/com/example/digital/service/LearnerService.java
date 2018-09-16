@@ -1,6 +1,7 @@
 package com.example.digital.service;
 
 import com.example.digital.entity.Learner;
+import com.example.digital.entity.User;
 
 
 public interface LearnerService {
@@ -37,5 +38,6 @@ public interface LearnerService {
 	*/
 
 	Learner save(Learner learner);
+	public Learner getLearnerByUser(User user);
 	
 }

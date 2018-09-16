@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Date;
 
 public class LearnerCredentialResourceRequest {
-
+  private Long userId;
   private Long learnerId;
   private Long courseId;
   private Long institutionId;
@@ -13,13 +13,15 @@ public class LearnerCredentialResourceRequest {
   private Float marks;
   private String courseStartDate;
   private String courseEndDate;
-  private String issuedYear;
+  private Long issuedYear;
   private String degree;
   private String filePath;
   private String thumbNailPath;
   private String institutionName;
   private String courseName;
   private String gradeName;
+  private Long resourceId;
+  private Long statusId;
 
 
     public Long getCourseId() {
@@ -78,11 +80,11 @@ public class LearnerCredentialResourceRequest {
         this.courseEndDate = courseEndDate;
     }
 
-    public String getIssuedYear() {
+    public Long getIssuedYear() {
         return issuedYear;
     }
 
-    public void setIssuedYear(String issuedYear) {
+    public void setIssuedYear(Long issuedYear) {
         this.issuedYear = issuedYear;
     }
 
@@ -132,5 +134,29 @@ public class LearnerCredentialResourceRequest {
 
     public void setGradeName(String gradeName) {
         this.gradeName = gradeName;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(Long resourceId) {
+        this.resourceId = resourceId;
+    }
+
+    public Long getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(Long statusId) {
+        this.statusId = statusId;
     }
 }
