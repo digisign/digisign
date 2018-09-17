@@ -63,7 +63,7 @@ public class FileController {
                 .body(new ByteArrayResource(dbFile.getResourse().getBytes()));
     }*/
 
-    @RequestMapping(value="/files" ,method=RequestMethod.GET,produces = MediaType.ALL_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/files" ,method=RequestMethod.GET)
     public ResponseEntity<byte[]> downloadFile(@QueryParam(value="fileName") String fileName,@QueryParam("isThumbNail") boolean isThumbNail)  throws Exception {
 
         if(fileName==null){
