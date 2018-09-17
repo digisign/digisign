@@ -10,7 +10,8 @@ public enum ErrorMessages {
     INSTITUION_NOT_AVAILABLE("DIG-005", "institution with id doesn't exist"),
     USER_NOT_AVAILABLE("DIG-006", "user with email doesn't exist"),
     STATUS_NOT_AVAILABLE("DIG-007", "status with id doesn't exist"),
-    FILE_NAME_NOT_AVAILABLE("DIG-007", "file with name does not exist");
+    FILE_NAME_NOT_AVAILABLE("DIG-007", "file with name does not exist"),
+    RESOURCE_NOT_AVAILABLE("DIG-008", "resource with id doesnot exist");
 
 
     private final String code;
