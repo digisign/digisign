@@ -48,7 +48,7 @@ public class FileController {
 */
 
     @RequestMapping(value="/files" ,method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
-    public List<FilePath> uploadFiles(@RequestParam("files") MultipartFile[] files)  throws Exception{
+    public List<FilePath> uploadFiles(@RequestParam("file") MultipartFile[] files)  throws Exception{
        return  fileUploadService.uploadFiles(files);
     }
 /*
