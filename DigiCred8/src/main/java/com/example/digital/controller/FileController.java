@@ -1,6 +1,9 @@
 package com.example.digital.controller;
 
+import com.example.digital.common.ErrorMessages;
 import com.example.digital.entity.FilePath;
+import com.example.digital.exception.DigiSignException;
+import com.example.digital.exception.FileStorageException;
 import com.example.digital.service.DBFileStorageService;
 import com.example.digital.service.FileUploadService;
 import com.example.digital.util.FileUploadUtil;
@@ -19,6 +22,7 @@ import javax.ws.rs.QueryParam;
 import java.util.List;
 import java.util.Map;
 
+@RequestMapping("/")
 @RestController
 public class FileController {
 
@@ -61,6 +65,10 @@ public class FileController {
 
     @RequestMapping(value="/files" ,method=RequestMethod.POST,produces = MediaType.ALL_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<byte[]> downloadFile(@QueryParam(value="fileName") String fileName,@QueryParam("isThumbNail") boolean isThumbNail)  throws Exception {
+
+        if(fileName==null){
+           throw new DigiSignException(ErrorMessages.FILE_NAME_NOT_AVAILABLE.getReasonPhrase(),ErrorMessages.FILE_NAME_NOT_AVAILABLE.getCode());
+        }
 
         byte[] bytes=fileUploadService.getDocument(fileName,isThumbNail);
         final HttpHeaders headers = new HttpHeaders();

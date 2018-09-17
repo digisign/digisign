@@ -34,7 +34,7 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd").format(new Date());
         ErrorDetails response = new ErrorDetails(id,timeStamp,request.getRequestURL().toString(),request.getMethod(),ex.getMessage());
 
-        return new ResponseEntity<ErrorDetails>(response,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<ErrorDetails>(response,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(DigiSignException.class)
@@ -63,7 +63,7 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd").format(new Date());
         ErrorDetails response = new ErrorDetails(id,timeStamp,request.getRequestURL().toString(),request.getMethod(),ex.getMessage());
         LOGGER.error("Exception message{}",ex);
-        return new ResponseEntity<ErrorDetails>(response,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<ErrorDetails>(response,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

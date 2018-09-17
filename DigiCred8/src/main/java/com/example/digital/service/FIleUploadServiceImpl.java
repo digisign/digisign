@@ -93,6 +93,9 @@ public class FIleUploadServiceImpl implements FileUploadService {
         List<MultipartFile> multipartFileList = Arrays.asList(multipartFiles);
         List<FilePath> filePaths = new ArrayList<>();
         for (MultipartFile multipartFile : multipartFileList) {
+
+            System.out.println("printing all values of files");
+            System.out.println(multipartFile.getOriginalFilename());
             FilePath  filePath=new FilePath();
             File file=uploadFile(multipartFile);
             filePath.setFilePath(file.getName());
