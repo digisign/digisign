@@ -2,6 +2,7 @@ package com.example.digital.entity;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.Column;
 import java.util.Date;
 
 public class LearnerCredentialResourceRequest {
@@ -22,6 +23,9 @@ public class LearnerCredentialResourceRequest {
   private String gradeName;
   private Long resourceId;
   private Long statusId;
+  private Integer startYear;
+  private Integer endYear;
+
 
 
     public Long getCourseId() {
@@ -158,5 +162,21 @@ public class LearnerCredentialResourceRequest {
 
     public void setStatusId(Long statusId) {
         this.statusId = statusId;
+    }
+
+    public Integer getStartYear() {
+        return startYear;
+    }
+
+    public void setStartYear(Integer startYear) {
+        this.startYear = startYear;
+    }
+
+    public Integer getEndYear() {
+        return endYear;
+    }
+
+    public void setEndYear(Integer endYear) {
+        this.endYear = endYear;
     }
 }
