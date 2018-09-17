@@ -74,7 +74,7 @@ public class FIleUploadServiceImpl implements FileUploadService {
 
     private BufferedImage getImage(File sourceFile) throws IOException {
         BufferedImage image = ImageIO.read(new FileInputStream(sourceFile));
-        image.getScaledInstance(200, 300, BufferedImage.SCALE_SMOOTH);
+        //image.getScaledInstance(400, 600, BufferedImage.SCALE_SMOOTH);
         return image;
     }
 
