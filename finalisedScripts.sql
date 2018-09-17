@@ -184,24 +184,25 @@ CREATE TABLE `credential` (
 
 
 CREATE TABLE `learner_credential` (
-  `learner_credential_id` bigint(10) NOT NULL AUTO_INCREMENT,
-  `learner_id` bigint(10) DEFAULT NULL,
-  `credential_id` bigint(10) DEFAULT NULL,
-  `course_id` bigint(10) DEFAULT NULL,
-  `grade_id` bigint(10) DEFAULT NULL,
-  `marks` float DEFAULT NULL,
-  `issued_date` date DEFAULT NULL,
-  PRIMARY KEY (`learner_credential_id`),
-  KEY `learner_id` (`learner_id`),
-  KEY `credential_id` (`credential_id`),
-  KEY `course_id` (`course_id`),
-  KEY `grade_id` (`grade_id`),
-  CONSTRAINT `learner_credential_ibfk_1` FOREIGN KEY (`learner_id`) REFERENCES `learner` (`learner_id`),
-  CONSTRAINT `learner_credential_ibfk_2` FOREIGN KEY (`credential_id`) REFERENCES `credential` (`credential_id`),
-  CONSTRAINT `learner_credential_ibfk_3` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`),
-  CONSTRAINT `learner_credential_ibfk_4` FOREIGN KEY (`grade_id`) REFERENCES `grade` (`grade_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
-
+  `Learner_Credential_Id` bigint(10) NOT NULL AUTO_INCREMENT,
+  `Learner_Id` bigint(10) DEFAULT NULL,
+  `Credential_Id` bigint(10) DEFAULT NULL,
+  `Course_Id` bigint(10) DEFAULT NULL,
+  `Grade_Id` bigint(10) DEFAULT NULL,
+  `Marks` varchar(4) DEFAULT NULL,
+  `Issued_Date` date DEFAULT NULL,
+  `start_date` int(11) DEFAULT NULL,
+  `end_date` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Learner_Credential_Id`),
+  KEY `Learner_Id` (`Learner_Id`),
+  KEY `Credential_Id` (`Credential_Id`),
+  KEY `Grade_Id` (`Grade_Id`),
+  KEY `learner_credential_ibfk_3_idx` (`Course_Id`),
+  CONSTRAINT `learner_credential_ibfk_1` FOREIGN KEY (`Learner_Id`) REFERENCES `learner` (`learner_id`),
+  CONSTRAINT `learner_credential_ibfk_2` FOREIGN KEY (`Credential_Id`) REFERENCES `credential` (`credential_id`),
+  CONSTRAINT `learner_credential_ibfk_3` FOREIGN KEY (`Course_Id`) REFERENCES `course` (`course_id`),
+  CONSTRAINT `learner_credential_ibfk_4` FOREIGN KEY (`Grade_Id`) REFERENCES `grade` (`grade_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1200001 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
 
 
