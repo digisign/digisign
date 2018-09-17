@@ -15,6 +15,7 @@ import javax.ws.rs.QueryParam;
 import java.security.Principal;
 import java.util.List;
 
+@RequestMapping("/")
 @RestController
 public class UserController {
 
@@ -148,7 +149,7 @@ public class UserController {
     
     */
 
-	@RequestMapping(value="/user",method = RequestMethod.GET)
+	@RequestMapping(value="/user",method = RequestMethod.GET,consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
 	public User getUser(@QueryParam(value="email") String email) {
 		return userService.getUserByEmail(email);
 	}
