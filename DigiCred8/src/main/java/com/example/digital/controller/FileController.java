@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,7 +43,7 @@ public class FileController {
     }
 */
 
-    @PostMapping("/files")
+    @RequestMapping(value="/files" ,method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
     public List<FilePath> uploadFiles(@RequestParam("files") MultipartFile[] files)  throws Exception{
        return  fileUploadService.uploadFiles(files);
     }
@@ -58,7 +59,7 @@ public class FileController {
                 .body(new ByteArrayResource(dbFile.getResourse().getBytes()));
     }*/
 
-    @GetMapping("/file")
+    @RequestMapping(value="/files" ,method=RequestMethod.POST,produces = MediaType.ALL_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<byte[]> downloadFile(@QueryParam(value="fileName") String fileName,@QueryParam("isThumbNail") boolean isThumbNail)  throws Exception {
 
         byte[] bytes=fileUploadService.getDocument(fileName,isThumbNail);
