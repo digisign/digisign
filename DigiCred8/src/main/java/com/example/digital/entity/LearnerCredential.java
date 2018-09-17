@@ -64,6 +64,11 @@ public class LearnerCredential implements Serializable {
 	@OneToOne(targetEntity = Course.class, fetch = FetchType.EAGER)
 	private Course course;
 
+	@Column(name="start_year")
+	private Integer startYear;
+
+	@Column(name="end_year")
+	private Integer endYear;
 
 	public Long getLearnerCredentialId() {
 		return learnerCredentialId;
@@ -119,5 +124,21 @@ public class LearnerCredential implements Serializable {
 
 	public void setCourse(Course course) {
 		this.course = course;
+	}
+
+	public Integer getStartYear() {
+		return startYear;
+	}
+
+	public void setStartYear(Integer startYear) {
+		this.startYear = startYear;
+	}
+
+	public Integer getEndYear() {
+		return endYear;
+	}
+
+	public void setEndYear(Integer endYear) {
+		this.endYear = endYear;
 	}
 }
