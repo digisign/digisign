@@ -83,7 +83,7 @@ public class FIleUploadServiceImpl implements FileUploadService {
         List<PDPage> list = document.getDocumentCatalog().getAllPages();
         PDPage firstPage = list.get(0);
         BufferedImage image = firstPage.convertToImage();
-        image.getScaledInstance(200, 300, BufferedImage.SCALE_SMOOTH);
+        //image.getScaledInstance(200, 300, BufferedImage.SCALE_SMOOTH);
         document.close();
         return image;
     }
