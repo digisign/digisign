@@ -78,7 +78,8 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
         learnerCredential.setCourse(course);
         learnerCredential.setCredential(credential);
         learnerCredential.setMarks(learnerCredentialResourceRequest.getMarks());
-
+        learnerCredential.setStartYear(learnerCredentialResourceRequest.getStartYear());
+        learnerCredential.setEndYear(learnerCredentialResourceRequest.getEndYear());
         Status status=getStatus(learnerCredentialResourceRequest);
 
         LearnerCredentialResource learnerCredentialResource = new LearnerCredentialResource();
