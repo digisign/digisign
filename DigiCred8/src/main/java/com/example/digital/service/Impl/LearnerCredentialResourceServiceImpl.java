@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class LearnerCredentialResourceServiceImpl implements LearnerCredentialResourceService {
@@ -198,12 +195,38 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
     }
 
 
-    public List<LearnerCredentialResource> getLeranerCredentialResourceByUserId(Long userId){
+    public List<LearnerCredentialResourceResponse> getLeranerCredentialResourceByUserId(Long userId){
         User user=userService.getUserById(userId);
         Learner learner=learnerService.getLearnerByUser(user);
         List<LearnerCredential> learnerCredentials=learnerCredentialService.getLearnerCredentialsByLearner(learner);
-        return learnerCredentialResourceRepository.findByLearnerCredentialIn(learnerCredentials);
+        List<LearnerCredentialResource> learnerCredentialResources=learnerCredentialResourceRepository.findByLearnerCredentialIn(learnerCredentials);
+        return  getLearnerCredentialResourceResponses(learnerCredentialResources);
+
     }
 
+
+
+    private List<LearnerCredentialResourceResponse> getLearnerCredentialResourceResponses(List<LearnerCredentialResource> learnerCredentialResources){
+
+        List<LearnerCredentialResourceResponse> learnerCredentialResourceResponses=new ArrayList();
+
+        for(LearnerCredentialResource learnerCredentialResource:learnerCredentialResources){
+            learnerCredentialResourceResponses.add(getLearnerCredentialResourceResponse(learnerCredentialResource));
+        }
+        return learnerCredentialResourceResponses;
+    }
+
+
+    private LearnerCredentialResourceResponse getLearnerCredentialResourceResponse(LearnerCredentialResource learnerCredentialResource){
+
+        LearnerCredentialResourceResponse learnerCredentialResourceResponse=new LearnerCredentialResourceResponse();
+        LearnerCredential learnerCredential = learnerCredentialResource.getLearnerCredential();
+        learnerCredentialResourceResponse.setCourse(learnerCredential.getCourse());
+        learnerCredentialResourceResponse.setLearnerCredentialResource(learnerCredentialResource);
+        learnerCredentialResourceResponse.setGrade(learnerCredential.getGrade());
+        learnerCredentialResourceResponse.setInstitution(learnerCredential.getCredential().getInstitution());
+        learnerCredentialResourceResponse.setLearnerCredential(learnerCredential);
+        return learnerCredentialResourceResponse;
+    }
 
 }

@@ -74,7 +74,7 @@ public class FIleUploadServiceImpl implements FileUploadService {
 
     private BufferedImage getImage(File sourceFile) throws IOException {
         BufferedImage image = ImageIO.read(new FileInputStream(sourceFile));
-        image.getScaledInstance(200, 300, BufferedImage.SCALE_SMOOTH);
+        //image.getScaledInstance(400, 600, BufferedImage.SCALE_SMOOTH);
         return image;
     }
 
@@ -83,7 +83,7 @@ public class FIleUploadServiceImpl implements FileUploadService {
         List<PDPage> list = document.getDocumentCatalog().getAllPages();
         PDPage firstPage = list.get(0);
         BufferedImage image = firstPage.convertToImage();
-        image.getScaledInstance(200, 300, BufferedImage.SCALE_SMOOTH);
+        //image.getScaledInstance(200, 300, BufferedImage.SCALE_SMOOTH);
         document.close();
         return image;
     }

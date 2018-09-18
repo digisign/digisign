@@ -2,6 +2,7 @@ package com.example.digital.controller;
 
 import com.example.digital.entity.LearnerCredentialResource;
 import com.example.digital.entity.LearnerCredentialResourceRequest;
+import com.example.digital.entity.LearnerCredentialResourceResponse;
 import com.example.digital.service.LearnerCredentialResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,7 +25,7 @@ public class LearnerCredentialController {
 
 
     @RequestMapping(value="users/{userId}/credentialResource",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-    public List<LearnerCredentialResource> save(@PathVariable("userId") Long userId) throws Exception {
+    public List<LearnerCredentialResourceResponse> save(@PathVariable("userId") Long userId) throws Exception {
         return learnerCredentialResourceService.getLeranerCredentialResourceByUserId(userId);
     }
 
