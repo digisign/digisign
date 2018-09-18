@@ -188,6 +188,7 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
         learnerCredentialResourceResponse.setGrade(learnerCredential.getGrade());
         learnerCredentialResourceResponse.setInstitution(learnerCredential.getCredential().getInstitution());
         learnerCredentialResourceResponse.setLearnerCredential(learnerCredential);
+        learnerCredentialResourceResponse.setCredential(learnerCredential.getCredential());
         return learnerCredentialResourceResponse;
     }
 

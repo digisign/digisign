@@ -17,6 +17,9 @@ public class LearnerCredentialResourceResponse {
     @JsonIgnoreProperties({"learnerCredentialId","learner","credential","course"})
     private LearnerCredential learnerCredential;
 
+    @JsonUnwrapped
+    @JsonIgnoreProperties({"course","institution","credentialId"})
+    private Credential credential;
 
     public Institution getInstitution() {
         return institution;
@@ -57,4 +60,13 @@ public class LearnerCredentialResourceResponse {
     public void setLearnerCredential(LearnerCredential learnerCredential) {
         this.learnerCredential = learnerCredential;
     }
+
+    public Credential getCredential() {
+        return credential;
+    }
+
+    public void setCredential(Credential credential) {
+        this.credential = credential;
+    }
 }
+
