@@ -53,17 +53,8 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
 
         LearnerCredentialResource learnerCredentialResource=getLeranerCredentialResource(learnerCredentialResourceRequest);
 
-
         LearnerCredential learnerCredential = getLearnerCredential(learnerCredentialResource);
         User user=userService.getUserById(learnerCredentialResourceRequest.getUserId());
-
-       /* Optional<Learner> learner = learnerRepository.findById(learnerCredentialResourceRequest.getLearnerId());
-        if (!learner.isPresent()) {
-            throw new DigiSignException(ErrorMessages.LEARNER_NOT_AVAILABLE.getReasonPhrase(), ErrorMessages.LEARNER_NOT_AVAILABLE.getCode());
-        } else {
-            learnerCredential.setLearner(learner.get());
-        }*/
-
         learnerCredential.setLearner(learnerService.getLearnerByUser(user));
         Institution institution = getInstitution(learnerCredentialResourceRequest);
         Course course = getCourse(learnerCredentialResourceRequest, institution);
@@ -75,6 +66,7 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
         credential.setCourse(course);
         credential.setCredentialName(learnerCredentialResourceRequest.getDegree());
         credential.setInstitution(institution);
+        credential.setCredentialYear(learnerCredentialResourceRequest.getIssuedYear());
         learnerCredential.setGrade(grade);
         learnerCredential.setCourse(course);
         learnerCredential.setCredential(credential);
@@ -83,9 +75,11 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
         learnerCredential.setEndYear(learnerCredentialResourceRequest.getEndYear());
         Status status=getStatus(learnerCredentialResourceRequest);
         learnerCredentialResource.setLearnerCredential(learnerCredential);
-        learnerCredentialResource.setFilePath(learnerCredentialResourceRequest.getFilePath());
-        learnerCredentialResource.setFileType(FilenameUtils.getExtension(learnerCredentialResourceRequest.getFilePath()));
-        learnerCredentialResource.setThumbNailPath(learnerCredentialResourceRequest.getThumbNailPath());
+        if(learnerCredentialResourceRequest.getResourceId()==null) {
+            learnerCredentialResource.setFilePath(learnerCredentialResourceRequest.getFilePath());
+            learnerCredentialResource.setFileType(FilenameUtils.getExtension(learnerCredentialResourceRequest.getFilePath()));
+            learnerCredentialResource.setThumbNailPath(learnerCredentialResourceRequest.getThumbNailPath());
+        }
         learnerCredentialResource.setStatus(status);
         return learnerCredentialResourceRepository.save(learnerCredentialResource);
     }

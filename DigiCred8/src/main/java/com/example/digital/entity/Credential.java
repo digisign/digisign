@@ -44,7 +44,7 @@ public class Credential implements Serializable {
 	private String credentialName;
 	
 	@Column(name="credential_year")
-	private Date credentialYear;
+	private Integer credentialYear;
 
 	@JsonIgnore
 	@JoinColumn(name="course_id")
@@ -76,11 +76,11 @@ public class Credential implements Serializable {
 		this.credentialName = credentialName;
 	}
 
-	public Date getCredentialYear() {
+	public Integer getCredentialYear() {
 		return credentialYear;
 	}
 
-	public void setCredentialYear(Date credentialYear) {
+	public void setCredentialYear(Integer credentialYear) {
 		this.credentialYear = credentialYear;
 	}
 

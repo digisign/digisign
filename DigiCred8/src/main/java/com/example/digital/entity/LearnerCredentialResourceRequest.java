@@ -14,7 +14,7 @@ public class LearnerCredentialResourceRequest {
   private Float marks;
   private String courseStartDate;
   private String courseEndDate;
-  private Long issuedYear;
+  private Integer issuedYear;
   private String degree;
   private String filePath;
   private String thumbNailPath;
@@ -84,11 +84,11 @@ public class LearnerCredentialResourceRequest {
         this.courseEndDate = courseEndDate;
     }
 
-    public Long getIssuedYear() {
+    public Integer getIssuedYear() {
         return issuedYear;
     }
 
-    public void setIssuedYear(Long issuedYear) {
+    public void setIssuedYear(Integer issuedYear) {
         this.issuedYear = issuedYear;
     }
 
