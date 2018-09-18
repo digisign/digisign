@@ -50,14 +50,11 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
     @Transactional
     public LearnerCredentialResource save(LearnerCredentialResourceRequest learnerCredentialResourceRequest) throws Exception {
 
-        LearnerCredential learnerCredential = new LearnerCredential();
+
+        LearnerCredentialResource learnerCredentialResource=getLeranerCredentialResource(learnerCredentialResourceRequest);
+
+        LearnerCredential learnerCredential = getLearnerCredential(learnerCredentialResource);
         User user=userService.getUserById(learnerCredentialResourceRequest.getUserId());
-       /* Optional<Learner> learner = learnerRepository.findById(learnerCredentialResourceRequest.getLearnerId());
-        if (!learner.isPresent()) {
-            throw new DigiSignException(ErrorMessages.LEARNER_NOT_AVAILABLE.getReasonPhrase(), ErrorMessages.LEARNER_NOT_AVAILABLE.getCode());
-        } else {
-            learnerCredential.setLearner(learner.get());
-        }*/
         learnerCredential.setLearner(learnerService.getLearnerByUser(user));
         Institution institution = getInstitution(learnerCredentialResourceRequest);
         Course course = getCourse(learnerCredentialResourceRequest, institution);
@@ -65,12 +62,11 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
         Set<Grade> grades=new HashSet<>();
         grades.add(grade);
         course.setGrades(grades);
-
-        Credential credential = new Credential();
+        Credential credential = getCredential(learnerCredential);
         credential.setCourse(course);
         credential.setCredentialName(learnerCredentialResourceRequest.getDegree());
         credential.setInstitution(institution);
-
+        credential.setCredentialYear(learnerCredentialResourceRequest.getIssuedYear());
         learnerCredential.setGrade(grade);
         learnerCredential.setCourse(course);
         learnerCredential.setCredential(credential);
@@ -78,15 +74,13 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
         learnerCredential.setStartYear(learnerCredentialResourceRequest.getStartYear());
         learnerCredential.setEndYear(learnerCredentialResourceRequest.getEndYear());
         Status status=getStatus(learnerCredentialResourceRequest);
-
-        LearnerCredentialResource learnerCredentialResource = new LearnerCredentialResource();
-        learnerCredentialResource.setResourceId(learnerCredentialResourceRequest.getResourceId());
         learnerCredentialResource.setLearnerCredential(learnerCredential);
-        learnerCredentialResource.setFilePath(learnerCredentialResourceRequest.getFilePath());
-        learnerCredentialResource.setFileType(FilenameUtils.getExtension(learnerCredentialResourceRequest.getFilePath()));
-        learnerCredentialResource.setThumbNailPath(learnerCredentialResourceRequest.getThumbNailPath());
+        if(learnerCredentialResourceRequest.getResourceId()==null) {
+            learnerCredentialResource.setFilePath(learnerCredentialResourceRequest.getFilePath());
+            learnerCredentialResource.setFileType(FilenameUtils.getExtension(learnerCredentialResourceRequest.getFilePath()));
+            learnerCredentialResource.setThumbNailPath(learnerCredentialResourceRequest.getThumbNailPath());
+        }
         learnerCredentialResource.setStatus(status);
-
         return learnerCredentialResourceRepository.save(learnerCredentialResource);
     }
 
@@ -106,6 +100,44 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
             return institutionRepository.save(institution);
         }
 
+    }
+
+
+
+    private Credential getCredential(LearnerCredential learnerCredential){
+
+        if(learnerCredential.getCredential()==null){
+            return new Credential();
+        }else{
+            return learnerCredential.getCredential();
+        }
+
+    }
+
+
+    private LearnerCredentialResource getLeranerCredentialResource(LearnerCredentialResourceRequest learnerCredentialResourceRequest){
+
+        if(learnerCredentialResourceRequest.getResourceId()==null){
+            return new LearnerCredentialResource();
+        }else{
+           Optional<LearnerCredentialResource> resource= learnerCredentialResourceRepository.findById(learnerCredentialResourceRequest.getResourceId());
+           if(resource.isPresent()){
+               return resource.get();
+           }else{
+               throw new DigiSignException(ErrorMessages.RESOURCE_NOT_AVAILABLE.getReasonPhrase(), ErrorMessages.RESOURCE_NOT_AVAILABLE.getCode());
+           }
+        }
+    }
+
+
+    private LearnerCredential getLearnerCredential(LearnerCredentialResource learnerCredentialResource){
+
+        if(learnerCredentialResource.getLearnerCredential()==null){
+            return new LearnerCredential();
+        }
+        else{
+            return learnerCredentialResource.getLearnerCredential();
+        }
     }
 
 
