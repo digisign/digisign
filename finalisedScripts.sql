@@ -171,16 +171,12 @@ CREATE TABLE `credential` (
 
 
 
+drop table if exists grade;
 
-
-
-
-
-
-
-
-
-
+create table if not exists grade(
+grade_id bigint(10)  primary key auto_increment,
+grade_name varchar(20),
+description varchar(20));
 
 
 CREATE TABLE `learner_credential` (
