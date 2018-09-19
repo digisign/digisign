@@ -11,5 +11,5 @@ public interface LearnerCredentialResourceService {
 
     LearnerCredentialResourceResponse save(LearnerCredentialResourceRequest learnerCredentialResourceRequest) throws Exception;
     List<LearnerCredentialResourceResponse> getLeranerCredentialResourceByUserId(Long userId);
-    List<LearnerCredentialResourceResponse> save(MultipartFile[] multipartFiles) throws Exception;
+    List<LearnerCredentialResourceResponse> save(MultipartFile[] multipartFiles,Long userId) throws Exception;
 }

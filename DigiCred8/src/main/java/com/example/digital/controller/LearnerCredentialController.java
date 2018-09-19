@@ -34,9 +34,9 @@ public class LearnerCredentialController {
 
 
 
-    @RequestMapping(value="/files" ,method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
-    public List<LearnerCredentialResourceResponse> uploadFiles(@RequestParam("file") MultipartFile[] files)  throws Exception{
-        return  learnerCredentialResourceService.save(files);
+    @RequestMapping(value="user/{userId}/files" ,method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
+    public List<LearnerCredentialResourceResponse> uploadFiles(@RequestParam("file") MultipartFile[] files,@PathVariable("userId") Long userId)  throws Exception{
+        return  learnerCredentialResourceService.save(files,userId);
     }
 
 }

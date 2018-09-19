@@ -236,17 +236,22 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
     }
 
 
-    public List<LearnerCredentialResourceResponse> save(MultipartFile[] multipartFiles) throws Exception{
+    public List<LearnerCredentialResourceResponse> save(MultipartFile[] multipartFiles,Long userId) throws Exception{
         List<FilePath> filePaths =fileUploadService.uploadFiles(multipartFiles);
         Status status=statusRepository.getOne(Long.valueOf(1));
         List<LearnerCredentialResource> learnerCredentialResources=new ArrayList();
+
         for(FilePath filePath:filePaths){
             LearnerCredentialResource learnerCredentialResource = new LearnerCredentialResource();
+            LearnerCredential learnerCredential = getLearnerCredential(learnerCredentialResource);
+            User user=userService.getUserById(userId);
+            learnerCredential.setLearner(learnerService.getLearnerByUser(user));
             learnerCredentialResource.setFilePath(filePath.getFilePath());
             learnerCredentialResource.setFileType(FilenameUtils.getExtension(filePath.getFilePath()));
             learnerCredentialResource.setThumbNailPath(filePath.getThumbNailPath());
             learnerCredentialResource.setStatus(status);
             learnerCredentialResources.add(learnerCredentialResource);
+            learnerCredentialResource.setLearnerCredential(learnerCredential);
         }
         learnerCredentialResources=learnerCredentialResourceRepository.saveAll(learnerCredentialResources);
         return  getLearnerCredentialResourceResponses(learnerCredentialResources);
