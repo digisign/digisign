@@ -30,6 +30,9 @@ public class FIleUploadServiceImpl implements FileUploadService {
     @Value("${thumbNailsPath}")
     private String thumbNailPath ;
 
+
+
+
     public File uploadFile(MultipartFile multipartFile) throws Exception {
         String homeDir = System.getProperty("user.home");
         Path path = Paths.get(homeDir + "/" + documentsPath);
@@ -101,6 +104,7 @@ public class FIleUploadServiceImpl implements FileUploadService {
             filePath.setFilePath(file.getName());
             filePath.setThumbNailPath(getThumbNail(file));
             filePaths.add(filePath);
+
         }
 
         return filePaths;

@@ -16,5 +16,4 @@ public final class Constants {
 
     public static final String DATE_FORMAT_MM_DD_YYYY_HH_MM = "MM/dd/yyyy HH:mm";
 
-
 }

@@ -9,6 +9,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 
@@ -48,7 +49,7 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
 
 
     @Transactional
-    public LearnerCredentialResource save(LearnerCredentialResourceRequest learnerCredentialResourceRequest) throws Exception {
+    public LearnerCredentialResourceResponse save(LearnerCredentialResourceRequest learnerCredentialResourceRequest) throws Exception {
 
 
         LearnerCredentialResource learnerCredentialResource=getLeranerCredentialResource(learnerCredentialResourceRequest);
@@ -81,7 +82,7 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
             learnerCredentialResource.setThumbNailPath(learnerCredentialResourceRequest.getThumbNailPath());
         }
         learnerCredentialResource.setStatus(status);
-        return learnerCredentialResourceRepository.save(learnerCredentialResource);
+        return getLearnerCredentialResourceResponse(learnerCredentialResource);
     }
 
 
@@ -215,13 +216,41 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
 
         LearnerCredentialResourceResponse learnerCredentialResourceResponse=new LearnerCredentialResourceResponse();
         LearnerCredential learnerCredential = learnerCredentialResource.getLearnerCredential();
-        learnerCredentialResourceResponse.setCourse(learnerCredential.getCourse());
         learnerCredentialResourceResponse.setLearnerCredentialResource(learnerCredentialResource);
-        learnerCredentialResourceResponse.setGrade(learnerCredential.getGrade());
-        learnerCredentialResourceResponse.setInstitution(learnerCredential.getCredential().getInstitution());
-        learnerCredentialResourceResponse.setLearnerCredential(learnerCredential);
-        learnerCredentialResourceResponse.setCredential(learnerCredential.getCredential());
+        if(learnerCredential!=null){
+            learnerCredentialResourceResponse.setCourse(learnerCredential.getCourse());
+            learnerCredentialResourceResponse.setGrade(learnerCredential.getGrade());
+            if(learnerCredential.getCredential()!=null) {
+                learnerCredentialResourceResponse.setInstitution(learnerCredential.getCredential().getInstitution());
+                learnerCredentialResourceResponse.setCredentialName(learnerCredential.getCredential().getCredentialName());
+                learnerCredentialResourceResponse.setCredentialYear(learnerCredential.getCredential().getCredentialYear());
+            }
+            learnerCredentialResourceResponse.setEndYear(learnerCredential.getEndYear());
+            learnerCredentialResourceResponse.setStartYear(learnerCredential.getStartYear());
+            learnerCredentialResourceResponse.setIssuedDate(learnerCredential.getIssuedDate());
+            learnerCredentialResourceResponse.setMarks(learnerCredential.getMarks());
+        }
+
+
         return learnerCredentialResourceResponse;
     }
+
+
+    public List<LearnerCredentialResourceResponse> save(MultipartFile[] multipartFiles) throws Exception{
+        List<FilePath> filePaths =fileUploadService.uploadFiles(multipartFiles);
+        Status status=statusRepository.getOne(Long.valueOf(1));
+        List<LearnerCredentialResource> learnerCredentialResources=new ArrayList();
+        for(FilePath filePath:filePaths){
+            LearnerCredentialResource learnerCredentialResource = new LearnerCredentialResource();
+            learnerCredentialResource.setFilePath(filePath.getFilePath());
+            learnerCredentialResource.setFileType(FilenameUtils.getExtension(filePath.getFilePath()));
+            learnerCredentialResource.setThumbNailPath(filePath.getThumbNailPath());
+            learnerCredentialResource.setStatus(status);
+            learnerCredentialResources.add(learnerCredentialResource);
+        }
+        learnerCredentialResources=learnerCredentialResourceRepository.saveAll(learnerCredentialResources);
+        return  getLearnerCredentialResourceResponses(learnerCredentialResources);
+    }
+
 
 }

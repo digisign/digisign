@@ -3,6 +3,9 @@ package com.example.digital.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
+import javax.persistence.Column;
+import java.sql.Date;
+
 public class LearnerCredentialResourceResponse {
 
     @JsonIgnoreProperties({"courses"})
@@ -13,13 +16,12 @@ public class LearnerCredentialResourceResponse {
     @JsonUnwrapped
     @JsonIgnoreProperties({"learnerCredential"})
     private LearnerCredentialResource learnerCredentialResource;
-    @JsonUnwrapped
-    @JsonIgnoreProperties({"learnerCredentialId","learner","credential","course"})
-    private LearnerCredential learnerCredential;
-
-    @JsonUnwrapped
-    @JsonIgnoreProperties({"course","institution","credentialId"})
-    private Credential credential;
+    private Integer startYear;
+    private Integer endYear;
+    private Float Marks;
+    private Date issuedDate;
+    private String credentialName;
+    private Integer credentialYear;
 
     public Institution getInstitution() {
         return institution;
@@ -53,20 +55,52 @@ public class LearnerCredentialResourceResponse {
         this.learnerCredentialResource = learnerCredentialResource;
     }
 
-    public LearnerCredential getLearnerCredential() {
-        return learnerCredential;
+    public Integer getStartYear() {
+        return startYear;
     }
 
-    public void setLearnerCredential(LearnerCredential learnerCredential) {
-        this.learnerCredential = learnerCredential;
+    public void setStartYear(Integer startYear) {
+        this.startYear = startYear;
     }
 
-    public Credential getCredential() {
-        return credential;
+    public Integer getEndYear() {
+        return endYear;
     }
 
-    public void setCredential(Credential credential) {
-        this.credential = credential;
+    public void setEndYear(Integer endYear) {
+        this.endYear = endYear;
+    }
+
+    public Float getMarks() {
+        return Marks;
+    }
+
+    public void setMarks(Float marks) {
+        Marks = marks;
+    }
+
+    public Date getIssuedDate() {
+        return issuedDate;
+    }
+
+    public void setIssuedDate(Date issuedDate) {
+        this.issuedDate = issuedDate;
+    }
+
+    public String getCredentialName() {
+        return credentialName;
+    }
+
+    public void setCredentialName(String credentialName) {
+        this.credentialName = credentialName;
+    }
+
+    public Integer getCredentialYear() {
+        return credentialYear;
+    }
+
+    public void setCredentialYear(Integer credentialYear) {
+        this.credentialYear = credentialYear;
     }
 }
 
