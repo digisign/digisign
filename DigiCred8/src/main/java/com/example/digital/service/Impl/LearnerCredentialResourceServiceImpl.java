@@ -7,6 +7,7 @@ import com.example.digital.repository.*;
 import com.example.digital.service.*;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PropertyComparator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -74,12 +75,14 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
         learnerCredential.setMarks(learnerCredentialResourceRequest.getMarks());
         learnerCredential.setStartYear(learnerCredentialResourceRequest.getStartYear());
         learnerCredential.setEndYear(learnerCredentialResourceRequest.getEndYear());
+        learnerCredentialResource.setUpdatedDate(new Date());
         Status status=getStatus(learnerCredentialResourceRequest);
         learnerCredentialResource.setLearnerCredential(learnerCredential);
         if(learnerCredentialResourceRequest.getResourceId()==null) {
             learnerCredentialResource.setFilePath(learnerCredentialResourceRequest.getFilePath());
             learnerCredentialResource.setFileType(FilenameUtils.getExtension(learnerCredentialResourceRequest.getFilePath()));
             learnerCredentialResource.setThumbNailPath(learnerCredentialResourceRequest.getThumbNailPath());
+            learnerCredentialResource.setCreatedDate(new Date());
         }
         learnerCredentialResource.setStatus(status);
         return getLearnerCredentialResourceResponse(learnerCredentialResource);
@@ -195,6 +198,7 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
         Learner learner=learnerService.getLearnerByUser(user);
         List<LearnerCredential> learnerCredentials=learnerCredentialService.getLearnerCredentialsByLearner(learner);
         List<LearnerCredentialResource> learnerCredentialResources=learnerCredentialResourceRepository.findByLearnerCredentialIn(learnerCredentials);
+        sortLearnerCredentialResources(learnerCredentialResources);
         return  getLearnerCredentialResourceResponses(learnerCredentialResources);
 
     }
@@ -252,9 +256,19 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
             learnerCredentialResource.setStatus(status);
             learnerCredentialResources.add(learnerCredentialResource);
             learnerCredentialResource.setLearnerCredential(learnerCredential);
+            learnerCredentialResource.setCreatedDate(new Date());
+            learnerCredentialResource.setUpdatedDate(new Date());
         }
         learnerCredentialResources=learnerCredentialResourceRepository.saveAll(learnerCredentialResources);
+        sortLearnerCredentialResources(learnerCredentialResources);
         return  getLearnerCredentialResourceResponses(learnerCredentialResources);
+    }
+
+
+
+   private  void sortLearnerCredentialResources(List<LearnerCredentialResource> learnerCredentialResources){
+       PropertyComparator<LearnerCredentialResource> comparator = new PropertyComparator<>("updatedDate", true, true);
+       learnerCredentialResources.sort(comparator);
     }
 
 

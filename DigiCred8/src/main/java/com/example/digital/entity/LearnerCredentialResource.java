@@ -1,6 +1,7 @@
 package com.example.digital.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -36,6 +37,10 @@ public class LearnerCredentialResource implements Serializable {
 	@JoinColumn(name="status_id")
 	@OneToOne( fetch = FetchType.LAZY)
 	private Status status;
+	@Column(name="created_date",nullable = false)
+	private Date createdDate;
+	@Column(name="updated_date",nullable = false)
+	private Date updatedDate;
 
 	public String getFileType() {
 		return fileType;
@@ -83,5 +88,21 @@ public class LearnerCredentialResource implements Serializable {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 }
