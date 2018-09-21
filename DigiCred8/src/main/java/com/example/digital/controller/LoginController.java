@@ -3,6 +3,7 @@ package com.example.digital.controller;
 
 import com.example.digital.entity.*;
 import com.example.digital.repository.GradeRepository;
+import com.example.digital.repository.MarksTypeRepository;
 import com.example.digital.repository.RoleRepository;
 import com.example.digital.repository.StatusRepository;
 import com.example.digital.service.UserService;
@@ -36,6 +37,9 @@ public class LoginController {
     @Autowired
     private GradeRepository gradeRepository;
 
+    @Autowired
+    private MarksTypeRepository marksTypeRepository;
+
 
     @RequestMapping(value="/roles",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
     public List<Role> getRoles() {
@@ -59,6 +63,12 @@ public class LoginController {
     @RequestMapping(value="/grades",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
     public List<Grade> getGrades() {
         return gradeRepository.findAll();
+    }
+
+
+    @RequestMapping(value="/markTypes",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<MarksType> getMarkTypes() {
+        return marksTypeRepository.findAll();
     }
 
 }

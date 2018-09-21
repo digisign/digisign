@@ -40,7 +40,7 @@ public class LearnerCredential implements Serializable {
 	@Column(name = "learner_credential_id", nullable = false, updatable = false)
 	private Long learnerCredentialId;
 
-	@JsonIgnore
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="learner_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
@@ -54,11 +54,19 @@ public class LearnerCredential implements Serializable {
 	@JoinColumn(name="grade_id")
 	private Grade grade;
 	
-	@Column(name="marks")
-	private Float Marks;
+	@Column(name="total_marks")
+	private String totalMarks;
+
+	@Column(name="marks_obtained")
+	private String marksObtained;
 	
 	@Column(name="issued_date")
 	private Date issuedDate;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="marks_type_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private MarksType marksType;
 	
 	@JoinColumn(name="course_id")
 	@OneToOne(targetEntity = Course.class, fetch = FetchType.EAGER)
@@ -102,12 +110,28 @@ public class LearnerCredential implements Serializable {
 		this.grade = grade;
 	}
 
-	public Float getMarks() {
-		return Marks;
+	public String getTotalMarks() {
+		return totalMarks;
 	}
 
-	public void setMarks(Float marks) {
-		Marks = marks;
+	public void setTotalMarks(String totalMarks) {
+		this.totalMarks = totalMarks;
+	}
+
+	public String getMarksObtained() {
+		return marksObtained;
+	}
+
+	public void setMarksObtained(String marksObtained) {
+		this.marksObtained = marksObtained;
+	}
+
+	public MarksType getMarksType() {
+		return marksType;
+	}
+
+	public void setMarksType(MarksType marksType) {
+		this.marksType = marksType;
 	}
 
 	public Date getIssuedDate() {

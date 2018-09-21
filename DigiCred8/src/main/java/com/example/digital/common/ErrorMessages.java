@@ -11,7 +11,9 @@ public enum ErrorMessages {
     USER_NOT_AVAILABLE("DIG-006", "user with email doesn't exist"),
     STATUS_NOT_AVAILABLE("DIG-007", "status with id doesn't exist"),
     FILE_NAME_NOT_AVAILABLE("DIG-007", "file with name does not exist"),
-    RESOURCE_NOT_AVAILABLE("DIG-008", "resource with id doesnot exist");
+    RESOURCE_NOT_AVAILABLE("DIG-008", "resource with id doesnot exist"),
+    MARKS_TYPE_NOT_AVAILABLE("DIG-009","marks type id doesn't exist");
+
 
 
     private final String code;
