@@ -15,9 +15,7 @@ import Database.*;
 
 public class Main {
 
-	
-	
-	
+
 	public static void main(String[] args) throws Exception {
 		getConnection();
 		
@@ -27,11 +25,11 @@ public class Main {
 		Connection connection = null;
 		try {
 			String driver ="com.mysql.cj.jdbc.Driver";
-			String url = "jdbc:mysql://172.16.18.173:3306/digisign1?autoReconnect=true&useSSL=false";
+			String url = "jdbc:mysql://172.16.18.173:3306/digisign2?autoReconnect=true&useSSL=false";
 			String username = "digisignUser";
 			String password = "[bA&U=X6a";
 			
-			String filePath = "C:\\Users\\Hp\\Documents\\GitHub\\TestCredential\\data";
+			String filePath = "C:\\Users\\kvijay\\Downloads\\tempdata.xlsx";
 			
 			Class.forName(driver);
 			connection = DriverManager.getConnection(url, username, password);
@@ -78,7 +76,7 @@ public class Main {
 					 ps.setString(11,(String)map.get("Postal_Code"));
 					 ps.setString(12,(String)map.get("Country"));
 					 
-					ps.executeUpdate();			
+					ps.executeUpdate();
 					
 				}
 			
@@ -167,7 +165,8 @@ public class Main {
             	while (rset.next()) {contactId = rset.getInt("Contact_Id");}
             	System.out.println("contactId====>"+contactId);
             	if(contactId == null) {
-            		
+
+
             		ps4.setString(1, Institution_Name);
             		ps4.setString(2, Mobile_Number_1);
             		ps4.setString(3, Mobile_Number_2);
@@ -180,8 +179,7 @@ public class Main {
             		ps4.setString(10, State);
             		ps4.setString(11, Postal_Code);
             		ps4.setString(12, Country);
-            		
-                    
+
                     int status1 = ps4.executeUpdate();
             		System.out.println("status1"+status1);
             		
@@ -210,13 +208,9 @@ public class Main {
                 String deletequery = "delete from temporarydata";
                 PreparedStatement ps5 = connection.prepareStatement(deletequery); 
                 ps5.executeUpdate();
-                
-                
-            	
+
             }
-            
-          
-            
+
             ps.close();
 			} catch (Exception e) {
 					//System.out.println(e.)

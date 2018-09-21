@@ -30,7 +30,7 @@ public class ReadDataFromExcel {
 	
 	
 	public List<Map<String,Object>> readCSV() throws IOException{
-		File file = new File("C:\\Users\\Hp\\Documents\\GitHub\\TestCredential\\data\\tempdata.xlsx");
+		File file = new File("C:\\Users\\kvijay\\Downloads\\tempdata.xlsx");
 		InputStream is=new FileInputStream(file);
 		ExcelReader er=new ExcelReader();
 		List<Map<String,Object>> list=er.excelToMap(is);

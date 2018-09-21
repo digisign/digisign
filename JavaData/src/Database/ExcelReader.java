@@ -23,10 +23,8 @@ public class ExcelReader {
 		   Map<Integer, String> headerColMap = new LinkedHashMap<>();
 		   List<Map<String, Object>> objectsMap = new ArrayList<>();
 		   DataFormatter formatter = new DataFormatter();
-		   Workbook workbook = StreamingReader.builder().rowCacheSize(10).bufferSize(4096).open(inputStream);
+		   Workbook workbook = StreamingReader.builder().rowCacheSize(10).bufferSize(9096).open(inputStream);
 		   System.out.println("read the file");
-		   int i=1;
-		   int j=1;
 		   for (Sheet currentSheet : workbook) {
 		      System.out.println(currentSheet.getSheetName()); 
 		      for (Row r : currentSheet) {
@@ -46,32 +44,24 @@ public class ExcelReader {
 		            if (currentRow != null) {
 		               Map<String, Object> currRow = new LinkedHashMap<>();
 		               if (currentRow != null) {
-		                  Iterator<Cell> cellIterator = currentRow.cellIterator();
-		                  j=1;
-		                  while (cellIterator.hasNext()) {
-		                     Cell cell = new StreamingCell(j,i,false);
-		                     // if (cell != null &&
-		                     // cell.getCellTypeEnum().equals(CellType.STRING))
-		                     if (cell != null &&!isColumnEmpty(cell) &&!cell.getCellTypeEnum().equals(CellType.BLANK) && !cell.getCellTypeEnum().equals(CellType._NONE)) {
-		                        if (!keyAlreadyExists(headerColMap.get(cell.getColumnIndex()), currRow) && headerColMap.get(cell.getColumnIndex()) != null) {
-		                           currRow.put(headerColMap.get(cell.getColumnIndex()), formatter.formatCellValue(cell).trim());
-		                        }
-		                     }
-		                     j++;
-		                     // else if (cell != null &&
-		                     // cell.getCellTypeEnum().equals(CellType.NUMERIC))
-		                     // currRow.put(headerColMap.get(cell.getColumnIndex()),
-		                     // formatter.formatCellValue(cell));
-		                     // care about string and numeric values only
-		                  }
+		                  int startingCell= currentRow.getFirstCellNum();
+		                  int endingCell=currentRow.getLastCellNum();
+		                 while (startingCell<=endingCell) {
+							  Cell cell = currentRow.getCell(startingCell, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
+							  // cell=new StreamingCell(startingCell,currentRow.getRowNum(),false);
+							 if (cell != null && !cell.getCellTypeEnum().equals(CellType.BLANK) && !cell.getCellTypeEnum().equals(CellType._NONE)) {
+								 if (!keyAlreadyExists(headerColMap.get(cell.getColumnIndex()), currRow) && headerColMap.get(cell.getColumnIndex()) != null) {
+									 currRow.put(headerColMap.get(cell.getColumnIndex()), formatter.formatCellValue(cell).trim());
+								 }
+							 }
+							 startingCell++;
+						 }
 		               }
-		               i++;
 		               if (!CollectionUtils.sizeIsEmpty(currRow)) {
 		                  objectsMap.add(currRow);
 		                  System.out.println("reading rows"+currRow);
 		               }
 		            }
-
 		         }
 
 		      }
