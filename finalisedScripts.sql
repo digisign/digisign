@@ -178,7 +178,6 @@ grade_id bigint(10)  primary key auto_increment,
 grade_name varchar(20),
 description varchar(20));
 
-
 CREATE TABLE `learner_credential` (
   `learner_credential_id` bigint(10) NOT NULL AUTO_INCREMENT,
   `learner_id` bigint(10) DEFAULT NULL,
@@ -186,6 +185,7 @@ CREATE TABLE `learner_credential` (
   `course_id` bigint(10) DEFAULT NULL,
   `grade_id` bigint(10) DEFAULT NULL,
   `marks` varchar(4) DEFAULT NULL,
+  marks_type_id bigint(10) DEFAULT NULL,
   `issued_date` date DEFAULT NULL,
   `start_year` int(11) DEFAULT NULL,
   `end_year` int(11) DEFAULT NULL,
@@ -194,13 +194,20 @@ CREATE TABLE `learner_credential` (
   KEY `credential_id` (`credential_id`),
   KEY `grade_id` (`grade_id`),
   KEY `course_id` (`course_id`),
+  KEY `marks_type_id` (`marks_type_id`),
   CONSTRAINT `learner_credential_ibfk_1` FOREIGN KEY (`learner_id`) REFERENCES `learner` (`learner_id`),
   CONSTRAINT `learner_credential_ibfk_2` FOREIGN KEY (`credential_id`) REFERENCES `credential` (`credential_id`),
   CONSTRAINT `learner_credential_ibfk_3` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`),
-  CONSTRAINT `learner_credential_ibfk_4` FOREIGN KEY (`grade_id`) REFERENCES `grade` (`grade_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1200001 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+  CONSTRAINT `learner_credential_ibfk_4` FOREIGN KEY (`grade_id`) REFERENCES `grade` (`grade_id`),
+  CONSTRAINT `learner_credential_ibfk_5` FOREIGN KEY (`marks_type_id`) REFERENCES `marks_type` (`marks_type_id`)
+) ;
 
+alter table `learner_credential` auto_increment= 1000001; 
 
+create table marks_type(
+marks_type_id bigint(10)  PRIMARY KEY AUTO_INCREMENT,
+type_desc  varchar(20),
+ );
 
 
 
@@ -220,11 +227,10 @@ CREATE TABLE `learner_credential` (
   CONSTRAINT `learner_credential_resourse_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`)
 ) ;  ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
-
-
-
-
-
+Insert into marks_type  values(1,'Marks');
+Insert into marks_type  values(2,'Grade');
+Insert into marks_type  values(3,'CGPA');
+Insert into marks_type  values(4,'Percentage');
 
 
 
