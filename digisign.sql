@@ -1,5 +1,5 @@
-Create database if not exists digisign1;
-use digisign1;
+Create database if not exists digisign;
+use digisign;
 
 CREATE TABLE `user` (
   `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -188,6 +188,7 @@ CREATE TABLE `learner_credential` (
   `course_id` bigint(10) DEFAULT NULL,
   `grade_id` bigint(10) DEFAULT NULL,
   `marks` varchar(4) DEFAULT NULL,
+  marks_type_id bigint(10) DEFAULT NULL,
   `issued_date` date DEFAULT NULL,
   `start_year` int(11) DEFAULT NULL,
   `end_year` int(11) DEFAULT NULL,
@@ -196,13 +197,20 @@ CREATE TABLE `learner_credential` (
   KEY `credential_id` (`credential_id`),
   KEY `grade_id` (`grade_id`),
   KEY `course_id` (`course_id`),
+  KEY `marks_type_id` (`marks_type_id`),
   CONSTRAINT `learner_credential_ibfk_1` FOREIGN KEY (`learner_id`) REFERENCES `learner` (`learner_id`),
   CONSTRAINT `learner_credential_ibfk_2` FOREIGN KEY (`credential_id`) REFERENCES `credential` (`credential_id`),
   CONSTRAINT `learner_credential_ibfk_3` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`),
-  CONSTRAINT `learner_credential_ibfk_4` FOREIGN KEY (`grade_id`) REFERENCES `grade` (`grade_id`)
+  CONSTRAINT `learner_credential_ibfk_4` FOREIGN KEY (`grade_id`) REFERENCES `grade` (`grade_id`),
+  CONSTRAINT `learner_credential_ibfk_5` FOREIGN KEY (`marks_type_id`) REFERENCES `marks_type` (`marks_type_id`)
 ) ;
 
 alter table `learner_credential` auto_increment= 1000001;   
+
+create table marks_type(
+marks_type_id bigint(10)  PRIMARY KEY AUTO_INCREMENT,
+type_desc  varchar(20)
+ );
 
  CREATE TABLE `learner_credential_resourse` (
   `learner_credential_id` bigint(10) DEFAULT NULL,
@@ -221,7 +229,6 @@ alter table `learner_credential` auto_increment= 1000001;
 
 
 alter table `learner_credential_resourse` auto_increment= 1100001;   
-
 
 drop table if exists temporarydata;
 
@@ -272,3 +279,8 @@ course_name varchar(200),
 course_period varchar(4),
 subject_name varchar(30) 
 );
+
+Insert into marks_type  values(1,'Marks');
+Insert into marks_type  values(2,'Grade');
+Insert into marks_type  values(3,'CGPA');
+Insert into marks_type  values(4,'Percentage');
