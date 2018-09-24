@@ -216,7 +216,7 @@ type_desc  varchar(20)
  CREATE TABLE `learner_credential_resourse` (
   `learner_credential_id` bigint(10) DEFAULT NULL,
   `resource_id` bigint(10) NOT NULL AUTO_INCREMENT,
-  `file_path` varchar(20) NOT NULL,
+  `file_path` varchar(100) NOT NULL,
   `file_type` varchar(45) DEFAULT NULL,
   `thumbnail_path` varchar(45) NOT NULL,
   `status_id` bigint(20) DEFAULT NULL,
