@@ -191,6 +191,8 @@ CREATE TABLE `learner_credential` (
    total_marks varchar(10) DEFAULT NULL, 
   marks_type_id bigint(10) DEFAULT NULL,
   `issued_date` date DEFAULT NULL,
+   created_date datetime DEFAULT NULL,
+  updated_date datetime DEFAULT NULL,
   `start_year` int(11) DEFAULT NULL,
   `end_year` int(11) DEFAULT NULL,
   PRIMARY KEY (`learner_credential_id`),
