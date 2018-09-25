@@ -1,9 +1,6 @@
 package com.example.digital.config;
 
-import org.springframework.context.annotation.Configuration;
-
-
-@Configuration
+//@Configuration
 //@EnableWebSecurity
 public class WebAppConfig  {
 	

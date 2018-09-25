@@ -41,7 +41,7 @@ public class Course implements Serializable {
 
 	@JsonIgnore
 	@JoinColumn(name="institution_id")
-	@ManyToOne(targetEntity = Institution.class,fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+	@ManyToOne(targetEntity = Institution.class,fetch = FetchType.EAGER,cascade = {CascadeType.MERGE,CascadeType.PERSIST})
 	private Institution institution;
 	
 	@ManyToMany(targetEntity = Grade.class, cascade = CascadeType.ALL )
@@ -51,6 +51,9 @@ public class Course implements Serializable {
 	
 	@Column(name="course_period")
 	private String coursePeriod;
+
+	@OneToMany(mappedBy = "course",cascade=CascadeType.PERSIST)
+	private Set<Subject> subjects;
 
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
@@ -110,5 +113,13 @@ public class Course implements Serializable {
 
 	public void setCoursePeriod(String coursePeriod) {
 		this.coursePeriod = coursePeriod;
+	}
+
+	public Set<Subject> getSubjects() {
+		return subjects;
+	}
+
+	public void setSubjects(Set<Subject> subjects) {
+		this.subjects = subjects;
 	}
 }

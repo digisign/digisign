@@ -1,23 +1,14 @@
 package com.example.digital.repository;
 
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.example.digital.entity.Address_Type;
-import com.example.digital.entity.Contact;
-import com.example.digital.entity.Contact_Address;
 
 @Transactional
 @Repository
 public class Contact_AddressDao implements IContactAddressDao{
 
-	@PersistenceContext	
+/*	@PersistenceContext
 	private EntityManager entityManager;
 	
 	@Override
@@ -34,7 +25,7 @@ public class Contact_AddressDao implements IContactAddressDao{
 	public void saveContact_Address(Contact_Address contact_address) {
 		entityManager.persist(contact_address);
 	}
-	/*@Override
+	*//*@Override
 	public void updateContact_Address(Contact_Address contact_address) {
 		Contact_Address ca = getContact_AddressByid(contact_address.getAddress_Id());
 		ca.setContact(contact_address.getContact());
@@ -47,7 +38,7 @@ public class Contact_AddressDao implements IContactAddressDao{
 		ca.setCountry(contact_address.getCountry());
 		ca.setPostal_Code(contact_address.getPostal_Code());
 		entityManager.flush();
-	}*/
+	}*//*
 	
 	@Override
 	public void updateContact_Address(Contact_Address contact_address) {
@@ -70,7 +61,7 @@ public class Contact_AddressDao implements IContactAddressDao{
 		}
 		//entityManager.remove(getContact_AddressByid(Address_Id));
 	}
-	/*@Override
+	*//*@Override
 	public boolean Contact_AddressExists( long Contact_Id,String Address_Type,String Address_1,String Address_2,String Address_3,
 			String City,String State,String Country,long Postal_Code) {
 		String hql = "FROM Contact_Address as ca WHERE ct.Contact_Id = ? and ct.Address_Type = ? and ct.Address_1 = ? "
@@ -79,7 +70,7 @@ public class Contact_AddressDao implements IContactAddressDao{
 		int count = entityManager.createQuery(hql).setParameter(1, Contact_Id).setParameter(2, Address_Type).setParameter(3, Address_1)
 				.setParameter(4, Address_2).setParameter(5, Address_3).setParameter(6, City).setParameter(7, State).setParameter(8, Country).setParameter(9, Postal_Code).getResultList().size();
 		return count > 0 ? true : false;
-	}*/
+	}*//*
 	@Override
 	public boolean Contact_AddressExists(Contact contact, Address_Type address_Type, String Address_1, String Address_2,
 			String Address_3, String City, String State, String Country, long Postal_Code) {
@@ -91,7 +82,7 @@ public class Contact_AddressDao implements IContactAddressDao{
 				.setParameter(4, Address_2).setParameter(5, Address_3).setParameter(6, City).setParameter(7, State).setParameter(8, Country).setParameter(9, Postal_Code).getResultList().size();
 		return count > 0 ? true : false;
 	}
-	
+	*/
 	
 	
 	

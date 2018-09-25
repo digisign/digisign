@@ -1,21 +1,8 @@
 package com.example.digital.repository;
 
 
-import java.sql.PreparedStatement;
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-
-import com.example.digital.entity.Contact;
-import com.example.digital.entity.Learner;
-import com.example.digital.entity.User;
 
 @Repository
 @Qualifier("LearnerDao")
@@ -24,7 +11,7 @@ public class LearnerDao implements ILearnerDao {
 	//private static Map<Integer,Learner> learners;
 
 
-	@Autowired
+/*	@Autowired
 	@PersistenceContext	
 	@Qualifier(value = "entityManager")
 	private EntityManager entityManager;
@@ -61,7 +48,7 @@ public class LearnerDao implements ILearnerDao {
 		String hql = "FROM learner as lr WHERE lr.learner_id = ? and user.user_id = ? and contact.contact_id = ?";
 		int count = entityManager.createQuery(hql).setParameter(1, learner_id).setParameter(2, contact.getContact_Id() ).setParameter(3, user.getUserId()).getResultList().size();
 		return count > 0 ? true : false;
-	}
+	}*/
 	
 	
 	

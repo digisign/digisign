@@ -14,7 +14,7 @@ import com.example.digital.entity.Institution_User;
 @Repository
 public class Institution_UserDao implements IInstitutionUserDao {
 
-	@PersistenceContext	
+	/*@PersistenceContext
 	private EntityManager entityManager;
 	
 	@Override
@@ -65,7 +65,7 @@ public class Institution_UserDao implements IInstitutionUserDao {
 		String hql="FROM Institution_User as inu WHERE inu.user_id =? ";
 		return  (Institution_User) entityManager.createQuery(hql).setParameter(1, contact_Id).getResultList();
 	}
-	
+	*/
 	
 
 	

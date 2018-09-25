@@ -30,135 +30,115 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name="contact")
 public class Contact implements Serializable{
-
 	public Contact() {
 		super();
-		
 	}
-
-	
-
-	public Contact(long contact_Id, String fullName, String firstName, String lastName, Date dOB, String mobileNumber1,
-			String mobileNumber2, String emailId1, String emailId2/*, Set<Contact_Address> contactAddress*/) {
-		super();
-		this.contact_Id = contact_Id;
-		this.fullName = fullName;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.dOB = dOB;
-		this.mobileNumber1 = mobileNumber1;
-		this.mobileNumber2 = mobileNumber2;
-		this.emailId1 = emailId1;
-		this.emailId2 = emailId2;
-		//this.contactAddress = contactAddress;
-	}
-
-
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "Contact_Id", nullable = false, updatable = false)
-	private long contact_Id;
+	@Column(name = "contact_id", nullable = false, updatable = false)
+	private Long contactId;
 	
-	@Column(name="Full_Name")
+	@Column(name="full_name")
 	private String fullName;
 	
-	@Column(name="First_Name")
+	@Column(name="first_name")
 	private String firstName;
 	
-	@Column(name="Last_Name")
+	@Column(name="last_name")
 	private String lastName;
-	@Column(name="DOB")
+	@Column(name="dob")
 	private Date dOB;
-	@Column(name="Mobile_Number_1")
+	@Column(name="mobile_number_1")
 	private String mobileNumber1;
-	@Column(name="Mobile_Number_2")
+	@Column(name="mobile_number_2")
 	private String mobileNumber2;
-	@Column(name="Email_Id_1")
+	@Column(name="email_id_1")
 	private String emailId1;
-	@Column(name="Email_Id_2")
+	@Column(name="email_id_2")
 	private String emailId2;
-	
-	
-	
-	/*@OneToMany(mappedBy="contact",  cascade = CascadeType.ALL,fetch=FetchType.EAGER)
-    private Set<Contact_Address> contactAddress;*/
-   
-	public long getContact_Id() {
-		return contact_Id;
+
+	@OneToMany(mappedBy = "contact",cascade=CascadeType.PERSIST)
+	private List<ContactAddress> contactAddress;
+
+
+	public Long getContactId() {
+		return contactId;
 	}
-	public void setContact_Id(long contact_Id) {
-		this.contact_Id = contact_Id;
+
+	public void setContactId(Long contactId) {
+		this.contactId = contactId;
 	}
+
 	public String getFullName() {
 		return fullName;
 	}
+
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
+
 	public String getFirstName() {
 		return firstName;
 	}
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
 	public String getLastName() {
 		return lastName;
 	}
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 	public Date getdOB() {
 		return dOB;
 	}
+
 	public void setdOB(Date dOB) {
 		this.dOB = dOB;
 	}
+
 	public String getMobileNumber1() {
 		return mobileNumber1;
 	}
+
 	public void setMobileNumber1(String mobileNumber1) {
 		this.mobileNumber1 = mobileNumber1;
 	}
+
 	public String getMobileNumber2() {
 		return mobileNumber2;
 	}
+
 	public void setMobileNumber2(String mobileNumber2) {
 		this.mobileNumber2 = mobileNumber2;
 	}
+
 	public String getEmailId1() {
 		return emailId1;
 	}
+
 	public void setEmailId1(String emailId1) {
 		this.emailId1 = emailId1;
 	}
+
 	public String getEmailId2() {
 		return emailId2;
 	}
+
 	public void setEmailId2(String emailId2) {
 		this.emailId2 = emailId2;
 	}
-	
-	
 
-	/*public Set<Contact_Address> getContactAddress() {
+	public List<ContactAddress> getContactAddress() {
 		return contactAddress;
 	}
 
-	public void setContactAddress(Set<Contact_Address> contactAddress) {
+	public void setContactAddress(List<ContactAddress> contactAddress) {
 		this.contactAddress = contactAddress;
-	}*/
-
-	@Override
-	public String toString() {
-		return "Contact [contact_Id=" + contact_Id + ", fullName=" + fullName + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", dOB=" + dOB + ", mobileNumber1=" + mobileNumber1 + ", mobileNumber2="
-				+ mobileNumber2 + ", emailId1=" + emailId1 + ", emailId2=" + emailId2 + /*", contactAddress="
-				+ contactAddress + */"]";
 	}
-
-	
-	
-
-	
 }

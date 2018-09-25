@@ -22,19 +22,13 @@ public class Subject implements Serializable {
 	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="Subject_Id")
-	private long subjectId;
-	@Column(name="Subject_Name")
+	@Column(name="subject_id")
+	private Long subjectId;
+	@Column(name="subject_name")
 	private String subjectName;
-	@JoinColumn(name="Course_Id")
+	@JoinColumn(name="course_id")
 	@OneToOne(targetEntity = Course.class, fetch = FetchType.EAGER)
 	private Course course;
-	public long getSubjectId() {
-		return subjectId;
-	}
-	public void setSubjectId(long subjectId) {
-		this.subjectId = subjectId;
-	}
 	public String getSubjectName() {
 		return subjectName;
 	}
@@ -48,4 +42,11 @@ public class Subject implements Serializable {
 		this.course = course;
 	}
 
+	public Long getSubjectId() {
+		return subjectId;
+	}
+
+	public void setSubjectId(Long subjectId) {
+		this.subjectId = subjectId;
+	}
 }

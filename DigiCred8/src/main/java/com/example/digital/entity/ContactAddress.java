@@ -34,10 +34,10 @@ public class ContactAddress implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="contact_address_id",insertable=false,updatable=false)
 	private Long addressId;
-		
+
+
 	@JoinColumn(name="contact_id")
 	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Contact contact;
 	
 	@JoinColumn(name="address_type")
@@ -66,13 +66,13 @@ public class ContactAddress implements Serializable {
 		this.addressId = addressId;
 	}
 
-	public Contact getContact() {
+/*	public Contact getContact() {
 		return contact;
 	}
 
 	public void setContact(Contact contact) {
 		this.contact = contact;
-	}
+	}*/
 
 	public AddressType getAddressType() {
 		return addressType;
@@ -132,6 +132,14 @@ public class ContactAddress implements Serializable {
 
 	public Long getPostalCode() {
 		return postalCode;
+	}
+
+	public Contact getContact() {
+		return contact;
+	}
+
+	public void setContact(Contact contact) {
+		this.contact = contact;
 	}
 
 	public void setPostalCode(Long postalCode) {
