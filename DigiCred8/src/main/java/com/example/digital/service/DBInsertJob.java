@@ -5,6 +5,7 @@ import com.example.digital.repository.CourseRepository;
 import com.example.digital.repository.ErrorRepository;
 import com.example.digital.repository.InstitutionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.File;

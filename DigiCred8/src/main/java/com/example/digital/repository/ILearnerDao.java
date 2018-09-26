@@ -15,6 +15,7 @@ import com.example.digital.entity.User;
 
 
 public interface ILearnerDao {
+/*
 	@GetMapping
 	List<Learner> getAllLearners();
 	
@@ -22,12 +23,14 @@ public interface ILearnerDao {
 	Learner getLearnerByid(long learner_id);
 	
     void addLearner(Learner learner);
-  /*  
+  */
+/*
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     void updateLearner(@RequestBody Learner learner);
     
     @RequestMapping(value = "/{learner_id}",method = RequestMethod.DELETE)
-    void deleteLearner(long learner_id);*/
+    void deleteLearner(long learner_id);*//*
+
     
     
 	
@@ -36,6 +39,7 @@ public interface ILearnerDao {
 	Learner getContactByid(Contact contact);
 
 	Learner getUserByid(User user);
+*/
 
 
 	

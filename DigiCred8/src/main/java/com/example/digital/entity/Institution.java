@@ -21,7 +21,7 @@ public class Institution implements Serializable {
 
 	@JsonIgnore
 	@JoinColumn(name="contact_id")
-	@OneToOne(targetEntity = Contact.class, fetch = FetchType.EAGER)
+	@OneToOne(targetEntity = Contact.class, fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
 	private Contact contact;
 	@Column(name="parent_institution_id")
 	private Long parentInstitutionId;
@@ -29,7 +29,7 @@ public class Institution implements Serializable {
 	private String institutionName;
 
 
-	@OneToMany(mappedBy = "institution")
+	@OneToMany(mappedBy = "institution", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<Course> courses;
 
 	public static long getSerialVersionUID() {

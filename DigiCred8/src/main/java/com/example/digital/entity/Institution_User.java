@@ -14,12 +14,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-@SuppressWarnings("serial")
-@Entity
-@Table(name="institution_user")
+//@SuppressWarnings("serial")
+//@Entity
+//@Table(name="institution_user")
 public class Institution_User implements Serializable {
 
-	public Institution_User() {
+/*	public Institution_User() {
 		super();
 	}
 	
@@ -89,7 +89,7 @@ public class Institution_User implements Serializable {
 		return "Institution_User [institution_User_Id=" + institution_User_Id + ", institution_Id=" + institution_Id
 				+ ", user=" + user.getUserId() + ", contact=" + contact.getContact_Id() + "]";
 	}
-	
+	*/
 	
 		
 	

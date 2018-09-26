@@ -19,7 +19,7 @@ import com.example.digital.entity.Contact;
 @Repository
 public class ContactDao implements IContactDao {
 	
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	/*private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	//List<Contact> contacts;
 	
@@ -44,7 +44,7 @@ public class ContactDao implements IContactDao {
 		
 		entityManager.persist(contact);
 	}
-	/*@Override
+	*//*@Override
 	public void updateContact(Contact contact) {
 		Contact ct = getContactByid(contact.getContact_Id());
 		ct.setFullName(contact.getFullName());
@@ -60,7 +60,7 @@ public class ContactDao implements IContactDao {
 		
 		entityManager.flush();
 	}
-	*/
+	*//*
 	@Override
 	public void updateContact(Contact contact) {
 		
@@ -97,5 +97,5 @@ public class ContactDao implements IContactDao {
 				.setParameter(5, Mobile_Number_1).setParameter(6, Mobile_Number_2).setParameter(7, Email_Id_1).setParameter(8, Email_Id_2).getResultList().size();
 		return count > 0 ? true : false;
 	}
-
+*/
 }
