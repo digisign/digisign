@@ -18,7 +18,9 @@ public class LearnerCredentialResourceResponse {
     private LearnerCredentialResource learnerCredentialResource;
     private Integer startYear;
     private Integer endYear;
-    private Float Marks;
+    private String  totalMarks;
+    private String obtainedMarks;
+    private MarksType marksType;
     private Date issuedDate;
     private String credentialName;
     private Integer credentialYear;
@@ -71,12 +73,20 @@ public class LearnerCredentialResourceResponse {
         this.endYear = endYear;
     }
 
-    public Float getMarks() {
-        return Marks;
+    public String getTotalMarks() {
+        return totalMarks;
     }
 
-    public void setMarks(Float marks) {
-        Marks = marks;
+    public void setTotalMarks(String totalMarks) {
+        this.totalMarks = totalMarks;
+    }
+
+    public String getObtainedMarks() {
+        return obtainedMarks;
+    }
+
+    public void setObtainedMarks(String obtainedMarks) {
+        this.obtainedMarks = obtainedMarks;
     }
 
     public Date getIssuedDate() {
@@ -101,6 +111,14 @@ public class LearnerCredentialResourceResponse {
 
     public void setCredentialYear(Integer credentialYear) {
         this.credentialYear = credentialYear;
+    }
+
+    public MarksType getMarksType() {
+        return marksType;
+    }
+
+    public void setMarksType(MarksType marksType) {
+        this.marksType = marksType;
     }
 }
 
