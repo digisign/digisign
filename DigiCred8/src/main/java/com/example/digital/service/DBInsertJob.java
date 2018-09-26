@@ -5,6 +5,7 @@ import com.example.digital.repository.CourseRepository;
 import com.example.digital.repository.ErrorRepository;
 import com.example.digital.repository.InstitutionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +33,7 @@ public class DBInsertJob {
     //@Scheduled(cron = "0 2 13 * * ?")
     //@Transactional
     public void insertInstitutionsData() throws IOException {
-        File file = new File("C:\\Users\\kvijay\\Downloads\\tempdata.xlsx");
-        InputStream is = new FileInputStream(file);
+        InputStream is = new ClassPathResource("tempdata.xlsx").getInputStream();
         ExcelReader er = new ExcelReader();
         List<Map<String, Object>> list = er.excelToMap(is);
         List<Institution> institutions = new ArrayList();
@@ -88,8 +88,7 @@ public class DBInsertJob {
     //@Scheduled(cron = "0  46 15 * * ?")
     //@Transactional
     public void insertCoursesData() throws IOException {
-        File file = new File("C:\\Users\\kvijay\\Downloads\\Subject.xlsx");
-        InputStream is = new FileInputStream(file);
+        InputStream is = new ClassPathResource("Subject.xlsx").getInputStream();
         ExcelReader er = new ExcelReader();
         List<Map<String, Object>> list = er.excelToMap(is);
         List<CourseConverter> courseConverters = new ArrayList();
