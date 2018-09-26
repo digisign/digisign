@@ -4,14 +4,9 @@ import com.example.digital.entity.*;
 import com.example.digital.repository.CourseRepository;
 import com.example.digital.repository.ErrorRepository;
 import com.example.digital.repository.InstitutionRepository;
-import org.apache.tomcat.util.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,7 +29,7 @@ public class DBInsertJob {
     @Autowired
     private CourseRepository courseRepository;
 
-    @Scheduled(cron = "0 45 14 * * ?")
+    //@Scheduled(cron = "0 2 13 * * ?")
     //@Transactional
     public void insertInstitutionsData() throws IOException {
         File file = new File("C:\\Users\\kvijay\\Downloads\\tempdata.xlsx");
@@ -90,7 +85,7 @@ public class DBInsertJob {
         }
     }
 
-    @Scheduled(cron = "0  46 20 * * ?")
+    //@Scheduled(cron = "0  46 15 * * ?")
     //@Transactional
     public void insertCoursesData() throws IOException {
         File file = new File("C:\\Users\\kvijay\\Downloads\\Subject.xlsx");

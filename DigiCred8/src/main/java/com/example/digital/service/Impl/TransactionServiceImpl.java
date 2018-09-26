@@ -41,6 +41,8 @@ public class TransactionServiceImpl implements TransactionService {
                 continue;
             }else{
                 course.setInstitution(institution);
+                course.setCoursePeriod(courseConverter.getCourseDuration());
+                course.setCourseName(courseConverter.getCourse());
             }
             List<CourseConverter> converterList = entry.getValue();
             Set<Subject> subjects = new HashSet<>();
@@ -51,9 +53,11 @@ public class TransactionServiceImpl implements TransactionService {
                 subject.setCourse(course);
             }
             course.setSubjects(subjects);
+
             try {
                 courseRepository.save(course);
             } catch (Exception ex) {
+                ex.printStackTrace();
                 ErrorTable error = new ErrorTable();
                 error.setErrorMessage(ex.getMessage());
                 error.setStackTrace(org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(ex));
@@ -67,13 +71,17 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
 
-    Institution getInstituion(CourseConverter courseConverter){
-        try {
-            Optional<Institution> institution = institutionRepository.findByInstitutionNameIgnoreCase(courseConverter.getInstitute());
-            return  institution.get();
-        } catch (Exception ex) {
-           return null;
+    Institution getInstituion(CourseConverter courseConverter) {
+        if (courseConverter.getInstitute() != null) {
+            try {
+                Optional<Institution> institution = institutionRepository.findByInstitutionNameIgnoreCase(courseConverter.getInstitute());
+                return institution.get();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return null;
+            }
+        } else {
+            return null;
         }
     }
-
 }

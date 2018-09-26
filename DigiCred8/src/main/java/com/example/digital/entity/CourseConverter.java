@@ -9,6 +9,7 @@ public class CourseConverter {
     private String course;
     private String subjectName;
     private String courseDuration;
+    private String courseName;
 
     public String getInstitute() {
         return institute;
@@ -56,5 +57,13 @@ public class CourseConverter {
     public int hashCode() {
 
         return Objects.hash(getInstitute(), getCourse(), getCourseDuration());
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 }
