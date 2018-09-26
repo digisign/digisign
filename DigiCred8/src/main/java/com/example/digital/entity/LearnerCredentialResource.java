@@ -26,7 +26,7 @@ public class LearnerCredentialResource implements Serializable {
 	private Long resourceId;
 	@JoinColumn(name="learner_credential_id")
 	@OneToOne( fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-	@OnDelete(action = OnDeleteAction.CASCADE)
+	//@OnDelete(action = OnDeleteAction.CASCADE)
 	private LearnerCredential learnerCredential;
 	@Column(name="file_path")
 	private String filePath;
