@@ -5,6 +5,12 @@ insert into `role` values (1,'learner','student');
 insert into `role` values (2,'institute admin','credential issuing authority');
 insert into `role` values (3,'requester','requesting for credential');
 
+INSERT INTO `digisign`.`marks_type` (`marks_type_id`, `type_desc`) VALUES ('1', 'Marks');
+INSERT INTO `digisign`.`marks_type` (`marks_type_id`, `type_desc`) VALUES ('2', 'Grade');
+INSERT INTO `digisign`.`marks_type` (`marks_type_id`, `type_desc`) VALUES ('3', 'CGPA');
+INSERT INTO `digisign`.`marks_type` (`marks_type_id`, `type_desc`) VALUES ('4', 'Percentage');
+
+
 
   
 insert ignore into contact (full_name, mobile_number_1,mobile_number_2,email_id_1,email_id_2) values('MIT College of Engineering',2030273400,2030273677,'mitcoe@mitpune.com',null);
