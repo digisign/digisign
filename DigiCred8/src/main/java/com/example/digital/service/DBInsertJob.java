@@ -30,7 +30,7 @@ public class DBInsertJob {
     @Autowired
     private CourseRepository courseRepository;
 
-    //@Scheduled(cron = "0 2 13 * * ?")
+    //@Scheduled(cron = "0 18 13 * * ?")
     //@Transactional
     public void insertInstitutionsData() throws IOException {
         InputStream is = new ClassPathResource("tempdata.xlsx").getInputStream();
@@ -41,11 +41,6 @@ public class DBInsertJob {
             Institution institution = new Institution();
             Contact contact = new Contact();
             institution.setInstitutionName((String) map.get("Institution_Name"));
-
-            if (("(02629) 235951").equals(map.get("Mobile_Number_1"))) {
-                System.out.println("reading rows" + map);
-            }
-
             contact.setMobileNumber1((String) map.get("Mobile_Number_1"));
             contact.setMobileNumber2((String) map.get("Mobile_Number_2"));
             contact.setEmailId1((String) map.get("Email_Id_1"));
