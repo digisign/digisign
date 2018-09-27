@@ -59,10 +59,8 @@ public class ExcelReader {
                         }
                         if (!CollectionUtils.sizeIsEmpty(currRow)) {
                             objectsMap.add(currRow);
-                            if(("(02629) 235951").equals(currRow.get("Mobile_Number_1"))){
-                                System.out.println("reading rows"+currRow);
-                            }
-
+                         
+                            System.out.println("reading rows"+currRow);
                         }
                     }
                 }

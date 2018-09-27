@@ -29,10 +29,10 @@ public class DBInsertJob {
     @Autowired
     private CourseRepository courseRepository;
 
-    //@Scheduled(cron = "0 2 13 * * ?")
+    @Scheduled(cron = "0 03 19 * * ?")
     //@Transactional
     public void insertInstitutionsData() throws IOException {
-        File file = new File("C:\\Users\\kvijay\\Downloads\\tempdata.xlsx");
+        File file = new File("C:\\Users\\Hp\\Documents\\GitHub\\TestCredential\\data\\tempdata.xlsx");
         InputStream is = new FileInputStream(file);
         ExcelReader er = new ExcelReader();
         List<Map<String, Object>> list = er.excelToMap(is);
@@ -85,10 +85,10 @@ public class DBInsertJob {
         }
     }
 
-    //@Scheduled(cron = "0  46 15 * * ?")
+    @Scheduled(cron = "0 40 20 * * ?")
     //@Transactional
     public void insertCoursesData() throws IOException {
-        File file = new File("C:\\Users\\kvijay\\Downloads\\Subject.xlsx");
+        File file = new File("C:\\Users\\Hp\\Documents\\GitHub\\TestCredential\\data\\Subject.xlsx");
         InputStream is = new FileInputStream(file);
         ExcelReader er = new ExcelReader();
         List<Map<String, Object>> list = er.excelToMap(is);

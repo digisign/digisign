@@ -51,12 +51,16 @@ public class CourseConverter {
         return Objects.equals(getInstitute(), that.getInstitute()) &&
                 Objects.equals(getCourse(), that.getCourse()) &&
                 Objects.equals(getCourseDuration(), that.getCourseDuration());
+        
+        
     }
 
     @Override
     public int hashCode() {
 
         return Objects.hash(getInstitute(), getCourse(), getCourseDuration());
+        
+     
     }
 
     public String getCourseName() {
