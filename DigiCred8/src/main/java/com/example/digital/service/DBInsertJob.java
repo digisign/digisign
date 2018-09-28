@@ -30,7 +30,7 @@ public class DBInsertJob {
     @Autowired
     private CourseRepository courseRepository;
 
-    //@Scheduled(cron = "0 18 13 * * ?")
+    //@Scheduled(cron = "0 2 13 * * ?")
     //@Transactional
     public void insertInstitutionsData() throws IOException {
         InputStream is = new ClassPathResource("tempdata.xlsx").getInputStream();
@@ -61,6 +61,15 @@ public class DBInsertJob {
             contactAddress.setPostalCode(code);
             contactAddress.setCountry((String) map.get("Country"));
             contact.setContactAddress(Arrays.asList(contactAddress));
+
+            if(contact.getMobileNumber1()==null && contact.getMobileNumber2()==null
+                	&& contact.getEmailId1()==null && contact.getEmailId2()==null
+                	&& contactAddress.getAddress1()==null){
+
+                continue;
+                }
+
+
             institution.setContact(contact);
             institutions.add(institution);
             try {

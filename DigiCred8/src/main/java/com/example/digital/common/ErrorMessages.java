@@ -18,6 +18,7 @@ public enum ErrorMessages {
 
 
 
+
     private final String code;
     private final String reasonPhrase;
 

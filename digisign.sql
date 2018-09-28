@@ -1,5 +1,5 @@
-Create database if not exists digisign;
-use digisign;
+Create database if not exists digisign3;
+use digisign3;
 
 CREATE TABLE `user` (
   `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
