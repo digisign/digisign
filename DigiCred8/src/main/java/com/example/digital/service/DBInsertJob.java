@@ -1,18 +1,25 @@
 package com.example.digital.service;
 
-import com.example.digital.entity.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Service;
+
+import com.example.digital.entity.Contact;
+import com.example.digital.entity.ContactAddress;
+import com.example.digital.entity.CourseConverter;
+import com.example.digital.entity.ErrorTable;
+import com.example.digital.entity.Institution;
 import com.example.digital.repository.CourseRepository;
 import com.example.digital.repository.ErrorRepository;
 import com.example.digital.repository.InstitutionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
 
 @Service
 public class DBInsertJob {
@@ -29,11 +36,15 @@ public class DBInsertJob {
     @Autowired
     private CourseRepository courseRepository;
 
-    @Scheduled(cron = "0 03 19 * * ?")
+   // @Scheduled(cron = "0 18 15 * * ?")
     //@Transactional
     public void insertInstitutionsData() throws IOException {
-        File file = new File("C:\\Users\\Hp\\Documents\\GitHub\\TestCredential\\data\\tempdata.xlsx");
-        InputStream is = new FileInputStream(file);
+
+       // File file = new File("C:\\Users\\Hp\\Documents\\GitHub\\TestCredential\\data\\tempdata.xlsx");
+        //InputStream is = new FileInputStream(file);
+
+        InputStream is = new ClassPathResource("tempdata.xlsx").getInputStream();
+
         ExcelReader er = new ExcelReader();
         List<Map<String, Object>> list = er.excelToMap(is);
         List<Institution> institutions = new ArrayList();
@@ -51,7 +62,9 @@ public class DBInsertJob {
             contact.setEmailId1((String) map.get("Email_Id_1"));
             contact.setEmailId2((String) map.get("Email_Id_2"));
             contact.setFullName((String) map.get("Institution_Name"));
+            
             ContactAddress contactAddress = new ContactAddress();
+           
             contactAddress.setAddress1((String) map.get("Address_1"));
             contactAddress.setAddress2((String) map.get("Address_2"));
             contactAddress.setAddress3((String) map.get("Address_3"));
@@ -66,6 +79,15 @@ public class DBInsertJob {
             contactAddress.setPostalCode(code);
             contactAddress.setCountry((String) map.get("Country"));
             contact.setContactAddress(Arrays.asList(contactAddress));
+            
+            if(contact.getMobileNumber1()==null && contact.getMobileNumber2()==null 
+                	&& contact.getEmailId1()==null && contact.getEmailId2()==null
+                	&& contactAddress.getAddress1()==null){
+              
+                continue;
+                }
+            
+            
             institution.setContact(contact);
             institutions.add(institution);
             try {
@@ -85,11 +107,15 @@ public class DBInsertJob {
         }
     }
 
-    @Scheduled(cron = "0 40 20 * * ?")
+    //@Scheduled(cron = "0 30 16 * * ?")
     //@Transactional
     public void insertCoursesData() throws IOException {
-        File file = new File("C:\\Users\\Hp\\Documents\\GitHub\\TestCredential\\data\\Subject.xlsx");
-        InputStream is = new FileInputStream(file);
+
+       // File file = new File("C:\\Users\\Hp\\Documents\\GitHub\\TestCredential\\data\\Subject.xlsx");
+        //InputStream is = new FileInputStream(file);
+
+        InputStream is = new ClassPathResource("Subject.xlsx").getInputStream();
+
         ExcelReader er = new ExcelReader();
         List<Map<String, Object>> list = er.excelToMap(is);
         List<CourseConverter> courseConverters = new ArrayList();

@@ -11,7 +11,8 @@ public class LearnerCredentialResourceRequest {
   private Long courseId;
   private Long institutionId;
   private Long gradeId;
-  private Float marks;
+  private String totalMarks;
+  private String marksObtained;
   private String courseStartDate;
   private String courseEndDate;
   private Integer issuedYear;
@@ -25,6 +26,7 @@ public class LearnerCredentialResourceRequest {
   private Long statusId;
   private Integer startYear;
   private Integer endYear;
+  private Long marksTypeId;
 
 
 
@@ -52,12 +54,20 @@ public class LearnerCredentialResourceRequest {
         this.gradeId = gradeId;
     }
 
-    public Float getMarks() {
-        return marks;
+    public String getTotalMarks() {
+        return totalMarks;
     }
 
-    public void setMarks(Float marks) {
-        this.marks = marks;
+    public void setTotalMarks(String totalMarks) {
+        this.totalMarks = totalMarks;
+    }
+
+    public String getMarksObtained() {
+        return marksObtained;
+    }
+
+    public void setMarksObtained(String marksObtained) {
+        this.marksObtained = marksObtained;
     }
 
     public String getCourseStartDate() {
@@ -178,5 +188,13 @@ public class LearnerCredentialResourceRequest {
 
     public void setEndYear(Integer endYear) {
         this.endYear = endYear;
+    }
+
+    public Long getMarksTypeId() {
+        return marksTypeId;
+    }
+
+    public void setMarksTypeId(Long marksTypeId) {
+        this.marksTypeId = marksTypeId;
     }
 }

@@ -8,6 +8,9 @@ import com.example.digital.service.*;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PropertyComparator;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -48,6 +51,9 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
     @Autowired
     private LearnerCredentialService learnerCredentialService;
 
+    @Autowired
+    private MarksTypeRepository marksTypeRepository;
+
 
     @Transactional
     public LearnerCredentialResourceResponse save(LearnerCredentialResourceRequest learnerCredentialResourceRequest) throws Exception {
@@ -61,8 +67,11 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
         Institution institution = getInstitution(learnerCredentialResourceRequest);
         Course course = getCourse(learnerCredentialResourceRequest, institution);
         Grade grade=getGrade(learnerCredentialResourceRequest);
+        MarksType marksType=getMarksType(learnerCredentialResourceRequest);
         Set<Grade> grades=new HashSet<>();
-        grades.add(grade);
+        if(grade!=null){
+            grades.add(grade);
+        }
         course.setGrades(grades);
         Credential credential = getCredential(learnerCredential);
         credential.setCourse(course);
@@ -72,7 +81,9 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
         learnerCredential.setGrade(grade);
         learnerCredential.setCourse(course);
         learnerCredential.setCredential(credential);
-        learnerCredential.setMarks(learnerCredentialResourceRequest.getMarks());
+        learnerCredential.setMarksType(marksType);
+        learnerCredential.setTotalMarks(learnerCredentialResourceRequest.getTotalMarks());
+        learnerCredential.setMarksObtained(learnerCredentialResourceRequest.getMarksObtained());
         learnerCredential.setStartYear(learnerCredentialResourceRequest.getStartYear());
         learnerCredential.setEndYear(learnerCredentialResourceRequest.getEndYear());
         learnerCredentialResource.setUpdatedDate(new Date());
@@ -105,6 +116,22 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
         }
 
     }
+
+    private MarksType getMarksType(LearnerCredentialResourceRequest learnerCredentialResourceRequest) {
+        Long marksTypeId = learnerCredentialResourceRequest.getMarksTypeId();
+        if (marksTypeId != null) {
+            Optional<MarksType> marksType =marksTypeRepository .findById(marksTypeId);
+            if (!marksType.isPresent()) {
+                throw new DigiSignException(ErrorMessages.MARKS_TYPE_NOT_AVAILABLE.getReasonPhrase(), ErrorMessages.MARKS_TYPE_NOT_AVAILABLE.getCode());
+            } else {
+                return marksType.get();
+            }
+        }else{
+            return null;
+        }
+
+    }
+
 
 
 
@@ -185,22 +212,27 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
                 return grade.get();
             }
         } else {
-            Grade grade = new Grade();
+           /* Grade grade = new Grade();
             grade.setGradeName(learnerCredentialResourceRequest.getGradeName());
-            return gradeRepository.save(grade);
+            return gradeRepository.save(grade);*/
+
+           return null;
         }
 
     }
 
 
-    public List<LearnerCredentialResourceResponse> getLeranerCredentialResourceByUserId(Long userId){
+    public Map<String,Object> getLeranerCredentialResourceByUserId(Long userId,PageRequest pageRequest){
         User user=userService.getUserById(userId);
         Learner learner=learnerService.getLearnerByUser(user);
         List<LearnerCredential> learnerCredentials=learnerCredentialService.getLearnerCredentialsByLearner(learner);
-        List<LearnerCredentialResource> learnerCredentialResources=learnerCredentialResourceRepository.findByLearnerCredentialIn(learnerCredentials);
-        sortLearnerCredentialResources(learnerCredentialResources);
-        return  getLearnerCredentialResourceResponses(learnerCredentialResources);
-
+        Page<LearnerCredentialResource> learnerCredentialResources=learnerCredentialResourceRepository.findByLearnerCredentialIn(learnerCredentials,pageRequest);
+        System.out.println("total pages"+learnerCredentialResources.getTotalPages());
+        List<LearnerCredentialResource>  learnerCredentialResourceList=   learnerCredentialResources.getContent();
+        Map<String,Object> LearnerCredentialResourceResponseMap=new HashMap();
+        LearnerCredentialResourceResponseMap.put("pages",learnerCredentialResources.getTotalPages());
+        LearnerCredentialResourceResponseMap.put("learnerCredentialResources", getLearnerCredentialResourceResponses(learnerCredentialResourceList));
+        return LearnerCredentialResourceResponseMap;
     }
 
 
@@ -232,7 +264,9 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
             learnerCredentialResourceResponse.setEndYear(learnerCredential.getEndYear());
             learnerCredentialResourceResponse.setStartYear(learnerCredential.getStartYear());
             learnerCredentialResourceResponse.setIssuedDate(learnerCredential.getIssuedDate());
-            learnerCredentialResourceResponse.setMarks(learnerCredential.getMarks());
+            learnerCredentialResourceResponse.setMarksType(learnerCredential.getMarksType());
+            learnerCredentialResourceResponse.setTotalMarks(learnerCredential.getTotalMarks());
+            learnerCredentialResourceResponse.setObtainedMarks(learnerCredential.getMarksObtained());
         }
 
 
@@ -260,16 +294,16 @@ public class LearnerCredentialResourceServiceImpl implements LearnerCredentialRe
             learnerCredentialResource.setUpdatedDate(new Date());
         }
         learnerCredentialResources=learnerCredentialResourceRepository.saveAll(learnerCredentialResources);
-        sortLearnerCredentialResources(learnerCredentialResources);
+        //sortLearnerCredentialResources(learnerCredentialResources);
         return  getLearnerCredentialResourceResponses(learnerCredentialResources);
     }
 
 
 
-   private  void sortLearnerCredentialResources(List<LearnerCredentialResource> learnerCredentialResources){
+  /* private  void sortLearnerCredentialResources(List<LearnerCredentialResource> learnerCredentialResources){
        PropertyComparator<LearnerCredentialResource> comparator = new PropertyComparator<>("updatedDate", true, true);
        learnerCredentialResources.sort(comparator);
-    }
+    }*/
 
 
 }
