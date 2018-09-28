@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.example.digital.entity.Contact;
@@ -40,8 +41,12 @@ public class DBInsertJob {
     //@Transactional
     public void insertInstitutionsData() throws IOException {
 
+
        // File file = new File("C:\\Users\\Hp\\Documents\\GitHub\\TestCredential\\data\\tempdata.xlsx");
         //InputStream is = new FileInputStream(file);
+
+       // InputStream is = new ClassPathResource("tempdata.xlsx").getInputStream();
+
 
         InputStream is = new ClassPathResource("tempdata.xlsx").getInputStream();
 
@@ -110,6 +115,7 @@ public class DBInsertJob {
     //@Scheduled(cron = "0 30 16 * * ?")
     //@Transactional
     public void insertCoursesData() throws IOException {
+
 
        // File file = new File("C:\\Users\\Hp\\Documents\\GitHub\\TestCredential\\data\\Subject.xlsx");
         //InputStream is = new FileInputStream(file);
