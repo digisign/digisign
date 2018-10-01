@@ -6,6 +6,7 @@ import com.example.digital.repository.ErrorRepository;
 import com.example.digital.repository.InstitutionRepository;
 import com.example.digital.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
@@ -28,7 +29,7 @@ public class TransactionServiceImpl implements TransactionService {
     private ErrorRepository errorRepository;
 
 
-    @Transactional
+    //@Transactional(noRollbackFor={RuntimeException.class,DataIntegrityViolationException.class})
     public void saveCourses(Map<CourseConverter, List<CourseConverter>> courseConverterListMap) {
         //TransactionStatus status = TransactionAspectSupport.currentTransactionStatus();
 
