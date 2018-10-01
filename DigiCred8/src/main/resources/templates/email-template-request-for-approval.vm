@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tricon: Email template</title>
+	<meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
+    <style>
+      body {
+	    background-color: #fff;
+        color: #212529;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-size: 1rem;
+        font-weight: normal;
+        line-height: 1.5;
+        margin: 0;
+	  }
+    </style>
+  </head>
+  <body>
+	<table style="border:1px solid black; border-collapse:collapse; padding:0; margin:auto; max-width:500px;">
+	  <thead>
+	    <tr>
+		  <td style=" background-color: #3c4f58; border-bottom: 4px solid #1a9b8c; border-collapse:collapse; padding:5px">
+		    <a href="http://www.triconinfotech.com/"> <img src="https://appraisal.triconinfotech.net/appraisal/static-content/images/Tricon-logo-white.png" alt="Tricon Infotech" style="max-height:43px"> </a>
+		  </td>
+		</tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+		  <td style="border:1px solid black;border-collapse:collapse;padding:10px;">
+		  <table style="border-collapse:collapse;padding:0;border:none;">
+		  
+		    <tr>
+			  <td> Hi <b>${reviewer}</b>,</td>
+			</tr>
+			<tr>
+			  <td>
+			  	<br>
+			  	  <p  align="justify"><p>We are thankful to you for leading and mentoring <b>${reviewee}</b>. As you know we have launched ${appCycle} appraisal cycle for the year ${year}.  The objectives should match Business and Technology goals of your team. It should also make sure that <b>${reviewee}</b>'s personal and professional goals are set appropriately with SMART Objectives under various KPI's.</p><p>
+				  We request you to review the objectives set by <b>${reviewee}</b> for this period. You can make changes <a href=${link} style="color: #00adff;">here</a>, approve or reject the objectives to make sure it matches corporate's or team goals.</p></p> 
+			  </td>
+			</tr>
+			<tr>
+			  <td style="border-collapse:collapse;padding:5px 0;">
+			    <br>
+			    <b>Thanks</b>,<br><br>
+				HR Team<br>
+				Tricon Infotech Pvt Ltd
+			  </td>
+			</tr>
+		  </table>
+		  </td>
+		</tr>
+		<tr style="border:none;display: flex;">
+		  <td style="border:none;border-collapse:collapse; padding:0;">
+		    <table style="border:none;border-collapse:collapse; padding:0; width: 100%;">
+			  <tr style="border:none;display: flex;">
+				<td style="border:none;padding:10px; font-size: 12px;">
+			   Write to us at <a href="mailto:appraisal.support@triconinfotech.com" style="color: #00adff;"> appraisal.support@triconinfotech.com </a>for any queries, feedback or access related issues.<br/> 
+			</td>
+			  </tr>
+			</table>
+		  </td>
+		  </tr>
+		  <tr>
+		    <td style="background-color: #3f3f3f; color: #ffffff; padding: 10px;">
+			  &copy; 2018 Tricon Infotech Private Limited. All Rights Reserved.
+			</td>
+		  </tr>
+	  </tbody>
+	</table>
+  </body>
+</html>

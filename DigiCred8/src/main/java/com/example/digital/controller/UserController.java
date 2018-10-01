@@ -2,6 +2,7 @@ package com.example.digital.controller;
 
 
 import com.example.digital.entity.User;
+import com.example.digital.service.EmailService;
 import com.example.digital.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,8 @@ public class UserController {
      @Autowired
 	 private UserService userService;
 
+    @Autowired
+	private EmailService emailService;
 
 	public static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	/* @Autowired
@@ -66,8 +69,10 @@ public class UserController {
 	    
 	  //-------------------Create a User--------------------------------------------------------
 	    @RequestMapping(value="/user",method = RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
-		public User save(@RequestBody User user) {
+		public User save(@RequestBody User user) throws Exception {
+			emailService.sendMail(user);
 			return userService.save(user);
+
 		}
 	    
 	  //------------------- Update a User --------------------------------------------------------
