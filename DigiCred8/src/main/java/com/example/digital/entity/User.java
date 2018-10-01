@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.Transient;
+
 
 
 
@@ -39,6 +39,11 @@ public class User implements Serializable  {
 	private String socialId;
 	@Column(name="status_id")
 	private String statusId;
+	@javax.persistence.Transient
+	private String newPassword;
+	
+	@javax.persistence.Transient
+	private String aadharNo;
 
 	@ManyToMany(targetEntity = Role.class, cascade = CascadeType.ALL ,fetch=FetchType.EAGER)
 	@JoinTable(name = "user_role", joinColumns=@JoinColumn(name = "user_id"),
@@ -51,6 +56,8 @@ public class User implements Serializable  {
 	@JsonIgnore
 	@Column(name="salt")
 	private String salt;
+	
+	
 
 
 	public User() {
@@ -61,6 +68,8 @@ public class User implements Serializable  {
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
 	}
+	
+	
 
 	public Long getUserId() {
 		return userId;
@@ -135,7 +144,8 @@ public class User implements Serializable  {
 	}
 
 	public Set<Role> getRoles() {
-		return roles;
+		
+		return roles;	
 	}
 
 	public void setRoles(Set<Role> roles) {
@@ -157,4 +167,30 @@ public class User implements Serializable  {
 	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
+
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+
+
+	public String getAadharNo() {
+		return aadharNo;
+	}
+
+
+	public void setAadharNo(String aadharNo) {
+		this.aadharNo = aadharNo;
+	}
+
+
+	
+
+
+
 }

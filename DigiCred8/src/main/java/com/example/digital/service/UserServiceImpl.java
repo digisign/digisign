@@ -1,12 +1,19 @@
 package com.example.digital.service;
 
 import com.example.digital.config.CredentialEncryptionConfig;
+import com.example.digital.controller.UserController;
 import com.example.digital.entity.Learner;
 import com.example.digital.entity.Role;
 import com.example.digital.entity.User;
 import com.example.digital.exception.DigiSignException;
 import com.example.digital.repository.RoleRepository;
 import com.example.digital.repository.UserRepository;
+
+import ch.qos.logback.classic.Logger;
+
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +25,8 @@ import static com.example.digital.common.ErrorMessages.WRONG_CREDENTIALS;
 
 @Service
 public class UserServiceImpl  implements UserService {
+	
+	public static final Logger logger = (Logger) LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
 	private UserRepository userRepository;
@@ -51,6 +60,7 @@ public class UserServiceImpl  implements UserService {
 			if(user.getRoleId()==1){
 				Learner learner=new Learner();
 				learner.setUser(user);
+				learner.setAadharNo(learner.getAadharNo());
 				learner=learnerService.save(learner);
 				savedUser=learner.getUser();
 			}
@@ -98,8 +108,60 @@ public class UserServiceImpl  implements UserService {
 		}
 		return existingUser.get();
 	}
+	
+	@Override
+	public User updateUser(User user) {
+		Optional<User> existingUser = userRepository.findByEmailIgnoreCase(user.getEmail());
+		if(!existingUser.isPresent()) {
+			throw new DigiSignException(WRONG_CREDENTIALS.getReasonPhrase(),WRONG_CREDENTIALS.getCode());
+		}
+		else {
+			String newPassword = user.getNewPassword();
+			String existingHashedPassword=existingUser.get().getPassword();
+			String salt=existingUser.get().getSalt();
+			CredentialEncryptionConfig credentialEncryptionConfig = new CredentialEncryptionConfig();
+			String generatedPaswsword=credentialEncryptionConfig.getHashedPassword(salt,existingUser.get().getEmail(),user.getPassword());
+			  if(existingHashedPassword.equals(generatedPaswsword)){
+				  if(user.getUserName()!=null) {
+					  existingUser.get().setUserName(user.getUserName());
+				  }
+				  if(user.getEmail()!=null) {
+					  existingUser.get().setEmail(user.getEmail());
+				  }
+				  String newSalt = Base64.getEncoder().encodeToString(CredentialEncryptionConfig.getNextSalt());
+					String hashedPassword = credentialEncryptionConfig.getHashedPassword(newSalt,existingUser.get().getEmail(),newPassword);
+					existingUser.get().setPassword(hashedPassword);
+					existingUser.get().setSalt(newSalt);
+					existingUser.get().setUpdatedDate(new Date());
+					
+					Boolean islearner=existingUser.get().getRoles().stream().map(Role::getRoleId).anyMatch(roleId->roleId==1);
+					
+					if(islearner){
+						Learner learner=learnerService.getLearnerByUser(existingUser.get());
+						learner.setAadharNo(user.getAadharNo());
+						learner.setUser(existingUser.get());
+						learner=learnerService.save(learner);
+						return learner.getUser();
+					}else {
+						return userRepository.save(existingUser.get());
+					}
+					
+				  
+				} else{
+					throw new DigiSignException(WRONG_CREDENTIALS.getReasonPhrase(),WRONG_CREDENTIALS.getCode());
+				}
+			 
+
+					}
+		
+		
+	}
 
 
+	
+
+	
+	
 
 
 /*    @Override

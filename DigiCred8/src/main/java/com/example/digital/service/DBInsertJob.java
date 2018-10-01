@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.digital.entity.Contact;
 import com.example.digital.entity.ContactAddress;
@@ -23,6 +24,7 @@ import com.example.digital.repository.ErrorRepository;
 import com.example.digital.repository.InstitutionRepository;
 
 @Service
+@Transactional
 public class DBInsertJob {
 
     @Autowired
@@ -114,7 +116,7 @@ public class DBInsertJob {
 
     //@Scheduled(cron = "0 30 16 * * ?")
     //@Transactional
-    public void insertCoursesData() throws IOException {
+    public void insertCoursesData() throws Exception {
 
 
        // File file = new File("C:\\Users\\Hp\\Documents\\GitHub\\TestCredential\\data\\Subject.xlsx");

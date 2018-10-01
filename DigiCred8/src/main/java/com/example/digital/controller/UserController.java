@@ -72,10 +72,10 @@ public class UserController {
 	    
 	  //------------------- Update a User --------------------------------------------------------
 	    
-	    @RequestMapping(value="user/{id}",method = RequestMethod.PUT,produces=MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<User> updateUser(@RequestParam(name="id" ,required=false) Long id,@RequestBody User user) {
+	    @RequestMapping(value="/user",method = RequestMethod.PUT,produces=MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<User> updateUser(@RequestBody User user) {
 		
-	    	//userService.updateUser(user);
+	    	userService.updateUser(user);
 	    	
 			return new ResponseEntity<User>(user, HttpStatus.OK);
 		}
@@ -96,6 +96,7 @@ public class UserController {
 	    	//userService.softdeleteUser(user);*/
 	    	return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
 	    } 
+	    
 	    
     
 	 /*   @CrossOrigin

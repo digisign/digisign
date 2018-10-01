@@ -10,6 +10,6 @@ import java.util.Map;
 @Service
 public interface TransactionService  {
 
-     void saveCourses(Map<CourseConverter, List<CourseConverter>> courseConverterListMap);
+     void saveCourses(Map<CourseConverter, List<CourseConverter>> courseConverterListMap) throws Exception;
 
 }
