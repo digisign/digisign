@@ -45,6 +45,9 @@ public class User implements Serializable  {
 	@javax.persistence.Transient
 	private String aadharNo;
 
+	@javax.persistence.Transient
+	private String newEmail;
+
 	@ManyToMany(targetEntity = Role.class, cascade = CascadeType.ALL ,fetch=FetchType.EAGER)
 	@JoinTable(name = "user_role", joinColumns=@JoinColumn(name = "user_id"),
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -189,8 +192,11 @@ public class User implements Serializable  {
 	}
 
 
-	
+	public String getNewEmail() {
+		return newEmail;
+	}
 
-
-
+	public void setNewEmail(String newEmail) {
+		this.newEmail = newEmail;
+	}
 }

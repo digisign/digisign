@@ -125,17 +125,19 @@ public class UserServiceImpl  implements UserService {
 				  if(user.getUserName()!=null) {
 					  existingUser.get().setUserName(user.getUserName());
 				  }
-				  if(user.getEmail()!=null) {
-					  existingUser.get().setEmail(user.getEmail());
+				  if(user.getNewEmail()!=null) {
+					  Optional<User> userWithNewEmail = userRepository.findByEmailIgnoreCase(user.getNewEmail());
+					  if(userWithNewEmail.isPresent()){
+						  throw new DigiSignException(USER_ALREADY_EXISTS.getReasonPhrase(),USER_ALREADY_EXISTS.getCode());
+					  }
+					  existingUser.get().setEmail(user.getNewEmail());
 				  }
 				  String newSalt = Base64.getEncoder().encodeToString(CredentialEncryptionConfig.getNextSalt());
 					String hashedPassword = credentialEncryptionConfig.getHashedPassword(newSalt,existingUser.get().getEmail(),newPassword);
 					existingUser.get().setPassword(hashedPassword);
 					existingUser.get().setSalt(newSalt);
 					existingUser.get().setUpdatedDate(new Date());
-					
 					Boolean islearner=existingUser.get().getRoles().stream().map(Role::getRoleId).anyMatch(roleId->roleId==1);
-					
 					if(islearner){
 						Learner learner=learnerService.getLearnerByUser(existingUser.get());
 						learner.setAadharNo(user.getAadharNo());
@@ -150,8 +152,6 @@ public class UserServiceImpl  implements UserService {
 				} else{
 					throw new DigiSignException(WRONG_CREDENTIALS.getReasonPhrase(),WRONG_CREDENTIALS.getCode());
 				}
-			 
-
 					}
 		
 		

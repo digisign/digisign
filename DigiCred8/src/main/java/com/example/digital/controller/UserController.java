@@ -67,15 +67,16 @@ public class UserController {
 	  //-------------------Create a User--------------------------------------------------------
 	    @RequestMapping(value="/user",method = RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
 		public User save(@RequestBody User user) {
-			return userService.save(user);
+
+	    	return userService.save(user);
 		}
 	    
 	  //------------------- Update a User --------------------------------------------------------
 	    
 	    @RequestMapping(value="/user",method = RequestMethod.PUT,produces=MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<User> updateUser(@RequestBody User user) {
-		
-	    	userService.updateUser(user);
+
+			user=userService.updateUser(user);
 	    	
 			return new ResponseEntity<User>(user, HttpStatus.OK);
 		}
