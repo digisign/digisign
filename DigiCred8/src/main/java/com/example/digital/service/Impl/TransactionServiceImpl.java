@@ -34,12 +34,17 @@ public class TransactionServiceImpl implements TransactionService {
     private ErrorRepository errorRepository;
 
 
+<<<<<<< HEAD
 
     //@Transactional(propagation=Propagation.REQUIRED)
     public void saveCourses(Map<CourseConverter, List<CourseConverter>> courseConverterListMap) throws Exception {
 
     //@Transactional(noRollbackFor={RuntimeException.class,DataIntegrityViolationException.class})
    
+=======
+    public void saveCourses(Map<CourseConverter, List<CourseConverter>> courseConverterListMap) {
+
+>>>>>>> 20a192636c4b44bb3cbf58a42aa6a09d2792a80f
         //TransactionStatus status = TransactionAspectSupport.currentTransactionStatus();
 
         //TransactionSynchronizationManager.isActualTransactionActive();
@@ -84,7 +89,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     
-    @Transactional(propagation=Propagation.REQUIRED)
+
     Institution getInstituion(CourseConverter courseConverter) {
         if (courseConverter.getInstitute() != null) {
             try {
