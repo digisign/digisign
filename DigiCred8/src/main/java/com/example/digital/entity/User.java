@@ -39,6 +39,9 @@ public class User implements Serializable  {
 	private String socialId;
 	@Column(name="status_id")
 	private String statusId;
+	@Column(name="is_email_verified")
+	private boolean isemailVerified;
+	
 	@javax.persistence.Transient
 	private String newPassword;
 	
@@ -198,5 +201,15 @@ public class User implements Serializable  {
 
 	public void setNewEmail(String newEmail) {
 		this.newEmail = newEmail;
+	}
+
+
+	public boolean isIsemailVerified() {
+		return isemailVerified;
+	}
+
+
+	public void setIsemailVerified(boolean isemailVerified) {
+		this.isemailVerified = isemailVerified;
 	}
 }
