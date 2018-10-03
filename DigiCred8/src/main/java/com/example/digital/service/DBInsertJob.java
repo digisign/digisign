@@ -91,19 +91,17 @@ public class DBInsertJob {
         }
     }
 
-<<<<<<< HEAD
+
     //@Scheduled(cron = "0  46 15 * * ?")
     //@Transactional
 
        // File file = new File("C:\\Users\\Hp\\Documents\\GitHub\\TestCredential\\data\\Subject.xlsx");
         //InputStream is = new FileInputStream(file);
 
-    public void insertCoursesData() throws Exception {
-=======
 
     public void insertCoursesData() throws Exception {
 
->>>>>>> 20a192636c4b44bb3cbf58a42aa6a09d2792a80f
+
         InputStream is = new ClassPathResource("Subject.xlsx").getInputStream();
         ExcelReader er = new ExcelReader();
         List<Map<String, Object>> list = er.excelToMap(is);
