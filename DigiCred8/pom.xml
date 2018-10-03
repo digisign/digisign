@@ -195,6 +195,7 @@
 				<configuration>
 					<profiles>
 						<profile>dev</profile>
+						<profile>stag</profile>
 						<profile>prod</profile>
 					</profiles>
 				</configuration>
