@@ -17,7 +17,6 @@ import java.io.InputStream;
 import java.util.*;
 
 @Service
-@Transactional
 public class DBInsertJob {
 
     @Autowired
