@@ -97,9 +97,11 @@ public class DBInsertJob {
        // File file = new File("C:\\Users\\Hp\\Documents\\GitHub\\TestCredential\\data\\Subject.xlsx");
         //InputStream is = new FileInputStream(file);
 
-    
 
+
+   
     public void insertCoursesData() throws Exception {
+
 
         InputStream is = new ClassPathResource("Subject.xlsx").getInputStream();
         ExcelReader er = new ExcelReader();

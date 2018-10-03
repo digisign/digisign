@@ -35,11 +35,13 @@ public class TransactionServiceImpl implements TransactionService {
 
 
 
+
     //@Transactional(propagation=Propagation.REQUIRED)
     public void saveCourses(Map<CourseConverter, List<CourseConverter>> courseConverterListMap) throws Exception {
 
     //@Transactional(noRollbackFor={RuntimeException.class,DataIntegrityViolationException.class})
    
+
 
         //TransactionSynchronizationManager.isActualTransactionActive();
         for (Map.Entry<CourseConverter, List<CourseConverter>> entry : courseConverterListMap.entrySet()) {
