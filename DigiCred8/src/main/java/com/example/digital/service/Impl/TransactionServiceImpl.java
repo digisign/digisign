@@ -5,14 +5,19 @@ import com.example.digital.repository.CourseRepository;
 import com.example.digital.repository.ErrorRepository;
 import com.example.digital.repository.InstitutionRepository;
 import com.example.digital.service.TransactionService;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.util.*;
-
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -29,11 +34,17 @@ public class TransactionServiceImpl implements TransactionService {
     private ErrorRepository errorRepository;
 
 
+
+
+    //@Transactional(propagation=Propagation.REQUIRED)
+    public void saveCourses(Map<CourseConverter, List<CourseConverter>> courseConverterListMap) throws Exception {
+
     //@Transactional(noRollbackFor={RuntimeException.class,DataIntegrityViolationException.class})
-    public void saveCourses(Map<CourseConverter, List<CourseConverter>> courseConverterListMap) {
+   
+   
         //TransactionStatus status = TransactionAspectSupport.currentTransactionStatus();
 
-        TransactionSynchronizationManager.isActualTransactionActive();
+        //TransactionSynchronizationManager.isActualTransactionActive();
         for (Map.Entry<CourseConverter, List<CourseConverter>> entry : courseConverterListMap.entrySet()) {
             CourseConverter courseConverter = entry.getKey();
             Course course = new Course();
@@ -56,7 +67,10 @@ public class TransactionServiceImpl implements TransactionService {
             course.setSubjects(subjects);
 
             try {
+            	//SessionFactory sf = new Configuration().configure().buildSessionFactory();
                 courseRepository.save(course);
+                
+             
             } catch (Exception ex) {
                 ex.printStackTrace();
                 ErrorTable error = new ErrorTable();
@@ -71,6 +85,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     }
 
+    
 
     Institution getInstituion(CourseConverter courseConverter) {
         if (courseConverter.getInstitute() != null) {

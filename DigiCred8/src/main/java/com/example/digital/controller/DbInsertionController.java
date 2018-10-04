@@ -22,6 +22,7 @@ public class DbInsertionController {
 	
 	 @Autowired
 	 private DBInsertJob dbinsert;
+	 
 	
 	 @RequestMapping(value="/insertinst",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	 @ResponseStatus(value = HttpStatus.OK)
@@ -31,7 +32,7 @@ public class DbInsertionController {
 	 
 	 @RequestMapping(value="/insertcourse",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	 @ResponseStatus(value = HttpStatus.OK)
-	 public void saveCourse() throws IOException {
+	 public void saveCourse() throws Exception {
 		 dbinsert.insertCoursesData();
 	 }
 

@@ -14,6 +14,8 @@ import com.example.digital.entity.UserState;
 @Repository
 public class UserDao  {
 	
+	
+	
 /*
 	@PersistenceContext
 	private EntityManager entityManager;

@@ -64,7 +64,7 @@ public class FIleUploadServiceImpl implements FileUploadService {
         if (!destinationFile.exists()) {
             destinationFile.mkdir();
         }
-        if (FileType.JPG.getFileType().equals(fileType) || FileType.PNG.getFileType().equals(fileType)) {
+        if (FileType.JPG.getFileType().equalsIgnoreCase(fileType) || FileType.PNG.getFileType().equalsIgnoreCase(fileType)) {
             bufferedImage = getImage(sourceFile);
         } else if (FileType.PDF.getFileType().equals(fileType)) {
             bufferedImage=getImageFromPdf(sourceFile);

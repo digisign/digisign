@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -89,9 +90,17 @@ public class DBInsertJob {
         }
     }
 
+
     //@Scheduled(cron = "0  46 15 * * ?")
     //@Transactional
-    public void insertCoursesData() throws IOException {
+
+       // File file = new File("C:\\Users\\Hp\\Documents\\GitHub\\TestCredential\\data\\Subject.xlsx");
+        //InputStream is = new FileInputStream(file);
+
+
+    public void insertCoursesData() throws Exception {
+
+
         InputStream is = new ClassPathResource("Subject.xlsx").getInputStream();
         ExcelReader er = new ExcelReader();
         List<Map<String, Object>> list = er.excelToMap(is);

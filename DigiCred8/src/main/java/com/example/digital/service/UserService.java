@@ -8,11 +8,14 @@ public interface UserService {
 
     User save(User user);
     boolean  validateUser(User user);
+    
 
     User  getUserByEmail(String email);
 
 
     User  getUserById(Long userId);
+	User updateUser(User user);
+	
 
 	//User findByEmail(String email);
 

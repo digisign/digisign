@@ -49,6 +49,9 @@ public class Learner implements Serializable {
 	@OneToOne(/*targetEntity = Contact.class, fetch = FetchType.EAGER,*/cascade=CascadeType.ALL)
 	private Contact contact;
 	
+	@Column(name="aadhar_no")
+	private String aadharNo	;
+	
 	public Learner(long learnerId, User user, Contact contact) {
 		super();
 		this.learnerId = learnerId;
@@ -86,4 +89,14 @@ public class Learner implements Serializable {
 	public void setLearnerId(Long learnerId) {
 		this.learnerId = learnerId;
 	}
+
+	public String getAadharNo() {
+		return aadharNo;
+	}
+
+	public void setAadharNo(String aadharNo) {
+		this.aadharNo = aadharNo;
+	}
+
+	
 }

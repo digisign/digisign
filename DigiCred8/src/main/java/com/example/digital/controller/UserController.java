@@ -87,7 +87,7 @@ public class UserController {
 
 
 
-	    
+
 	  //------------------- Update a User --------------------------------------------------------
 	    
 	    @RequestMapping(value="user/{id}",method = RequestMethod.PUT,produces=MediaType.APPLICATION_JSON_VALUE)
@@ -115,7 +115,8 @@ public class UserController {
 	    	return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
 	    } 
 	    
-    
+
+
 	 /*   @CrossOrigin
 		@RequestMapping("/login")
 		public Principal user(Principal principal) {
