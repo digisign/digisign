@@ -40,7 +40,7 @@ public class User implements Serializable  {
 	@Column(name="status_id")
 	private String statusId;
 	@Column(name="is_email_verified")
-	private boolean isemailVerified;
+	private boolean emailVerified;
 	
 	@javax.persistence.Transient
 	private String newPassword;
@@ -203,13 +203,11 @@ public class User implements Serializable  {
 		this.newEmail = newEmail;
 	}
 
-
-	public boolean isIsemailVerified() {
-		return isemailVerified;
+	public boolean isEmailVerified() {
+		return emailVerified;
 	}
 
-
-	public void setIsemailVerified(boolean isemailVerified) {
-		this.isemailVerified = isemailVerified;
+	public void setEmailVerified(boolean emailVerified) {
+		this.emailVerified = emailVerified;
 	}
 }

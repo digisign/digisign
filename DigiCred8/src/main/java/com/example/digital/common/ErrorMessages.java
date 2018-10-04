@@ -13,8 +13,9 @@ public enum ErrorMessages {
     FILE_NAME_NOT_AVAILABLE("DIG-007", "file with name does not exist"),
     RESOURCE_NOT_AVAILABLE("DIG-008", "resource with id doesnot exist"),
     MARKS_TYPE_NOT_AVAILABLE("DIG-009","marks type id doesn't exist"),
-
-    PAGINATED_PARAMS_NOT_AVALABLE("DIG-008", "pagination params not available");
+    ACCOUNT_NOT_VERIFIED("DIG-010","account is not verified"),
+    PAGINATED_PARAMS_NOT_AVALABLE("DIG-008", "pagination params not available"),
+    TOKEN_DOES_NOT_EXIST("DIG-011","token is invalid");
 
 
 

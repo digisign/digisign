@@ -2,7 +2,9 @@ package com.example.digital.controller;
 
 
 import com.example.digital.entity.User;
+import com.example.digital.entity.UserRecovery;
 import com.example.digital.service.EmailService;
+import com.example.digital.service.UserRecoveryService;
 import com.example.digital.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +27,9 @@ public class UserController {
 
     @Autowired
 	private EmailService emailService;
+
+    @Autowired
+	private UserRecoveryService userRecoveryService;
 
 	public static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	/* @Autowired
@@ -70,10 +75,7 @@ public class UserController {
 	  //-------------------Create a User--------------------------------------------------------
 	    @RequestMapping(value="/user",method = RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
 		public User save(@RequestBody User user) throws Exception {
-
 			User savedUser= userService.save(user);
-			//emailService.sendMail(user);
-
 			return savedUser;
 
 		}
@@ -85,15 +87,19 @@ public class UserController {
             return new ResponseEntity<User>(new User(),HttpStatus.OK);
 	}
 
-
+	@RequestMapping(value="token/{tokenId}",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<UserRecovery> verifyToken(@PathVariable("tokenId") String tokenId) throws Exception {
+		UserRecovery userRecovery=userRecoveryService.updateUser(tokenId);
+		return new ResponseEntity(userRecovery,HttpStatus.OK);
+	}
 
 
 	  //------------------- Update a User --------------------------------------------------------
 	    
-	    @RequestMapping(value="user/{id}",method = RequestMethod.PUT,produces=MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<User> updateUser(@RequestParam(name="id" ,required=false) Long id,@RequestBody User user) {
-		
-	    	//userService.updateUser(user);
+	    @RequestMapping(value="/user",method = RequestMethod.PUT,produces=MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<User> updateUser(@RequestBody User user) {
+
+			user=userService.updateUser(user);
 	    	
 			return new ResponseEntity<User>(user, HttpStatus.OK);
 		}

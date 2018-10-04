@@ -6,16 +6,17 @@ import com.example.digital.entity.User;
 
 public interface UserService {
 
-    User save(User user);
+    User save(User user) throws Exception;
+
     boolean  validateUser(User user);
-    
 
     User  getUserByEmail(String email);
 
-
     User  getUserById(Long userId);
+
 	User updateUser(User user);
-	void softdeleteUser(User user);
+
+/*	void softdeleteUser(User user);*/
 	
 
 	//User findByEmail(String email);

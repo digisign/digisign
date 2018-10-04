@@ -5,8 +5,10 @@ import com.example.digital.controller.UserController;
 import com.example.digital.entity.Learner;
 import com.example.digital.entity.Role;
 import com.example.digital.entity.User;
+import com.example.digital.entity.UserRecovery;
 import com.example.digital.exception.DigiSignException;
 import com.example.digital.repository.RoleRepository;
+import com.example.digital.repository.UserRecoveryRepository;
 import com.example.digital.repository.UserRepository;
 
 import ch.qos.logback.classic.Logger;
@@ -16,12 +18,11 @@ import org.hibernate.criterion.Restrictions;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-import static com.example.digital.common.ErrorMessages.USER_ALREADY_EXISTS;
-import static com.example.digital.common.ErrorMessages.USER_NOT_AVAILABLE;
-import static com.example.digital.common.ErrorMessages.WRONG_CREDENTIALS;
+import static com.example.digital.common.ErrorMessages.*;
 
 @Service
 public class UserServiceImpl  implements UserService {
@@ -37,8 +38,15 @@ public class UserServiceImpl  implements UserService {
     @Autowired
 	private LearnerService learnerService;
 
+    @Autowired
+	private EmailService emailService;
+
+    @Autowired
+	private UserRecoveryRepository userRecoveryRepository;
+
     @Override
-    public User save(User user) {
+	@Transactional
+    public User save(User user) throws Exception {
 		Optional<User> existingUser = userRepository.findByEmailIgnoreCase(user.getEmail());
 		if(existingUser.isPresent()){
 			throw new DigiSignException(USER_ALREADY_EXISTS.getReasonPhrase(),USER_ALREADY_EXISTS.getCode());
@@ -56,6 +64,7 @@ public class UserServiceImpl  implements UserService {
 			user.setActive(true);
 			user.setCreatedDate(new Date());
 			user.setUpdatedDate(new Date());
+			user.setEmailVerified(false);
 			User savedUser=new User();
 			if(user.getRoleId()==1){
 				Learner learner=new Learner();
@@ -64,6 +73,8 @@ public class UserServiceImpl  implements UserService {
 				learner=learnerService.save(learner);
 				savedUser=learner.getUser();
 			}
+			UserRecovery userRecovery=saveUserRecovery(savedUser);
+			emailService.sendMail(userRecovery);
 			return savedUser;
 		}
     }
@@ -76,14 +87,18 @@ public class UserServiceImpl  implements UserService {
 			throw new DigiSignException(WRONG_CREDENTIALS.getReasonPhrase(),WRONG_CREDENTIALS.getCode());
 		}
 		else {
-			String correctPassword=existingUser.get().getPassword();
-			String salt=existingUser.get().getSalt();
-			CredentialEncryptionConfig credentialEncryptionConfig = new CredentialEncryptionConfig();
-			String generatedPaswsword=credentialEncryptionConfig.getHashedPassword(salt,existingUser.get().getEmail(),user.getPassword());
-		    if(correctPassword.equals(generatedPaswsword)){
-		    	return true;
-			} else{
-				throw new DigiSignException(WRONG_CREDENTIALS.getReasonPhrase(),WRONG_CREDENTIALS.getCode());
+			if (existingUser.get().isEmailVerified()) {
+				String correctPassword = existingUser.get().getPassword();
+				String salt = existingUser.get().getSalt();
+				CredentialEncryptionConfig credentialEncryptionConfig = new CredentialEncryptionConfig();
+				String generatedPaswsword = credentialEncryptionConfig.getHashedPassword(salt, existingUser.get().getEmail(), user.getPassword());
+				if (correctPassword.equals(generatedPaswsword)) {
+					return true;
+				} else {
+					throw new DigiSignException(WRONG_CREDENTIALS.getReasonPhrase(), WRONG_CREDENTIALS.getCode());
+				}
+			}else{
+				throw new DigiSignException(ACCOUNT_NOT_VERIFIED.getReasonPhrase(),ACCOUNT_NOT_VERIFIED.getCode());
 			}
 		}
 	}
@@ -92,11 +107,36 @@ public class UserServiceImpl  implements UserService {
 
 	@Override
 	public User  getUserByEmail(String email) {
-		Optional<User> existingUser = userRepository.findByEmailIgnoreCase(email);
-		if(!existingUser.isPresent()){
+		Optional<User> existingUserOptional = userRepository.findByEmailIgnoreCase(email);
+		if(!existingUserOptional.isPresent()){
 			throw new DigiSignException(USER_NOT_AVAILABLE.getReasonPhrase(),USER_NOT_AVAILABLE.getCode());
 		}
-		return existingUser.get();
+		User existingUser= existingUserOptional.get();
+		Boolean islearner=existingUser.getRoles().stream().map(Role::getRoleId).anyMatch(roleId->roleId==1);
+		if(islearner){
+			Learner learner=learnerService.getLearnerByUser(existingUser);
+			existingUser.setAadharNo(learner.getAadharNo());
+		}
+
+		return existingUser;
+	}
+
+
+
+	private UserRecovery saveUserRecovery(User user){
+		UserRecovery userRecovery=new UserRecovery();
+		userRecovery.setUser(user);
+		userRecovery.setCreatedDate(user.getCreatedDate());
+		userRecovery.setUpdatedDate(user.getUpdatedDate());
+		CredentialEncryptionConfig credentialEncryptionConfig = new CredentialEncryptionConfig();
+		String salt = Base64.getEncoder().encodeToString(CredentialEncryptionConfig.getNextSalt());
+		Date date=new Date();
+		String token=credentialEncryptionConfig.getHashedPassword(salt,user.getEmail(),date.toString());
+		userRecovery.setToken(token);
+		userRecovery.setValidated(false);
+		userRecovery.setIssuedTime(date);
+		userRecovery.setValidityDuration(30);
+		return userRecoveryRepository.save(userRecovery);
 	}
 
 
@@ -147,8 +187,6 @@ public class UserServiceImpl  implements UserService {
 					}else {
 						return userRepository.save(existingUser.get());
 					}
-					
-				  
 				} else{
 					throw new DigiSignException(WRONG_CREDENTIALS.getReasonPhrase(),WRONG_CREDENTIALS.getCode());
 				}
@@ -156,12 +194,12 @@ public class UserServiceImpl  implements UserService {
 		
 		
 	}
-
+/*
 	@Override
 	public void  softdeleteUser(User user) {
 		// TODO Auto-generated method stub
 		userRepository.deleteUser(user);
-	}
+	}*/
 	
 
 	

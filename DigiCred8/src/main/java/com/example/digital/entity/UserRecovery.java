@@ -45,7 +45,7 @@ public class UserRecovery implements Serializable {
 	@Column(name="updated_date",nullable = false)
 	private Date updatedDate;
 	@Column(name="is_validated")
-	private boolean isValidated;
+	private boolean validated;
 	public Long getUserRecId() {
 		return userRecId;
 	}
@@ -88,12 +88,12 @@ public class UserRecovery implements Serializable {
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
 	}
+
 	public boolean isValidated() {
-		return isValidated;
+		return validated;
 	}
-	public void setValidated(boolean isValidated) {
-		this.isValidated = isValidated;
+
+	public void setValidated(boolean validated) {
+		this.validated = validated;
 	}
-	
-	
 }
