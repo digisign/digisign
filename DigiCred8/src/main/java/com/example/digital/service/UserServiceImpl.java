@@ -92,11 +92,18 @@ public class UserServiceImpl  implements UserService {
 
 	@Override
 	public User  getUserByEmail(String email) {
-		Optional<User> existingUser = userRepository.findByEmailIgnoreCase(email);
-		if(!existingUser.isPresent()){
+		Optional<User> existingUserOptional = userRepository.findByEmailIgnoreCase(email);
+		if(!existingUserOptional.isPresent()){
 			throw new DigiSignException(USER_NOT_AVAILABLE.getReasonPhrase(),USER_NOT_AVAILABLE.getCode());
 		}
-		return existingUser.get();
+		User existingUser= existingUserOptional.get();
+		Boolean islearner=existingUser.getRoles().stream().map(Role::getRoleId).anyMatch(roleId->roleId==1);
+		if(islearner){
+			Learner learner=learnerService.getLearnerByUser(existingUser);
+			existingUser.setAadharNo(learner.getAadharNo());
+		}
+
+		return existingUser;
 	}
 
 
