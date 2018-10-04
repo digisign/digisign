@@ -60,7 +60,7 @@ public class UserServiceImpl  implements UserService {
 			if(user.getRoleId()==1){
 				Learner learner=new Learner();
 				learner.setUser(user);
-				learner.setAadharNo(learner.getAadharNo());
+				learner.setAadharNo(user.getAadharNo());
 				learner=learnerService.save(learner);
 				savedUser=learner.getUser();
 			}
