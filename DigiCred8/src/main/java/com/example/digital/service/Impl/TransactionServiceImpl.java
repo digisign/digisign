@@ -41,8 +41,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     //@Transactional(noRollbackFor={RuntimeException.class,DataIntegrityViolationException.class})
    
-   
-        //TransactionStatus status = TransactionAspectSupport.currentTransactionStatus();
+
 
         //TransactionSynchronizationManager.isActualTransactionActive();
         for (Map.Entry<CourseConverter, List<CourseConverter>> entry : courseConverterListMap.entrySet()) {

@@ -157,7 +157,11 @@ public class UserServiceImpl  implements UserService {
 		
 	}
 
-
+	@Override
+	public void  softdeleteUser(User user) {
+		// TODO Auto-generated method stub
+		userRepository.deleteUser(user);
+	}
 	
 
 	
