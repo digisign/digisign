@@ -15,6 +15,7 @@ public interface UserService {
 
     User  getUserById(Long userId);
 	User updateUser(User user);
+	void softdeleteUser(User user);
 	
 
 	//User findByEmail(String email);

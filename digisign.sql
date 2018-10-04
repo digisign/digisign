@@ -309,9 +309,9 @@ CREATE TABLE `error_table` (
   UNIQUE KEY `mobile_number_2` (`mobile_number_2`),
   UNIQUE KEY `email_id_1` (`email_id_1`),
   UNIQUE KEY `email_id_2` (`email_id_2`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-alter table `error_table` auto_increment= 1;   
+alter table `error_table` auto_increment= 100;   
 
 drop table if exists tempcsdata;
 
@@ -352,6 +352,10 @@ insert into address_type values('T','Temporary');
 insert into address_type values('O','Office');
 insert into address_type values('H','HeadOffice');
 insert into address_type values('B','BranchOffice');
+
+insert into status values('not saved','not saved');
+insert into status values('not verified','not verified');
+
 
 create VieW institution_course_subject as
 select ins.institution_id,ins.institution_name,co.course_id,co.course_name,co.course_period,sb.subject_id,sb.subject_name from institution as ins

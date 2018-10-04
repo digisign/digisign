@@ -98,6 +98,8 @@ public class DBInsertJob {
         //InputStream is = new FileInputStream(file);
 
 
+
+   
     public void insertCoursesData() throws Exception {
 
 
