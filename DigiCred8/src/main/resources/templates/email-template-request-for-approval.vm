@@ -30,14 +30,10 @@
 		  <table style="border-collapse:collapse;padding:0;border:none;">
 		  
 		    <tr>
-			  <td> Hi <b>${reviewer}</b>,</td>
+			  <td> Hi <b>${username}</b>,</td>
 			</tr>
+			<td><a href=${link}>please click on the link to validate the account</a></td>
 			<tr>
-			  <td>
-			  	<br>
-			  	  <p  align="justify"><p>We are thankful to you for leading and mentoring <b>${reviewee}</b>. As you know we have launched ${appCycle} appraisal cycle for the year ${year}.  The objectives should match Business and Technology goals of your team. It should also make sure that <b>${reviewee}</b>'s personal and professional goals are set appropriately with SMART Objectives under various KPI's.</p><p>
-				  We request you to review the objectives set by <b>${reviewee}</b> for this period. You can make changes <a href=${link} style="color: #00adff;">here</a>, approve or reject the objectives to make sure it matches corporate's or team goals.</p></p> 
-			  </td>
 			</tr>
 			<tr>
 			  <td style="border-collapse:collapse;padding:5px 0;">
@@ -55,7 +51,7 @@
 		    <table style="border:none;border-collapse:collapse; padding:0; width: 100%;">
 			  <tr style="border:none;display: flex;">
 				<td style="border:none;padding:10px; font-size: 12px;">
-			   Write to us at <a href="mailto:appraisal.support@triconinfotech.com" style="color: #00adff;"> appraisal.support@triconinfotech.com </a>for any queries, feedback or access related issues.<br/> 
+			   Write to us at <a href="mailto:digisign.support@triconinfotech.com" style="color: #00adff;"> appraisal.support@triconinfotech.com </a>for any queries, feedback or access related issues.<br/>
 			</td>
 			  </tr>
 			</table>

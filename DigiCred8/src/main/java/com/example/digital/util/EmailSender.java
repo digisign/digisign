@@ -31,14 +31,15 @@ public class EmailSender {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
-            mimeMessageHelper.setSubject(mail.getMailSubject());
-            mimeMessageHelper.setFrom(MAIL_FROM);
+            mimeMessageHelper.setSubject("dummy subject");
+            mimeMessageHelper.setFrom("expressgo@triconinfotech.com");
             mimeMessageHelper.setTo(mail.getMailTo());
             mail.setMailContent(geContentFromInternalTemplate(mail.getModel()));
             mimeMessageHelper.setText(mail.getMailContent(), true);
             mailSender.send(mimeMessageHelper.getMimeMessage());
         }
         catch(Exception ex){
+            ex.printStackTrace();
         }
     }
 

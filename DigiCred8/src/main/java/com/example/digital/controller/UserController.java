@@ -70,10 +70,23 @@ public class UserController {
 	  //-------------------Create a User--------------------------------------------------------
 	    @RequestMapping(value="/user",method = RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
 		public User save(@RequestBody User user) throws Exception {
-			emailService.sendMail(user);
-			return userService.save(user);
+
+			User savedUser= userService.save(user);
+			//emailService.sendMail(user);
+
+			return savedUser;
 
 		}
+
+
+	@RequestMapping(value="/mail",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<User> sendMail() throws Exception {
+            emailService.sendMail(null);
+            return new ResponseEntity<User>(new User(),HttpStatus.OK);
+	}
+
+
+
 	    
 	  //------------------- Update a User --------------------------------------------------------
 	    
