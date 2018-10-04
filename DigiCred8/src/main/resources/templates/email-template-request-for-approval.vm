@@ -17,13 +17,6 @@
   </head>
   <body>
 	<table style="border:1px solid black; border-collapse:collapse; padding:0; margin:auto; max-width:500px;">
-	  <thead>
-	    <tr>
-		  <td style=" background-color: #3c4f58; border-bottom: 4px solid #1a9b8c; border-collapse:collapse; padding:5px">
-		    <a href="http://www.triconinfotech.com/"> <img src="https://appraisal.triconinfotech.net/appraisal/static-content/images/Tricon-logo-white.png" alt="Tricon Infotech" style="max-height:43px"> </a>
-		  </td>
-		</tr>
-	  </thead>
 	  <tbody>
 	    <tr>
 		  <td style="border:1px solid black;border-collapse:collapse;padding:10px;">
@@ -32,15 +25,14 @@
 		    <tr>
 			  <td> Hi <b>${username}</b>,</td>
 			</tr>
-			<td><a href=${link}>please click on the link to validate the account</a></td>
+			<td><a href=${link}>please click on the link to verify the email address</a></td>
 			<tr>
 			</tr>
 			<tr>
 			  <td style="border-collapse:collapse;padding:5px 0;">
 			    <br>
-			    <b>Thanks</b>,<br><br>
-				HR Team<br>
-				Tricon Infotech Pvt Ltd
+			    <b>Thanks</b>,<br>
+				Dgenx Pvt Ltd
 			  </td>
 			</tr>
 		  </table>
@@ -51,7 +43,7 @@
 		    <table style="border:none;border-collapse:collapse; padding:0; width: 100%;">
 			  <tr style="border:none;display: flex;">
 				<td style="border:none;padding:10px; font-size: 12px;">
-			   Write to us at <a href="mailto:digisign.support@triconinfotech.com" style="color: #00adff;"> appraisal.support@triconinfotech.com </a>for any queries, feedback or access related issues.<br/>
+			   Write to us at <a href="mailto:digisign.support@triconinfotech.com" style="color: #00adff;"> digisign.support@dgenx.com </a>for any queries, feedback or access related issues.<br/>
 			</td>
 			  </tr>
 			</table>
@@ -59,7 +51,7 @@
 		  </tr>
 		  <tr>
 		    <td style="background-color: #3f3f3f; color: #ffffff; padding: 10px;">
-			  &copy; 2018 Tricon Infotech Private Limited. All Rights Reserved.
+			  &copy; 2018 DGENX Private Limited. All Rights Reserved.
 			</td>
 		  </tr>
 	  </tbody>
