@@ -31,7 +31,7 @@ public class EmailSender {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
-            mimeMessageHelper.setSubject("dummy subject");
+            mimeMessageHelper.setSubject("email verification ");
             mimeMessageHelper.setFrom("expressgo@triconinfotech.com");
             mimeMessageHelper.setTo(mail.getMailTo());
             mail.setMailContent(geContentFromInternalTemplate(mail.getModel()));

@@ -32,7 +32,7 @@ public class EmailServiceImpl implements EmailService {
 
     public void sendMail(UserRecovery userRecovery) throws Exception{
         Mail mail=new Mail();
-        mail.setMailTo(DIGISIGN_TEAM_EMAIL);
+        mail.setMailTo(userRecovery.getUser().getEmail());
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("username", userRecovery.getUser().getUserName());
         String relativeUrl= baseUrl +"token/"+userRecovery.getToken();

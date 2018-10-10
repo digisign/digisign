@@ -87,10 +87,10 @@ public class UserController {
             return new ResponseEntity<User>(new User(),HttpStatus.OK);
 	}
 
-	@RequestMapping(value="token/{tokenId}",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<UserRecovery> verifyToken(@PathVariable("tokenId") String tokenId) throws Exception {
+	@RequestMapping(value="token/{tokenId}",method = RequestMethod.GET,produces=MediaType.TEXT_HTML_VALUE)
+	public String verifyToken(@PathVariable("tokenId") String tokenId) throws Exception {
 		UserRecovery userRecovery=userRecoveryService.updateUser(tokenId);
-		return new ResponseEntity(userRecovery,HttpStatus.OK);
+		return "email successfully verified. click on the link to login   <a href='http://localhost:4200/login'>CLICK HERE</a>";
 	}
 
 
