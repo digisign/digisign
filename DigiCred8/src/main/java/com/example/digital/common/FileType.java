@@ -2,7 +2,7 @@ package com.example.digital.common;
 
 public enum FileType {
 
-        PNG("png"),JPG("jpg"),PDF("pdf");
+    PNG("png"),JPG("jpg"),PDF("pdf"), XLSX("xlsx"),CSV("csv");
 
         private String fileType;
         FileType(String fileType){

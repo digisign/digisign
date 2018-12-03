@@ -15,7 +15,10 @@ public enum ErrorMessages {
     MARKS_TYPE_NOT_AVAILABLE("DIG-009","marks type id doesn't exist"),
     ACCOUNT_NOT_VERIFIED("DIG-010","account is not verified"),
     PAGINATED_PARAMS_NOT_AVALABLE("DIG-008", "pagination params not available"),
-    TOKEN_DOES_NOT_EXIST("DIG-011","token is invalid");
+    TOKEN_DOES_NOT_EXIST("DIG-011","token is invalid"),
+    BATCH_NOT_AVAILABLE("DIG_013","batch with id doesn't exist"),
+    WRONG_DATE_FORMAT("DIG_013","dateformat is wrong"),
+    COLUMNS_MISSING("DIG_012","columns are missing");
 
 
 

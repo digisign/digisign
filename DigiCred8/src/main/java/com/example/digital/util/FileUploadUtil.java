@@ -2,6 +2,7 @@ package com.example.digital.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -9,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
+@Component
 public class FileUploadUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadUtil.class);

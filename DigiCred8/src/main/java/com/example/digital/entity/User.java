@@ -41,6 +41,12 @@ public class User implements Serializable  {
 	private String statusId;
 	@Column(name="is_email_verified")
 	private boolean emailVerified;
+
+	@Column(name="linkedin_url")
+	private String linkedinUrl;
+
+	@Column(name="phone_number")
+	private String phoneNumber;
 	
 	@javax.persistence.Transient
 	private String newPassword;
@@ -62,6 +68,12 @@ public class User implements Serializable  {
 	@JsonIgnore
 	@Column(name="salt")
 	private String salt;
+
+	@Column(name="first_name")
+	private String firstName;
+
+	@Column(name="last_name")
+	private String lastName;
 	
 	
 
@@ -209,5 +221,37 @@ public class User implements Serializable  {
 
 	public void setEmailVerified(boolean emailVerified) {
 		this.emailVerified = emailVerified;
+	}
+
+	public String getLinkedinUrl() {
+		return linkedinUrl;
+	}
+
+	public void setLinkedinUrl(String linkedinUrl) {
+		this.linkedinUrl = linkedinUrl;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 }

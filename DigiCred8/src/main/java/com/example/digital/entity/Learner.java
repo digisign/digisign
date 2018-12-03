@@ -1,11 +1,7 @@
 package com.example.digital.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,7 +36,7 @@ public class Learner implements Serializable {
 	@Column(name = "learner_id", nullable = false, updatable = false)
 	private Long learnerId;
 
-	@JsonIgnore
+
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="user_id")
 	private User user;
@@ -51,6 +47,12 @@ public class Learner implements Serializable {
 	
 	@Column(name="aadhar_no")
 	private String aadharNo	;
+
+	/*@Column(name="created_date",nullable = false)
+	private Date createdDate;
+
+	@Column(name="updated_date",nullable = false)
+	private Date updatedDate;*/
 	
 	public Learner(long learnerId, User user, Contact contact) {
 		super();
@@ -98,5 +100,19 @@ public class Learner implements Serializable {
 		this.aadharNo = aadharNo;
 	}
 
-	
+	/*public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}*/
 }

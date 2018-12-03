@@ -2,6 +2,7 @@ package com.example.digital.controller;
 
 import com.example.digital.common.ErrorMessages;
 import com.example.digital.entity.FilePath;
+import com.example.digital.entity.LearnerCredentialResourceResponse;
 import com.example.digital.exception.DigiSignException;
 import com.example.digital.exception.FileStorageException;
 import com.example.digital.service.DBFileStorageService;
@@ -30,6 +31,10 @@ public class FileController {
 
     @Autowired
     private FileUploadService fileUploadService;
+
+
+    @Autowired
+    private FileUploadUtil fileUploadUtil;
 /*
     private DBFileStorageService DBFileStorageService;
 
